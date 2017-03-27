@@ -9,13 +9,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ConnectActivity">
+        <activity android:name=".model.communication.ConnectActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".model.control.JoystickActivity" />
+        <activity android:name=".model.menu.MenuActivity" />
+        <activity android:name=".model.radar.RadarActivity"></activity>
     </application>
 
 </manifest>
