@@ -1,6 +1,6 @@
 *.class
 *.iml
-*.xml
+RemoteControl/Scam/.idea/
 
 # Log file
 *.log
