@@ -8,22 +8,42 @@
     tools:context="group8.scam.model.communication.ConnectActivity">
 
     <TextView
-        android:id="@+id/txtHello"
+        android:id="@+id/txtConnect"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        android:layout_centerHorizontal="true"
-        android:textSize="42sp"
+        android:text="Connect to device"
+        android:layout_marginLeft="22dp"
+        android:textSize="30sp"
+        android:fontFamily="serif-monospace"
+        android:layout_marginTop="20dp"
+        />
+
+    <ProgressBar
+        android:id="@+id/pgrSearch"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_toRightOf="@id/txtConnect"
+        android:layout_alignTop="@id/txtConnect"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="3dp"
         />
 
     <ListView
         android:id="@+id/listDevice"
         android:layout_width="350dp"
         android:layout_height="400dp"
+        android:layout_marginTop="22dp"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/txtHello"
-
+        android:layout_below="@id/txtConnect"
         >
     </ListView>
 
+    <Button
+        android:id="@+id/btnConnect"
+        android:layout_width="200dp"
+        android:layout_height="80dp"
+        android:layout_below="@id/listDevice"
+        android:layout_marginTop="22dp"
+        android:layout_centerHorizontal="true"
+        />
 </RelativeLayout>
