@@ -16,9 +16,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".model.control.JoystickActivity" />
         <activity android:name=".model.menu.MenuActivity" />
-        <activity android:name=".model.radar.RadarActivity"></activity>
+        <activity android:name=".model.main.MainActivity"></activity>
     </application>
 
 </manifest>
