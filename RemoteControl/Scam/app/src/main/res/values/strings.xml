@@ -1,5 +1,8 @@
 <resources>
-    <string name="app_name">Scam</string>
+
     <string name="title_activity_menu">MenuActivity</string>
     <string name="title_activity_mainmenu">MainmenuActivity</string>
+
+    <string name="app_name">S.C.A.M</string>
+
 </resources>
