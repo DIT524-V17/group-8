@@ -1,8 +1,12 @@
 package group8.scam.model.control;
 
-/**
- * Created by sambac on 2017-03-27.
- */
+import android.content.Context;
+import io.github.controlwear.virtual.joystick.android.JoystickView;
 
-public class Joystick {
+public class Joystick extends JoystickView{
+
+    public Joystick(Context context) {
+        super(context);
+    }
+
 }

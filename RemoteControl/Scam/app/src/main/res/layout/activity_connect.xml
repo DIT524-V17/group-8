@@ -7,21 +7,15 @@
     android:layout_height="match_parent"
     tools:context="group8.scam.model.communication.ConnectActivity">
 
-    <TextView
-        android:id="@+id/txtHello"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        android:layout_centerHorizontal="true"
-        android:textSize="42sp"
-        />
 
-    <Button
+    <io.github.controlwear.virtual.joystick.android.JoystickView
+        xmlns:custom="http://schemas.android.com/apk/res-auto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="HEJSAN!"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/txtHello"
-        />
+        custom:JV_buttonColor="#FF6E40"
+        custom:JV_borderColor="#00796B"
+        custom:JV_backgroundColor="#009688"
+        custom:JV_borderWidth="4dp"
+        custom:JV_fixedCenter="false"/>
 
 </RelativeLayout>
