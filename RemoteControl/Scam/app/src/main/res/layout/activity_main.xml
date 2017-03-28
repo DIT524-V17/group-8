@@ -7,14 +7,14 @@
     android:layout_height="match_parent"
     tools:context="group8.scam.model.main.MainActivity">
 
-    <io.github.controlwear.virtual.joystick.android.JoystickView
-        xmlns:custom="http://schemas.android.com/apk/res-auto"
+    <io.github.controlwear.virtual.joystick.android.JoystickView xmlns:custom="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/joystickView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        custom:JV_buttonColor="#FF6E40"
-        custom:JV_borderColor="#00796B"
-        custom:JV_backgroundColor="#009688"
-        custom:JV_borderWidth="4dp"
-        custom:JV_fixedCenter="false"/>
+        custom:JV_backgroundColor="#1565c0"
+        custom:JV_borderColor="#303f9f"
+        custom:JV_borderWidth="10dp"
+        custom:JV_buttonColor="#ca2dbf"
+        custom:JV_fixedCenter="false" />
 
 </RelativeLayout>
