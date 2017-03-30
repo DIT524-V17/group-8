@@ -1,15 +1,17 @@
 #include <Smartcar.h>
 Car car;
-const int fSpeed =30; //70% of the full speed forward
-const int bSpeed = -30; //70% of the full speed backward
-const int lDegrees = -75; //degrees to turn left
-const int rDegrees = 75; //degrees to turn right
+const int fSpeed = 25; //70% of the full speed forward
+const int bSpeed = -25; //70% of the full speed backward
+const int lDegrees = -40; //degrees to turn left
+const int rDegrees = 40; //degrees to turn right
 SR04 ultrasonicSensor;
 Gyroscope gyro;
 const int TRIGGER_PIN = 6; //D6
 const int ECHO_PIN = 5; //D5
 Servo myservo;
 const int SERVO_PIN = 40;
+long previousMillis = 0;
+long interval = 500;
 
 void setup() {
   Serial3.begin(9600);
@@ -25,10 +27,20 @@ void setup() {
 
 void loop() {
   //handleInput();
+  /**
   myservo.write(45);  
   delay(500); 
   myservo.write(135);
   delay(500);
+  */
+  unsigned long currentMillis = millis();
+  if(currentMillis - previousMillis > interval) {
+    previousMillis = currentMillis;
+    if (myservo.read() == 45)
+      myservo.write(135);
+    else
+      myservo.write(45);
+  }
   atonomousDrive();
 }
 
