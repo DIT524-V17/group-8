@@ -3,9 +3,9 @@
     <item>
         <rotate
             android:fromDegrees="45"
-            android:toDegrees="135"
-            android:pivotX="230%"
-            android:pivotY="30%">
+            android:toDegrees="45"
+            android:pivotX="135%"
+            android:pivotY="15%">
             <shape android:shape="rectangle">
                 <solid android:color="@color/colorRadarBlack" />
             </shape>
