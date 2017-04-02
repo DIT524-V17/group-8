@@ -10,7 +10,7 @@
     <ListView
         android:id="@+id/listView"
         android:layout_width="370dp"
-        android:layout_height="405dp"
+        android:layout_height="457dp"
         android:layout_marginTop="70dp"
         android:layout_centerHorizontal="true"
         android:background="@drawable/listviewborder"
@@ -64,6 +64,7 @@
         android:layout_below="@id/listView"
         android:layout_marginTop="22dp"
         android:layout_alignLeft="@id/listView"
+        android:onClick="btnSearch"
         />
 
     <Button
@@ -73,6 +74,7 @@
         android:layout_toRightOf="@id/txtConnect"
         android:layout_marginLeft="10dp"
         android:layout_alignBottom="@id/txtConnect"
+        android:onClick="btnDisable"
         />
 
 </RelativeLayout>
