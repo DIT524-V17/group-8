@@ -1,20 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="group8.scam.model.main.MainActivity">
-
-    <io.github.controlwear.virtual.joystick.android.JoystickView xmlns:custom="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/joystickView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        custom:JV_backgroundColor="#1565c0"
-        custom:JV_borderColor="#303f9f"
-        custom:JV_borderWidth="10dp"
-        custom:JV_buttonColor="#ca2dbf"
-        custom:JV_fixedCenter="false" />
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content">
 
 </RelativeLayout>

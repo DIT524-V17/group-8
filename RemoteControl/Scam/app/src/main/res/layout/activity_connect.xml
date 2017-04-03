@@ -1,36 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="group8.scam.model.communication.ConnectActivity">
+    android:layout_width="100px"
+    android:layout_height="100px">
 
-    <io.github.controlwear.virtual.joystick.android.JoystickView xmlns:custom="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/joystickView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        custom:JV_backgroundColor="#1565c0"
-        custom:JV_borderColor="#303f9f"
-        custom:JV_borderWidth="10dp"
-        custom:JV_buttonColor="#ca2dbf"
-        custom:JV_fixedCenter="false" />
 
-    <TextView
-        android:id="@+id/angleView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/joystickView"
-        android:layout_centerHorizontal="true"
-        android:textSize="90px" />
 
-    <TextView
-        android:id="@+id/strengthView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/angleView"
-        android:layout_centerHorizontal="true"
-        android:textSize="90px"/>
 
 </RelativeLayout>
