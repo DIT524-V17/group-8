@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "C:\\Users\\sambac\\Documents\\GitHub\\group-8\\RemoteControl\\Scam\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_template_custom_big.xml",
+        "source": "C:\\Users\\sambac\\.android\\build-cache\\4830f42c0a59d185e351e5d0c3c8b89538460282\\output\\res\\layout-v21\\notification_template_custom_big.xml"
+    },
+    {
+        "merged": "C:\\Users\\sambac\\Documents\\GitHub\\group-8\\RemoteControl\\Scam\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_template_icon_group.xml",
+        "source": "C:\\Users\\sambac\\.android\\build-cache\\4830f42c0a59d185e351e5d0c3c8b89538460282\\output\\res\\layout-v21\\notification_template_icon_group.xml"
+    },
+    {
+        "merged": "C:\\Users\\sambac\\Documents\\GitHub\\group-8\\RemoteControl\\Scam\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_action_tombstone.xml",
+        "source": "C:\\Users\\sambac\\.android\\build-cache\\4830f42c0a59d185e351e5d0c3c8b89538460282\\output\\res\\layout-v21\\notification_action_tombstone.xml"
+    },
+    {
+        "merged": "C:\\Users\\sambac\\Documents\\GitHub\\group-8\\RemoteControl\\Scam\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21\\notification_action.xml",
+        "source": "C:\\Users\\sambac\\.android\\build-cache\\4830f42c0a59d185e351e5d0c3c8b89538460282\\output\\res\\layout-v21\\notification_action.xml"
+    }
+]
