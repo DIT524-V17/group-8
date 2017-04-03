@@ -58,7 +58,7 @@ public class JoystickView extends View {
     }
 
     public boolean onTouchEvent(MotionEvent event) {
-
+        
 
         return false;
     }
