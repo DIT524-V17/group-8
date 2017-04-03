@@ -1,6 +1,8 @@
 *.class
 *.iml
 RemoteControl/Scam/.idea/
+RemoteControl/Scam/.gradle/
+RemoteControl/Scam/build/
 RemoteControl/Scam/app/build/intermediates/incremental/mergeDebugResources/merged.dir/
 RemoteControl/Scam/build/android-profile/profile-2017-04-03-16-11-07-138.rawproto
 RemoteControl/Scam/build/android-profile/profile-2017-04-03-16-11-14-568.rawproto
