@@ -8,6 +8,13 @@ RemoteControl/Scam/build/android-profile/profile-2017-04-03-16-11-07-138.rawprot
 RemoteControl/Scam/build/android-profile/profile-2017-04-03-16-11-14-568.rawproto
 
 
+# Gradle Files
+RemoteControl/Scam/.gradle/
+RemoteControl/Scam/app/build/
+RemoteControl/Scam/build/
+RemoteControl/Scam/local.properties
+
+
 # Log file
 *.log
 
