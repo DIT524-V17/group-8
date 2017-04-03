@@ -12,12 +12,12 @@
         "source": "C:\\Users\\sambac\\.android\\build-cache\\4830f42c0a59d185e351e5d0c3c8b89538460282\\output\\res\\drawable\\abc_ic_clear_material.xml"
     },
     {
-        "merged": "C:\\Users\\sambac\\Documents\\GitHub\\group-8\\RemoteControl\\Scam\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_holo_dark.xml",
-        "source": "C:\\Users\\sambac\\.android\\build-cache\\4830f42c0a59d185e351e5d0c3c8b89538460282\\output\\res\\drawable\\abc_list_selector_holo_dark.xml"
-    },
-    {
         "merged": "C:\\Users\\sambac\\Documents\\GitHub\\group-8\\RemoteControl\\Scam\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_check_material.xml",
         "source": "C:\\Users\\sambac\\.android\\build-cache\\4830f42c0a59d185e351e5d0c3c8b89538460282\\output\\res\\drawable\\abc_btn_check_material.xml"
+    },
+    {
+        "merged": "C:\\Users\\sambac\\Documents\\GitHub\\group-8\\RemoteControl\\Scam\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_holo_dark.xml",
+        "source": "C:\\Users\\sambac\\.android\\build-cache\\4830f42c0a59d185e351e5d0c3c8b89538460282\\output\\res\\drawable\\abc_list_selector_holo_dark.xml"
     },
     {
         "merged": "C:\\Users\\sambac\\Documents\\GitHub\\group-8\\RemoteControl\\Scam\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\notification_bg.xml",

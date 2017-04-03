@@ -60,12 +60,12 @@
         "source": "C:\\Users\\sambac\\.android\\build-cache\\1d2499a65d49cada1ebb7c7495df6edb83a515d7\\output\\res\\layout\\design_bottom_navigation_item.xml"
     },
     {
-        "merged": "C:\\Users\\sambac\\Documents\\GitHub\\group-8\\RemoteControl\\Scam\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_search_view.xml",
-        "source": "C:\\Users\\sambac\\.android\\build-cache\\4830f42c0a59d185e351e5d0c3c8b89538460282\\output\\res\\layout\\abc_search_view.xml"
-    },
-    {
         "merged": "C:\\Users\\sambac\\Documents\\GitHub\\group-8\\RemoteControl\\Scam\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_dialog_title_material.xml",
         "source": "C:\\Users\\sambac\\.android\\build-cache\\4830f42c0a59d185e351e5d0c3c8b89538460282\\output\\res\\layout\\abc_dialog_title_material.xml"
+    },
+    {
+        "merged": "C:\\Users\\sambac\\Documents\\GitHub\\group-8\\RemoteControl\\Scam\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_search_view.xml",
+        "source": "C:\\Users\\sambac\\.android\\build-cache\\4830f42c0a59d185e351e5d0c3c8b89538460282\\output\\res\\layout\\abc_search_view.xml"
     },
     {
         "merged": "C:\\Users\\sambac\\Documents\\GitHub\\group-8\\RemoteControl\\Scam\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_lines_media.xml",
