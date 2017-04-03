@@ -3,8 +3,8 @@
     android:layout_height="wrap_content"
     android:layout_width="wrap_content">
 
-
     <group8.scam.view.JoystickView
+        android:id="@+id/joystick"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
