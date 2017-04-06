@@ -1,21 +1,26 @@
 #include <Smartcar.h>
 Car car;
-const int fSpeed = 25; //70% of the full speed forward
-const int bSpeed = -25; //70% of the full speed backward
-const int lDegrees = -40; //degrees to turn left
-const int rDegrees = 40; //degrees to turn right
-SR04 ultrasonicSensor;
+const int fSpeed = 30; //70% of the full speed forward
+const int bSpeed = -30; //70% of the full speed backward
+const int lDegrees = -35; //degrees to turn left
+const int rDegrees = 35; //degrees to turn right
 Gyroscope gyro;
-const int TRIGGER_PIN = 6; //D6
-const int ECHO_PIN = 5; //D5
+SR04 rotatingUltraSonic;
+const int TRIGGER_PIN = 5; //D5
+const int ECHO_PIN = 6; //D6
+SR04 ultraSonic;
+const int TR_PIN = 7; //D11
+const int EC_PIN = 4; //D10
 Servo myservo;
 const int SERVO_PIN = 40;
 long previousMillis = 0;
 long interval = 500;
-
+int rotatingDist = 0;
+int rotatingAngle = 0;
 void setup() {
   Serial3.begin(9600);
-  ultrasonicSensor.attach(TRIGGER_PIN, ECHO_PIN);
+  rotatingUltraSonic.attach(TRIGGER_PIN, ECHO_PIN);
+  ultraSonic.attach(TR_PIN, EC_PIN);
   gyro.attach();
   gyro.begin();
   car.begin(gyro); //initialize the car using the encoders and the gyro
@@ -24,29 +29,29 @@ void setup() {
   myservo.write(90);
   car.setSpeed(fSpeed); //TEST
 }
-
 void loop() {
   //handleInput();
-  /**
+  /*
   myservo.write(45);  
   delay(500); 
   myservo.write(135);
   delay(500);
   */
+  
   unsigned long currentMillis = millis();
   if(currentMillis - previousMillis > interval) {
     previousMillis = currentMillis;
-    if (myservo.read() == 45)
-      myservo.write(135);
+    if (myservo.read() == 35)
+      myservo.write(145);
     else
-      myservo.write(45);
+      myservo.write(35);
   }
+  
   atonomousDrive();
+  //Serial3.println(rotatingUltraSonic.getDistance());
+  //Serial3.println(ultraSonic.getDistance());
 }
-
-
 void handleInput() { //handle serial input if there is any
-
   if (Serial3.available()) {
     char input = Serial3.read(); //read everything that has been received so far and log down the last entry
     switch (input) {
@@ -76,18 +81,27 @@ void handleInput() { //handle serial input if there is any
     }
   }
 }
-
-
-void atonomousDrive(){
-  
-  
-    int dist = ultrasonicSensor.getDistance();
-    
-    // We set the distance to 35 instead of 15, so the car has time to stop before it reaches 15
+void atonomousDrive(){ 
+    int dist = ultraSonic.getDistance();
+            
     if (dist < 35 && dist > 2) {
-    
-      car.rotate(45);
-      delay(200);  
+      rotatingAngle = myservo.read();
+      rotatingDist = rotatingUltraSonic.getDistance();
+      
+      if (rotatingDist < 35 && rotatingDist > 2 && rotatingAngle == 35) {
+        car.rotate(-45);
       }
-    
-  }
+      else {
+        rotatingDist = rotatingUltraSonic.getDistance();
+        
+        if (rotatingDist < 35 && rotatingDist > 2 && rotatingAngle == 145){
+          car.rotate(45);
+        }
+        else {
+          car.setSpeed(0);
+        }
+     }
+      delay(200);
+    }
+}
+ 
