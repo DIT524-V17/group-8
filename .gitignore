@@ -25,6 +25,7 @@ RemoteControl/Scam/gradle.properties
 RemoteControl/Scam/gradlew
 RemoteControl/Scam/gradlew.bat
 RemoteControl/Scam/settings.gradle
+RemoteControl/Scam/app/proguard-rules.pro
 build.gradle
 .gradle
 .gradle/
