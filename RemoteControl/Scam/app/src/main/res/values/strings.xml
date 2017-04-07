@@ -3,5 +3,9 @@
     <string name="title_activity_menu">MenuActivity</string>
     <string name="title_activity_mainmenu">MainmenuActivity</string>
     <string name="app_name">S.C.A.M</string>
+    <string name="hello_str">Hejsan!</string>
+    <string name="speedText">Speed: </string>
+    <string name="distanceText">Distance: </string>
+    <string name="autoButtonText">AUTO</string>
 
 </resources>
