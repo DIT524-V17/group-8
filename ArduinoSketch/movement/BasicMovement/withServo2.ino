@@ -1,9 +1,9 @@
 #include <Smartcar.h>
 Car car;
-const int fSpeed = 30; //70% of the full speed forward
-const int bSpeed = -30; //70% of the full speed backward
-const int lDegrees = -35; //degrees to turn left
-const int rDegrees = 35; //degrees to turn right
+const int fSpeed = 27; //70% of the full speed forward
+const int bSpeed = -27; //70% of the full speed backward
+const int lDegrees = -32; //degrees to turn left
+const int rDegrees = 32; //degrees to turn right
 Gyroscope gyro;
 SR04 rotatingUltraSonic;
 const int TRIGGER_PIN = 5; //D5
@@ -14,9 +14,13 @@ const int EC_PIN = 4; //D10
 Servo myservo;
 const int SERVO_PIN = 40;
 long previousMillis = 0;
-long interval = 500;
+long autoPreviousMillis = 0;
+long interval = 450;
+long autoInterval = 200;
 int rotatingDist = 0;
-int rotatingAngle = 0;
+int servoAngle = 0;
+int staticDist = 0;
+
 void setup() {
   Serial3.begin(9600);
   rotatingUltraSonic.attach(TRIGGER_PIN, ECHO_PIN);
@@ -37,17 +41,37 @@ void loop() {
   myservo.write(135);
   delay(500);
   */
+  servoAngle = myservo.read();
   
   unsigned long currentMillis = millis();
+  
   if(currentMillis - previousMillis > interval) {
     previousMillis = currentMillis;
-    if (myservo.read() == 35)
-      myservo.write(145);
-    else
-      myservo.write(35);
+    if (servoAngle == 15){
+      myservo.write(170);      
+    }     
+    else{
+      myservo.write(15);      
+    }
   }
-  
-  atonomousDrive();
+  if(currentMillis - autoPreviousMillis > autoInterval) {
+    autoPreviousMillis = currentMillis;
+    if (servoAngle == 15) {
+      Serial3.print("DISTANCE FROM RIGHT UNDER  ");
+      Serial3.println(rotatingUltraSonic.getDistance());
+      autonomousLeft();      
+    }
+    else {
+      Serial3.print("LEFT   ");
+      Serial3.println(rotatingUltraSonic.getDistance());
+      autonomousRight();
+      
+    }
+    
+  }
+  //myservo.write(15);
+  //Serial3.println(myservo.read());
+  //atonomousDrive2();
   //Serial3.println(rotatingUltraSonic.getDistance());
   //Serial3.println(ultraSonic.getDistance());
 }
@@ -72,7 +96,7 @@ void handleInput() { //handle serial input if there is any
         car.setAngle(0);
         break;
       case 'o': //autonomous drive
-        atonomousDrive();
+        //atonomousDrive();
         break;
         
       default: //if you receive something that you don't know, just stop
@@ -81,27 +105,67 @@ void handleInput() { //handle serial input if there is any
     }
   }
 }
-void atonomousDrive(){ 
+/*
+void atonomousDrive1(){ 
     int dist = ultraSonic.getDistance();
             
     if (dist < 35 && dist > 2) {
-      rotatingAngle = myservo.read();
+      //rotatingAngle = myservo.read();
       rotatingDist = rotatingUltraSonic.getDistance();
-      
-      if (rotatingDist < 35 && rotatingDist > 2 && rotatingAngle == 35) {
+           
+      if (rotatingDist < 25 && rotatingDist > 2 && rotatingAngle == 15) {
         car.rotate(-45);
       }
       else {
         rotatingDist = rotatingUltraSonic.getDistance();
         
-        if (rotatingDist < 35 && rotatingDist > 2 && rotatingAngle == 145){
+        if (rotatingDist < 25 && rotatingDist > 2) {
           car.rotate(45);
         }
-        else {
-          car.setSpeed(0);
-        }
-     }
+     }    
       delay(200);
     }
+}
+*/
+void atonomousDrive2(){ 
+  staticDist = ultraSonic.getDistance();
+  servoAngle = myservo.read();
+  if (staticDist < 35 && staticDist > 2) {
+    rotatingDist = rotatingUltraSonic.getDistance();
+    if (rotatingDist < 25 && rotatingDist > 2) {
+      switch (servoAngle){
+        case 15:      
+          car.rotate(-45);
+          delay(200);          
+          break;
+  
+        case 170:          
+          car.rotate(45);
+          delay(200);
+          break;
+      } 
+    }
+  }
+}
+                                                 
+void autonomousLeft() {
+  staticDist = ultraSonic.getDistance();
+  if (staticDist < 35 && staticDist > 2) {
+    car.setSpeed(0);
+    rotatingDist = rotatingUltraSonic.getDistance();
+    if (rotatingDist < 30  && rotatingDist > 2) {
+      car.rotate(-45);
+    }
+  }  
+}
+void autonomousRight() {
+  staticDist = ultraSonic.getDistance();
+  if (staticDist < 35 && staticDist > 2) {
+    car.setSpeed(0);
+    rotatingDist = rotatingUltraSonic.getDistance();
+    if (rotatingDist < 30 && rotatingDist > 2) {
+      car.rotate(45);
+    }
+  }  
 }
  
