@@ -19,7 +19,6 @@ import android.widget.Toast;
 import android.bluetooth.BluetoothAdapter;
 import java.util.ArrayList;
 import java.util.Set;
-import java.util.UUID;
 
 import group8.scam.R;
 
@@ -38,8 +37,7 @@ public class ConnectActivity extends AppCompatActivity {
     private ProgressBar pgrBar;
     private ArrayAdapter<String> adapter;
     private ArrayList<String> listItems = new ArrayList<>();
-    private BluetoothDevice selectedDevice;
-    public final static UUID MY_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
+    private BluetoothDevice device;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -149,9 +147,8 @@ public class ConnectActivity extends AppCompatActivity {
 
     // Connect button
     public void btnConnect(View view) {
-        //TODO - Connect to selected device
-        if (selectedDevice != null) {
-            ConnectThread connection = new ConnectThread(bluetoothAdapter, selectedDevice);
+        if (device != null) {
+            ConnectThread connection = new ConnectThread(device);
             connection.start();
         }
     }
@@ -162,7 +159,7 @@ public class ConnectActivity extends AppCompatActivity {
         Set<BluetoothDevice> pairedDevices = bluetoothAdapter.getBondedDevices();
         for (BluetoothDevice device : pairedDevices) {
             if(macAdress.equals(device.getAddress())){
-                selectedDevice = device;
+                this.device = device;
             }
         }
     }
