@@ -6,36 +6,45 @@
 
     <ImageView
         android:id="@+id/imageView1"
-        android:layout_width="227dp"
-        android:layout_height="227dp"
+        android:layout_width="400dp"
+        android:layout_height="350dp"
         android:src="@drawable/radar"
-        android:layout_marginStart="178dp"
-        android:layout_marginTop="10dp"
-        android:layout_alignTop="@+id/joystick"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="6dp" />
 
     <group8.scam.view.JoystickView
         android:id="@+id/joystick"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        android:layout_toEndOf="@id/imageView1"
-        android:layout_marginTop="60dp"/>
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_alignBottom="@id/imageView1"
+        android:layout_toEndOf="@id/imageView1" />
 
     <TextView
         android:id="@+id/speedLbl"
         android:text="@string/speedText"
         android:layout_height="20dp"
         android:layout_width="60dp"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="20dp"
-        android:layout_alignBottom="@id/imageView1"/>
+        android:layout_marginStart="19dp"
+        android:layout_marginBottom="97dp"
+        android:layout_alignBottom="@+id/joystick"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:id="@+id/distanceLbl"
         android:text="@string/distanceText"
         android:layout_height="20dp"
         android:layout_width="60dp"
-        android:layout_below="@+id/speedLbl"
-        android:layout_alignStart="@+id/speedLbl"/>
+        android:layout_marginTop="13dp"
+        android:layout_alignTop="@+id/speedLbl"
+        android:layout_alignStart="@+id/speedLbl" />
+
+    <Button
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:text="@string/autoButtonText"
+        android:layout_alignBottom="@+id/joystick"
+        android:layout_alignStart="@+id/distanceLbl"
+        android:layout_marginStart="12dp" />
 
 </RelativeLayout>
