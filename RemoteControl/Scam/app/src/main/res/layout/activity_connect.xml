@@ -14,6 +14,8 @@
         android:layout_marginTop="70dp"
         android:layout_centerHorizontal="true"
         android:background="@drawable/listviewborder"
+        android:choiceMode="singleChoice"
+        android:listSelector="@drawable/listselect"
         >
     </ListView>
 
@@ -27,6 +29,7 @@
         android:fontFamily="serif-monospace"
         android:textStyle="bold"
         android:layout_marginTop="20dp"
+        android:onClick="itemClick"
         />
 
     <ProgressBar
@@ -51,6 +54,7 @@
         android:layout_below="@id/listView"
         android:layout_marginTop="22dp"
         android:layout_alignRight="@id/listView"
+        android:onClick="btnConnect"
         />
 
     <Button
