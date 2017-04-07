@@ -21,6 +21,10 @@ out/
 
 # Gradle files
 RemoteControl/Scam/build.gradle
+RemoteControl/Scam/gradle.properties
+RemoteControl/Scam/gradlew
+RemoteControl/Scam/gradlew.bat
+RemoteControl/Scam/settings.gradle
 build.gradle
 .gradle
 .gradle/

@@ -72,7 +72,7 @@ public class JoystickView extends View {
         centerPosX = getWidth() / 2;
         centerPosY = getHeight() / 2;
         backgroundRadius = (int) (getHeight() / 3);
-        circleRadius = getHeight() / 5;
+        circleRadius = getHeight() / 7;
     }
 
     public boolean onTouchEvent(MotionEvent event) {
