@@ -3,13 +3,6 @@
     android:layout_height="wrap_content"
     android:layout_width="wrap_content">
 
-    <group8.scam.view.JoystickView
-        android:id="@+id/joystick"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        android:layout_toEndOf="@id/imageView1"
-        android:layout_marginTop="60dp"/>
-
     <ImageView
         android:id="@+id/imageView1"
         android:layout_width="227dp"
@@ -19,5 +12,29 @@
         android:layout_marginTop="10dp"
         android:layout_alignTop="@+id/joystick"
         android:layout_alignParentStart="true" />
+
+    <group8.scam.view.JoystickView
+        android:id="@+id/joystick"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_toEndOf="@id/imageView1"
+        android:layout_marginTop="60dp"/>
+
+    <TextView
+        android:id="@+id/speedLbl"
+        android:text="@string/speedText"
+        android:layout_height="20dp"
+        android:layout_width="60dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="20dp"
+        android:layout_alignBottom="@id/imageView1"/>
+
+    <TextView
+        android:id="@+id/distanceLbl"
+        android:text="@string/distanceText"
+        android:layout_height="20dp"
+        android:layout_width="60dp"
+        android:layout_below="@+id/speedLbl"
+        android:layout_alignStart="@+id/speedLbl"/>
 
 </RelativeLayout>
