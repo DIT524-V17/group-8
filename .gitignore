@@ -20,6 +20,8 @@ gen/
 out/
 
 # Gradle files
+RemoteControl/Scam/build.gradle
+build.gradle
 .gradle
 .gradle/
 build/
