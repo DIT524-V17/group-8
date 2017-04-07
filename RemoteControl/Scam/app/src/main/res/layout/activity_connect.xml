@@ -71,14 +71,5 @@
         android:onClick="btnSearch"
         />
 
-    <Button
-        android:id="@+id/DISABLEBUTTON"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_toRightOf="@id/txtConnect"
-        android:layout_marginLeft="10dp"
-        android:layout_alignBottom="@id/txtConnect"
-        android:onClick="btnDisable"
-        />
 
 </RelativeLayout>

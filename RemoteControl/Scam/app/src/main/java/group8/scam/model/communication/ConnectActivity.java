@@ -19,6 +19,7 @@ import android.widget.Toast;
 import android.bluetooth.BluetoothAdapter;
 import java.util.ArrayList;
 import java.util.Set;
+import java.util.UUID;
 
 import group8.scam.R;
 
@@ -33,10 +34,12 @@ import group8.scam.R;
 public class ConnectActivity extends AppCompatActivity {
 
     private ListView listView;
-    private BluetoothAdapter myBluetooth;
+    private BluetoothAdapter bluetoothAdapter;
     private ProgressBar pgrBar;
     private ArrayAdapter<String> adapter;
     private ArrayList<String> listItems = new ArrayList<>();
+    private BluetoothDevice selectedDevice;
+    public final static UUID MY_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,11 +50,14 @@ public class ConnectActivity extends AppCompatActivity {
         // Setting up
         pgrBar = (ProgressBar) findViewById(R.id.pgrBar);
         listView = (ListView) findViewById(R.id.listView);
-        myBluetooth = BluetoothAdapter.getDefaultAdapter();
+        bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
         adapter = new ArrayAdapter<String>(ConnectActivity.this,
                 android.R.layout.simple_list_item_1,listItems);
         listView.setAdapter(adapter);
+
+        IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
+        registerReceiver(mReceiver, filter);
 
         // Turns the "loading" animation to invisible
         pgrBar.setVisibility(View.INVISIBLE);
@@ -62,22 +68,52 @@ public class ConnectActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1,int position, long arg3)
             {
-                Toast.makeText(ConnectActivity.this, adapter.getItem(position),
-                        Toast.LENGTH_SHORT).show();
+                // Gets the unique MAC adress from the list by splitting the string
+                String macAdress = listItems.get(position);
+                String[] array = macAdress.split("\\n");
+
+                Toast.makeText(ConnectActivity.this, array[1], Toast.LENGTH_SHORT).show();
+
+                // Calls the method with the MAC adress
+                selectDevice(array[1]);
             }
         });
-
     }
+
 
     // Button search
     public void btnSearch(View view) {
-        if(!myBluetooth.isEnabled()){
+        if (bluetoothAdapter.isEnabled()) {
+
+            // Bluetooth is enabled
+            pgrBar.setVisibility(View.VISIBLE);
+
+            Set<BluetoothDevice> pairedDevices = bluetoothAdapter.getBondedDevices();
+            if (pairedDevices.size() > 0) {
+                // There are paired devices. Get the name and address of each paired device.
+                adapter.clear(); // Clearing the adapter each time to not get any duplicates
+                listView.clearChoices();
+                for (BluetoothDevice device : pairedDevices) {
+                    listItems.add(device.getName() +"\n"+ device.getAddress());
+                    adapter.notifyDataSetChanged();
+                }
+            } else {
+                // There are no paired devices
+                Toast toast = Toast.makeText(ConnectActivity.this, "No paired devices",
+                        Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.BOTTOM, 0, 600);
+                toast.show();
+            }
+            bluetoothAdapter.startDiscovery();
+            System.out.println("DISCOVERY 1");
+        } else {
+
             // Bluetooth is disabled, enables it
-            Toast toast = Toast.makeText(ConnectActivity.this , "Turning on Bluetooth",
+            Toast toast = Toast.makeText(ConnectActivity.this, "Turning on Bluetooth",
                     Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.BOTTOM,0,600);
+            toast.setGravity(Gravity.BOTTOM, 0, 600);
             toast.show();
-            myBluetooth.enable();
+            bluetoothAdapter.enable();
 
             pgrBar.setVisibility(View.VISIBLE);
 
@@ -87,85 +123,50 @@ public class ConnectActivity extends AppCompatActivity {
                 @Override
                 public void run() {
                     // Checks for previously paired devices
-                    Set<BluetoothDevice> pairedDevices = myBluetooth.getBondedDevices();
+                    Set<BluetoothDevice> pairedDevices = bluetoothAdapter.getBondedDevices();
                     if (pairedDevices.size() > 0) {
                         // There are paired devices. Get the name and address of each paired device
                         adapter.clear(); // Clearing the adapter each time to not get any duplicates
                         listView.clearChoices();
                         for (BluetoothDevice device : pairedDevices) {
-                            listItems.add(device.getName() + "\n" + device.getAddress());
+                            listItems.add(device.getName() +"\n"+ device.getAddress());
                             adapter.notifyDataSetChanged();
                         }
-                    }
-                    else{
+                    } else {
                         // There are no paired devices
-                        Toast toast2 = Toast.makeText(ConnectActivity.this , "No paired devices",
+                        Toast toast2 = Toast.makeText(ConnectActivity.this, "No paired devices",
                                 Toast.LENGTH_SHORT);
-                        toast2.setGravity(Gravity.BOTTOM,0,600);
+                        toast2.setGravity(Gravity.BOTTOM, 0, 600);
                         toast2.show();
                     }
-                    if(myBluetooth.isDiscovering()){
-                        myBluetooth.cancelDiscovery();
-                        myBluetooth.startDiscovery();
-                        System.out.println("STARTED SEARCHING 1");
-
-                        IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
-                        registerReceiver(mReceiver, filter);
-                    }
-                    else{
-                        myBluetooth.startDiscovery();
-                        System.out.println("STARTED SEARCHING 2");
-
-                        IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
-                        registerReceiver(mReceiver, filter);
-                    }
+                    bluetoothAdapter.startDiscovery();
+                    System.out.println("DISCOVERY 2");
                 }
             }, 2000);// 2000 ms = 2s
-
-        }
-        else{
-            // Bluetooth is enabled
-            pgrBar.setVisibility(View.VISIBLE);
-
-            Set<BluetoothDevice> pairedDevices = myBluetooth.getBondedDevices();
-            if (pairedDevices.size() > 0) {
-                // There are paired devices. Get the name and address of each paired device.
-                adapter.clear(); // Clearing the adapter each time to not get any duplicates
-                listView.clearChoices();
-                for (BluetoothDevice device : pairedDevices) {
-                    listItems.add(device.getName() + "\n" + device.getAddress());
-                    adapter.notifyDataSetChanged();
-                }
-            }
-            else{
-                // There are no paired devices
-                Toast toast = Toast.makeText(ConnectActivity.this , "No paired devices",
-                        Toast.LENGTH_SHORT);
-                toast.setGravity(Gravity.BOTTOM,0,600);
-                toast.show();
-            }
-        }
-        if(myBluetooth.isDiscovering()){
-            myBluetooth.cancelDiscovery();
-            myBluetooth.startDiscovery();
-            System.out.println("STARTED SEARCHING 3");
-
-            IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
-            registerReceiver(mReceiver, filter);
-        }
-        else{
-            myBluetooth.startDiscovery();
-            System.out.println("STARTED SEARCHING 4");
-
-            IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
-            registerReceiver(mReceiver, filter);
         }
     }
+
 
     // Connect button
     public void btnConnect(View view) {
         //TODO - Connect to selected device
+        if (selectedDevice != null) {
+            ConnectThread connection = new ConnectThread(bluetoothAdapter, selectedDevice);
+            connection.start();
+        }
     }
+
+
+    // Method to select bluetooth device from the list
+    public void selectDevice(String macAdress){
+        Set<BluetoothDevice> pairedDevices = bluetoothAdapter.getBondedDevices();
+        for (BluetoothDevice device : pairedDevices) {
+            if(macAdress.equals(device.getAddress())){
+                selectedDevice = device;
+            }
+        }
+    }
+
 
     //Broadcast receiver for the bluetooth connection
     private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
@@ -177,40 +178,19 @@ public class ConnectActivity extends AppCompatActivity {
                 // TODO - It never gets here... :(
                 System.out.println("FOUND DEVICE");
                 BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-                listItems.add(device.getName() + "\n" + device.getAddress());
-                adapter.notifyDataSetChanged();
-            }
-
-            if(action.equals(BluetoothDevice.ACTION_FOUND)){
-                // TODO - It never gets here either... :(
-                System.out.println("FOUND DEVICE 2");
-                BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-                listItems.add(device.getName() + "\n" + device.getAddress());
+                listItems.add(device.getName() +"\n"+ device.getAddress());
                 adapter.notifyDataSetChanged();
             }
         }
     };
 
+
+    //Destroy them all
     @Override
     protected void onDestroy() {
         super.onDestroy();
         unregisterReceiver(mReceiver);
-        myBluetooth.cancelDiscovery();
-        myBluetooth.disable();
-    }
-
-
-
-
-
-
-        // Disable BT button, for testing - TODO REMOVE
-    public void btnDisable(View view) {
-        myBluetooth.cancelDiscovery();
-        myBluetooth.disable();
-        listView.clearChoices();
-        listItems.clear();
-        adapter.clear();
-        pgrBar.setVisibility(View.INVISIBLE);
+        bluetoothAdapter.cancelDiscovery();
+        bluetoothAdapter.disable();
     }
 }
