@@ -4,9 +4,13 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+
+import group8.scam.R;
 
 /**
  * Created by sambac on 2017-04-03.
@@ -21,6 +25,8 @@ public class JoystickView extends View {
     private int colorWhite = Color.parseColor("#FFFFFF");
     private int colorDarkGrey = Color.parseColor("#BFBFBF");
     private int colorLightGrey = Color.parseColor("#E5E5E5");
+    private int colorRed = Color.parseColor("#FF0000"); //test by Firsou
+    private int colorCoolGrey = Color.parseColor("#999999"); //test by Firsou
 
     private int posX;
     private int posY;
@@ -45,10 +51,12 @@ public class JoystickView extends View {
     }
 
     private void init(AttributeSet attributeSet, int defStyle) {
-        paintBackground.setColor(colorLightGrey);
+        //paintBackground.setColor(colorLightGrey);
+        paintBackground.setColor(colorCoolGrey);
         paintBackground.setAntiAlias(true);
 
-        paintCircle.setColor(colorDarkGrey);
+        //paintCircle.setColor(colorDarkGrey);
+        paintCircle.setColor(colorRed);
         paintCircle.setAntiAlias(true);
 
         paintOutLine.setColor(colorWhite);
