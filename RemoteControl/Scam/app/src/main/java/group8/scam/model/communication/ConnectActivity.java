@@ -53,14 +53,10 @@ public class ConnectActivity extends AppCompatActivity {
                 android.R.layout.simple_list_item_1,listItems);
         listView.setAdapter(adapter);
 
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(BluetoothDevice.ACTION_FOUND);
-
-        registerReceiver(mReceiver, filter);
-
         // Turns the "loading" animation to invisible
         pgrBar.setVisibility(View.INVISIBLE);
 
+        // OnClickListener for the list, for selecting devices
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
             @Override
@@ -72,7 +68,6 @@ public class ConnectActivity extends AppCompatActivity {
         });
 
     }
-
 
     // Button search
     public void btnSearch(View view) {
@@ -109,10 +104,24 @@ public class ConnectActivity extends AppCompatActivity {
                         toast2.setGravity(Gravity.BOTTOM,0,600);
                         toast2.show();
                     }
+                    if(myBluetooth.isDiscovering()){
+                        myBluetooth.cancelDiscovery();
+                        myBluetooth.startDiscovery();
+                        System.out.println("STARTED SEARCHING 1");
+
+                        IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
+                        registerReceiver(mReceiver, filter);
+                    }
+                    else{
+                        myBluetooth.startDiscovery();
+                        System.out.println("STARTED SEARCHING 2");
+
+                        IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
+                        registerReceiver(mReceiver, filter);
+                    }
                 }
             }, 2000);// 2000 ms = 2s
-            myBluetooth.startDiscovery();
-            System.out.println("STARTED SEARCHING 1");
+
         }
         else{
             // Bluetooth is enabled
@@ -136,8 +145,21 @@ public class ConnectActivity extends AppCompatActivity {
                 toast.show();
             }
         }
-        myBluetooth.startDiscovery();
-        System.out.println("STARTED SEARCHING 2");
+        if(myBluetooth.isDiscovering()){
+            myBluetooth.cancelDiscovery();
+            myBluetooth.startDiscovery();
+            System.out.println("STARTED SEARCHING 3");
+
+            IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
+            registerReceiver(mReceiver, filter);
+        }
+        else{
+            myBluetooth.startDiscovery();
+            System.out.println("STARTED SEARCHING 4");
+
+            IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
+            registerReceiver(mReceiver, filter);
+        }
     }
 
     // Connect button
