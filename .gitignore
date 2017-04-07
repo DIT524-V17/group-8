@@ -2,6 +2,13 @@
 *.iml
 RemoteControl/Scam/.idea/
 
+# Gradle Files
+RemoteControl/Scam/.gradle/
+RemoteControl/Scam/app/build/
+RemoteControl/Scam/build/
+RemoteControl/Scam/local.properties
+
+
 # Log file
 *.log
 
