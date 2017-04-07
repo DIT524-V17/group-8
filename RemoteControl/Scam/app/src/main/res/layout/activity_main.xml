@@ -8,4 +8,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="227dp"
+        android:layout_height="227dp"
+        android:src="@drawable/radar"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true" />
+
 </RelativeLayout>
