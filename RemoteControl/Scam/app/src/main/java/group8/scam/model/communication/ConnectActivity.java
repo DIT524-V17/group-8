@@ -171,9 +171,10 @@ public class ConnectActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
+        super.onDestroy();
         unregisterReceiver(mReceiver);
         myBluetooth.cancelDiscovery();
-        super.onDestroy();
+        myBluetooth.disable();
     }
 
 
