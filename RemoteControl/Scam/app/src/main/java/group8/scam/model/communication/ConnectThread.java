@@ -42,10 +42,24 @@ public class ConnectThread extends Thread {
             } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException | IOException e1) {
                 e1.printStackTrace();
                 System.out.println(e1);
-                System.out.println(mSocket.isConnected());
             }
         }
 
-        System.out.println(mSocket.isConnected());
+        System.out.println("Is connected to the device: " + mSocket.isConnected());
+        manageThread();
+    }
+
+    public void cancel() {
+        try {
+            mSocket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Could not close the socket.");
+        }
+    }
+
+    private void manageThread() {
+        ReadWriteDataThread dataThread = new ReadWriteDataThread(mSocket);
+        dataThread.start();
     }
 }
