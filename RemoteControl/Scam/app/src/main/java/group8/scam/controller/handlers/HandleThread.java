@@ -50,7 +50,7 @@ public class HandleThread extends Thread {
 
     public void run() {
         Looper.prepare();
-        
+
         mHandler = new Handler() {
             public void handleMessage(Message msg) {
                 byte[] dataArray = msg.getData().getByteArray(KEY);

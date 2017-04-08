@@ -1,12 +1,15 @@
 package group8.scam.model.communication;
 
+import android.Manifest;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
 import android.os.Handler;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -20,16 +23,17 @@ import android.bluetooth.BluetoothAdapter;
 import java.util.ArrayList;
 import java.util.Set;
 
-import group8.scam.R;
+import group8.scam.R;   
 import group8.scam.controller.handlers.HandleThread;
+import group8.scam.model.menu.MenuActivity;
+
 
 /*
     A class to handle connecting to the car. The first activity the user
-    @Author David Larsson
+    @Authors David Larsson & Samuel Bäckström
 */
 
 //TODO - Discover new items
-//TODO - Connect to device
 
 public class ConnectActivity extends AppCompatActivity {
 
@@ -48,7 +52,6 @@ public class ConnectActivity extends AppCompatActivity {
         setContentView(R.layout.activity_connect);
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        // Setting up
         pgrBar = (ProgressBar) findViewById(R.id.pgrBar);
         listView = (ListView) findViewById(R.id.listView);
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -60,10 +63,12 @@ public class ConnectActivity extends AppCompatActivity {
         mHandleThread = HandleThread.getInstance();
         mHandleThread.start();
 
-        IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(BluetoothDevice.ACTION_FOUND);
+        filter.addAction(BluetoothDevice.ACTION_ACL_CONNECTED);
+
         registerReceiver(mReceiver, filter);
 
-        // Turns the "loading" animation to invisible
         pgrBar.setVisibility(View.INVISIBLE);
 
         // OnClickListener for the list, for selecting devices
@@ -75,8 +80,6 @@ public class ConnectActivity extends AppCompatActivity {
                 // Gets the unique MAC adress from the list by splitting the string
                 String macAdress = listItems.get(position);
                 String[] array = macAdress.split("\\n");
-
-                Toast.makeText(ConnectActivity.this, array[1], Toast.LENGTH_SHORT).show();
 
                 // Calls the method with the MAC adress
                 selectDevice(array[1]);
@@ -103,13 +106,17 @@ public class ConnectActivity extends AppCompatActivity {
                 }
             } else {
                 // There are no paired devices
-                Toast toast = Toast.makeText(ConnectActivity.this, "No paired devices",
+                Toast toast = Toast.makeText(ConnectActivity.this, "No previously paired devices",
                         Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.BOTTOM, 0, 600);
                 toast.show();
             }
-            bluetoothAdapter.startDiscovery();
-            System.out.println("DISCOVERY 1");
+
+            //Asking permission for searching
+            ActivityCompat.requestPermissions(ConnectActivity.this,
+                    new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
+                    1);
+
         } else {
 
             // Bluetooth is disabled, enables it
@@ -143,8 +150,12 @@ public class ConnectActivity extends AppCompatActivity {
                         toast2.setGravity(Gravity.BOTTOM, 0, 600);
                         toast2.show();
                     }
-                    bluetoothAdapter.startDiscovery();
-                    System.out.println("DISCOVERY 2");
+
+                    //Asking permission for searching
+                    ActivityCompat.requestPermissions(ConnectActivity.this,
+                            new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
+                            1);
+
                 }
             }, 2000);// 2000 ms = 2s
         }
@@ -157,6 +168,12 @@ public class ConnectActivity extends AppCompatActivity {
             connection = new ConnectThread(device);
             connection.start();
             mHandleThread.setConnection(connection);
+
+            // Toast of clarity
+            Toast toast = Toast.makeText(ConnectActivity.this, "Connecting",
+                    Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.BOTTOM, 0, 600);
+            toast.show();
         }
     }
 
@@ -178,16 +195,53 @@ public class ConnectActivity extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
 
+            // Found device in discovering
             if (BluetoothDevice.ACTION_FOUND.equals(action)) {
-                // TODO - It never gets here... :(
                 System.out.println("FOUND DEVICE");
                 BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-                listItems.add(device.getName() +"\n"+ device.getAddress());
-                adapter.notifyDataSetChanged();
+                if(!(device.getBondState() == device.BOND_BONDED)){
+                    listItems.add(device.getName() + "\n" + device.getAddress());
+                    adapter.notifyDataSetChanged();
+                }
+            }
+
+            // Connected to device
+            else if(BluetoothDevice.ACTION_ACL_CONNECTED.equals(action)){
+                System.out.println("IM IN MOTHERFUCKER! TINY RIIIICK!");
+
+                // Switching to menu activity
+                startActivity(new Intent(ConnectActivity.this, MenuActivity.class));
+                unregisterReceiver(mReceiver);
             }
         }
     };
 
+    public ConnectThread getConnection() {
+        return connection;
+    }
+
+    // Requesting permission for ACCESS_COURSE_LOCATION. Needed for discovering new devices
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case 1: {
+
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // The permission was granted, start discovery
+                    bluetoothAdapter.startDiscovery();
+                    System.out.println("Started searching");
+
+                } else {
+                    Toast.makeText(ConnectActivity.this, "Permission denied!",
+                            Toast.LENGTH_SHORT).show();
+                }
+                return;
+            }
+        }
+    }
 
     //Destroy them all
     @Override
@@ -196,9 +250,5 @@ public class ConnectActivity extends AppCompatActivity {
         unregisterReceiver(mReceiver);
         bluetoothAdapter.cancelDiscovery();
         bluetoothAdapter.disable();
-    }
-
-    public ConnectThread getConnection() {
-        return connection;
     }
 }
