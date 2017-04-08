@@ -1,14 +1,16 @@
 package group8.scam.model.menu;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
 import group8.scam.R;
+import group8.scam.model.main.MainActivity;
 
 /*
     An activity for choosing driving mode
-    @Authors David Larsson
+    @Author David Larsson
 */
 
 public class MenuActivity extends AppCompatActivity {
@@ -20,7 +22,7 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     public void btnManual(View view) {
-        // TODO - Start the manual activity
+        startActivity(new Intent(MenuActivity.this, MainActivity.class));
     }
 
     public void btnAutonomous(View view) {

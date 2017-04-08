@@ -1,12 +1,15 @@
 package group8.scam.model.communication;
 
+import android.Manifest;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
 import android.os.Handler;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -106,11 +109,11 @@ public class ConnectActivity extends AppCompatActivity {
                 toast.setGravity(Gravity.BOTTOM, 0, 600);
                 toast.show();
             }
-            bluetoothAdapter.startDiscovery();
 
-            if(bluetoothAdapter.isDiscovering()){
-            System.out.println("DISCOVERY 1");
-            }
+            //Asking permission for searching
+            ActivityCompat.requestPermissions(ConnectActivity.this,
+                    new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
+                    1);
 
         } else {
 
@@ -145,11 +148,12 @@ public class ConnectActivity extends AppCompatActivity {
                         toast2.setGravity(Gravity.BOTTOM, 0, 600);
                         toast2.show();
                     }
-                    bluetoothAdapter.startDiscovery();
 
-                    if(bluetoothAdapter.isDiscovering()){
-                    System.out.println("DISCOVERY 2");
-                    }
+                    //Asking permission for searching
+                    ActivityCompat.requestPermissions(ConnectActivity.this,
+                            new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
+                            1);
+
                 }
             }, 2000);// 2000 ms = 2s
         }
@@ -191,23 +195,51 @@ public class ConnectActivity extends AppCompatActivity {
 
             // Found device in discovering
             if (BluetoothDevice.ACTION_FOUND.equals(action)) {
-                // TODO - It never gets here... :(
                 System.out.println("FOUND DEVICE");
                 BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-                listItems.add(device.getName() +"\n"+ device.getAddress());
-                adapter.notifyDataSetChanged();
+                if(!(device.getBondState() == device.BOND_BONDED)){
+                    listItems.add(device.getName() + "\n" + device.getAddress());
+                    adapter.notifyDataSetChanged();
+                }
             }
+
             // Connected to device
             else if(BluetoothDevice.ACTION_ACL_CONNECTED.equals(action)){
                 System.out.println("IM IN MOTHERFUCKER! TINY RIIIICK!");
 
                 // Switching to menu activity
                 startActivity(new Intent(ConnectActivity.this, MenuActivity.class));
-
+                unregisterReceiver(mReceiver);
             }
         }
     };
 
+    public ConnectThread getConnection() {
+        return connection;
+    }
+
+    // Requesting permission for ACCESS_COURSE_LOCATION. Needed for discovering new devices
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case 1: {
+
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // The permission was granted, start discovery
+                    bluetoothAdapter.startDiscovery();
+                    System.out.println("Started searching");
+
+                } else {
+                    Toast.makeText(ConnectActivity.this, "Permission denied!",
+                            Toast.LENGTH_SHORT).show();
+                }
+                return;
+            }
+        }
+    }
 
     //Destroy them all
     @Override
@@ -216,9 +248,5 @@ public class ConnectActivity extends AppCompatActivity {
         unregisterReceiver(mReceiver);
         bluetoothAdapter.cancelDiscovery();
         bluetoothAdapter.disable();
-    }
-
-    public ConnectThread getConnection() {
-        return connection;
     }
 }
