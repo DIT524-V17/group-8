@@ -69,18 +69,4 @@
         android:onClick="btnAutonomous"
         />
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </RelativeLayout>

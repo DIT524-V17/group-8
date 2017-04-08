@@ -7,8 +7,8 @@ import android.view.View;
 import group8.scam.R;
 
 /*
-    An ac
-    @Authors David Larsson & Samuel Bäckström
+    An activity for choosing driving mode
+    @Authors David Larsson
 */
 
 public class MenuActivity extends AppCompatActivity {
@@ -20,10 +20,11 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     public void btnManual(View view) {
-        // MANUAL BUTTON
+        // TODO - Start the manual activity
     }
 
     public void btnAutonomous(View view) {
-        // AUTONOMOUS BUTTON
+        // TODO - Send the signal to start the autonomous mode
+        // TODO - Start the autonomous activity
     }
 }

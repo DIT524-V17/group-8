@@ -48,7 +48,6 @@ public class ConnectActivity extends AppCompatActivity {
         setContentView(R.layout.activity_connect);
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        // Setting up
         pgrBar = (ProgressBar) findViewById(R.id.pgrBar);
         listView = (ListView) findViewById(R.id.listView);
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -80,7 +79,6 @@ public class ConnectActivity extends AppCompatActivity {
 
                 // Calls the method with the MAC adress
                 selectDevice(array[1]);
-
             }
         });
     }
@@ -110,7 +108,10 @@ public class ConnectActivity extends AppCompatActivity {
                 toast.show();
             }
             bluetoothAdapter.startDiscovery();
-            System.out.println("DISCOVERY 1");
+
+            if(bluetoothAdapter.isDiscovering()){
+            System.out.println("DISCOVERY 1");}
+
         } else {
 
             // Bluetooth is disabled, enables it
@@ -145,7 +146,9 @@ public class ConnectActivity extends AppCompatActivity {
                         toast2.show();
                     }
                     bluetoothAdapter.startDiscovery();
-                    System.out.println("DISCOVERY 2");
+
+                    if(bluetoothAdapter.isDiscovering()){
+                    System.out.println("DISCOVERY 2");}
                 }
             }, 2000);// 2000 ms = 2s
         }
@@ -196,6 +199,7 @@ public class ConnectActivity extends AppCompatActivity {
             // Connected to device
             else if(BluetoothDevice.ACTION_ACL_CONNECTED.equals(action)){
                 System.out.println("IM IN MOTHERFUCKER! TINY RIIIICK!");
+
                 // Switching to menu activity
                 startActivity(new Intent(ConnectActivity.this, MenuActivity.class));
 
