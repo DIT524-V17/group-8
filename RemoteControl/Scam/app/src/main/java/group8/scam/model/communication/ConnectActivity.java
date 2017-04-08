@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.Set;
 
 import group8.scam.R;
-import group8.scam.controller.handlers.IOHandler;
+import group8.scam.controller.handlers.HandleThread;
 
 /*
     A class to handle connecting to the car. The first activity the user
@@ -40,7 +40,7 @@ public class ConnectActivity extends AppCompatActivity {
     private ArrayList<String> listItems = new ArrayList<>();
     private BluetoothDevice device;
     private ConnectThread connection;
-    private IOHandler mHandler;
+    private HandleThread mHandleThread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +57,8 @@ public class ConnectActivity extends AppCompatActivity {
                 android.R.layout.simple_list_item_1,listItems);
         listView.setAdapter(adapter);
 
-        mHandler = IOHandler.getInstance();
+        mHandleThread = HandleThread.getInstance();
+        mHandleThread.start();
 
         IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
         registerReceiver(mReceiver, filter);
@@ -155,7 +156,7 @@ public class ConnectActivity extends AppCompatActivity {
         if (device != null) {
             connection = new ConnectThread(device);
             connection.start();
-            mHandler.setConnection(connection);
+            mHandleThread.setConnection(connection);
         }
     }
 

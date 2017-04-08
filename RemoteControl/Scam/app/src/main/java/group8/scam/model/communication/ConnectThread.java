@@ -27,9 +27,6 @@ public class ConnectThread extends Thread {
         }
 
         mSocket = tmp;
-        System.out.println(mSocket.getClass());
-        System.out.println(mSocket.getRemoteDevice());
-        System.out.println(mSocket.isConnected());
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)

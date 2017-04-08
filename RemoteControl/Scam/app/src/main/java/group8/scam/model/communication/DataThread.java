@@ -1,14 +1,15 @@
 package group8.scam.model.communication;
 
 import android.bluetooth.BluetoothSocket;
-import android.os.Handler;
+import android.os.Bundle;
 import android.os.Message;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import group8.scam.controller.handlers.IOHandler;
+import group8.scam.controller.handlers.HandleThread;
 
 public class DataThread extends Thread {
     private final BluetoothSocket mSocket;
@@ -19,8 +20,9 @@ public class DataThread extends Thread {
     public static final int MESSAGE_READ = 0;
     public static final int MESSAGE_WRITE = 1;
     public static final int MESSAGE_TOAST = 2;
+    public static final String KEY = "default";
 
-    private IOHandler mHandler = IOHandler.getInstance();
+    private HandleThread mHandleThread = HandleThread.getInstance();
 
     public DataThread(BluetoothSocket mSocket) {
         this.mSocket = mSocket;
@@ -46,17 +48,28 @@ public class DataThread extends Thread {
     }
 
     public void run() {
-        mBuffer = new byte[1024];
+
         int numBytes;
 
         while (true) {
             try {
+                mBuffer = new byte[1024];
                 numBytes = mInStream.read(mBuffer);
-                Message readMsg = mHandler.obtainMessage(MESSAGE_READ, numBytes, -1, mBuffer);
-                System.out.println(readMsg.getData());
-                System.out.println(readMsg.getTarget());
-                readMsg.sendToTarget();
-            } catch (IOException e) {
+
+                byte[] copyOfBuffer = new byte[numBytes];
+                System.arraycopy(mBuffer, 0, copyOfBuffer, 0, numBytes);
+
+                final Bundle bundle = new Bundle();
+                bundle.putByteArray(KEY, copyOfBuffer);
+
+                Message msg = mHandleThread.getHandler().obtainMessage();
+                msg.what = MESSAGE_READ;
+                msg.arg1 = numBytes;
+                msg.arg2 = -1;
+                msg.setData(bundle);
+
+                mHandleThread.getHandler().sendMessage(msg);
+            } catch (Exception e) {
                 System.out.println("Loop broken in DataThread.");
                 e.printStackTrace();
                 break;
@@ -67,11 +80,9 @@ public class DataThread extends Thread {
     public void write(byte[] bytes) {
         try {
             mOutStream.write(bytes);
-
-
-
         } catch (IOException e) {
-
+            System.out.println("Couldn't send the data.");
+            e.printStackTrace();
         }
     }
 
