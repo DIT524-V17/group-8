@@ -58,13 +58,12 @@ public class ConnectActivity extends AppCompatActivity {
 
         mHandler = IOHandler.getInstance();
 
-        IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
+        IntentFilter filter = new IntentFilter();
         filter.addAction(BluetoothDevice.ACTION_FOUND);
         filter.addAction(BluetoothDevice.ACTION_ACL_CONNECTED);
 
         registerReceiver(mReceiver, filter);
 
-        // Turns the "loading" animation to invisible
         pgrBar.setVisibility(View.INVISIBLE);
 
         // OnClickListener for the list, for selecting devices
@@ -110,7 +109,8 @@ public class ConnectActivity extends AppCompatActivity {
             bluetoothAdapter.startDiscovery();
 
             if(bluetoothAdapter.isDiscovering()){
-            System.out.println("DISCOVERY 1");}
+            System.out.println("DISCOVERY 1");
+            }
 
         } else {
 
@@ -148,7 +148,8 @@ public class ConnectActivity extends AppCompatActivity {
                     bluetoothAdapter.startDiscovery();
 
                     if(bluetoothAdapter.isDiscovering()){
-                    System.out.println("DISCOVERY 2");}
+                    System.out.println("DISCOVERY 2");
+                    }
                 }
             }, 2000);// 2000 ms = 2s
         }
@@ -187,12 +188,12 @@ public class ConnectActivity extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
-            BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
 
             // Found device in discovering
             if (BluetoothDevice.ACTION_FOUND.equals(action)) {
                 // TODO - It never gets here... :(
                 System.out.println("FOUND DEVICE");
+                BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
                 listItems.add(device.getName() +"\n"+ device.getAddress());
                 adapter.notifyDataSetChanged();
             }
