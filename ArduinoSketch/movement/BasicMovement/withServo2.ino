@@ -1,9 +1,9 @@
 #include <Smartcar.h>
 Car car;
-const int fSpeed = 32; //70% of the full speed forward
-const int bSpeed = -32; //70% of the full speed backward
-const int lDegrees = -45; //degrees to turn left
-const int rDegrees = 45; //degrees to turn right
+const int fSpeed = 30; //70% of the full speed forward
+const int bSpeed = -30; //70% of the full speed backward
+//const int lDegrees = 0; //degrees to turn left
+//const int rDegrees = 0; //degrees to turn right
 Gyroscope gyro;
 SR04 rotatingUltraSonic;
 const int TRIGGER_PIN = 5; //D5
@@ -16,30 +16,39 @@ const int SERVO_PIN = 40;
 long previousMillis = 0;
 long autoPreviousMillis = 0;
 long interval = 550;
-long autoInterval = 25;
+long autoInterval = 50;
 int rotatingDist = 0;
 int servoAngle = 0;
 int staticDist = 0;
+int distanceTravelled;
+long previousDistanceMillis = 0;
+long distanceInterval = 1000;
+int previousDistanceTravelled = -1;
+int readings = Serial3.read();
 
-const int numReadingsRight = 20;
+const int numReadingsRight = 15;
 int readingsRight[numReadingsRight];      // the readings from the analog input
 int readIndexRight = 0;              // the index of the current reading
 int totalRight = 0;                  // the running total
 int averageRight = 0;                // the average
 
-const int numReadingsLeft = 20;
+const int numReadingsLeft = 15;
 int readingsLeft[numReadingsLeft];      
 int readIndexLeft = 0;              
 int totalLeft = 0;          
 int averageLeft = 0;
 
+boolean isAutonomous = false;
+
 void setup() {
   Serial3.begin(9600);
+  Serial.begin(9600);
   rotatingUltraSonic.attach(TRIGGER_PIN, ECHO_PIN);
   ultraSonic.attach(TR_PIN, EC_PIN);
   gyro.attach();
   gyro.begin();
-  car.begin(gyro); //initialize the car using the encoders and the gyro
+
+  car.begin(gyro); //initialize the car using the encoders and the gyro 
   //set array all to 0
   for (int thisReadingRight = 0; thisReadingRight < numReadingsRight; thisReadingRight++) {
     readingsRight[thisReadingRight] = 0;
@@ -50,170 +59,106 @@ void setup() {
   
   myservo.attach(SERVO_PIN);
   myservo.write(90);
-  car.setSpeed(fSpeed); //TEST
+  car.setSpeed(fSpeed);
 }
-void loop() {
-  servoAngle = myservo.read();
-  if (servoAngle == 15) {
-    totalRight = totalRight - readingsRight[readIndexRight];
-    readingsRight[readIndexRight] = rotatingUltraSonic.getDistance();
-    if (readingsRight[readIndexRight] == 0){
-      readingsRight[readIndexRight] = 35;
-    }
-    totalRight = totalRight + readingsRight[readIndexRight];
-    readIndexRight = readIndexRight + 1;
-    if (readIndexRight >= numReadingsRight) {
-      readIndexRight = 0;
-    }
-        
-    averageRight = totalRight / numReadingsRight;  
-    delay(1);
-  }
-  else {
-    totalLeft = totalLeft - readingsLeft[readIndexLeft];
-    readingsLeft[readIndexLeft] = rotatingUltraSonic.getDistance();
-    if (readingsLeft[readIndexLeft] == 0){
-      readingsLeft[readIndexLeft] = 35;
-    } 
-    totalLeft = totalLeft + readingsLeft[readIndexLeft];
-    readIndexLeft = readIndexLeft + 1;
-    if (readIndexLeft >= numReadingsLeft) {
-      readIndexLeft = 0;
-    }
-    
-    averageLeft = totalLeft / numReadingsLeft;  
-    delay(1);
-  }
-  
-  
-  
-  unsigned long currentMillis = millis();
-  
-  if(currentMillis - previousMillis > interval) {
-    previousMillis = currentMillis;
-    if (servoAngle == 15){
-      myservo.write(170);      
-    }     
-    else{
-      myservo.write(15);      
-    }
-  }
-  if(currentMillis - autoPreviousMillis > autoInterval) {
-    autoPreviousMillis = currentMillis;
-    if (servoAngle == 15) {
-      Serial3.print("DISTANCE FROM RIGHT  ");
-      Serial3.println(averageRight);
-      autonomousLeft();      
-    }
-    else {
-      Serial3.print("LEFT   ");
-      Serial3.println(averageLeft);
-      autonomousRight();     
-    }   
-  }
-  
-  //myservo.write(15);
-  //Serial3.println(myservo.read());
-  //atonomousDrive2();
-  //Serial3.println(rotatingUltraSonic.getDistance());
-  //Serial3.println(ultraSonic.getDistance());
-}
-void handleInput() { //handle serial input if there is any
-  if (Serial3.available()) {
-    char input = Serial3.read(); //read everything that has been received so far and log down the last entry
-    switch (input) {
-      case 'a': //rotate counter-clockwise going forward
-        car.setSpeed(fSpeed);
-        car.setAngle(lDegrees);
-        break;
-      case 'd': //turn clock-wise
-        car.setSpeed(fSpeed);
-        car.setAngle(rDegrees);
-        break;
-      case 'w': //go ahead
-        car.setSpeed(fSpeed);
-        car.setAngle(0);
-        break;
-      case 's': //go back
-        car.setSpeed(bSpeed);
-        car.setAngle(0);
-        break;
-      case 'o': //autonomous drive
-        //atonomousDrive();
-        break;
-        
-      default: //if you receive something that you don't know, just stop
-        car.setSpeed(0);
-        car.setAngle(0);
-    }
-  }
-}
+
+//TEST loops for bluetooth connection
 /*
-void atonomousDrive1(){ 
-    int dist = ultraSonic.getDistance();
-            
-    if (dist < 35 && dist > 2) {
-      //rotatingAngle = myservo.read();
-      rotatingDist = rotatingUltraSonic.getDistance();
-           
-      if (rotatingDist < 25 && rotatingDist > 2 && rotatingAngle == 15) {
-        car.rotate(-45);
-      }
-      else {
-        rotatingDist = rotatingUltraSonic.getDistance();
-        
-        if (rotatingDist < 25 && rotatingDist > 2) {
-          car.rotate(45);
-        }
-     }    
-      delay(200);
-    }
+void loop() {
+  Serial.println("hello world");
+  if(Serial3.available()){
+    
+     Serial3.println(readings);
+     /*
+     if(readings >= 200){
+       car.setSpeed(250 - readings);
+     }
+     else if(readings < 200){
+       car.rotate(readings);
+     }
+     
+  }
+}
+
+/*void loop() {
+  unsigned long currentMillis = millis();
+  if (currentMillis - previousDistanceMillis > distanceInterval) {
+    previousDistanceMillis = currentMillis;
+    Serial3.println("HELLO");
+  }
 }
 */
-void atonomousDrive2(){ 
-  staticDist = ultraSonic.getDistance();
-  servoAngle = myservo.read();
-  if (staticDist < 35 && staticDist > 2) {
-    rotatingDist = rotatingUltraSonic.getDistance();
-    if (rotatingDist < 25 && rotatingDist > 2) {
-      switch (servoAngle){
-        case 15:      
-          car.rotate(-45);
-          delay(200);          
-          break;
-  
-        case 170:          
-          car.rotate(45);
-          delay(200);
-          break;
+
+void loop() {
+    //Serial3.println("HELLO"); 
+    servoAngle = myservo.read();
+        
+    if (servoAngle == 15) {
+      totalRight = totalRight - readingsRight[readIndexRight];
+      readingsRight[readIndexRight] = rotatingUltraSonic.getDistance();
+      if (readingsRight[readIndexRight] == 0){
+        readingsRight[readIndexRight] = 30;
+      }
+      totalRight = totalRight + readingsRight[readIndexRight];
+      readIndexRight = readIndexRight + 1;
+      if (readIndexRight >= numReadingsRight) {
+        readIndexRight = 0;
+      }
+          
+      averageRight = totalRight / numReadingsRight;  
+      delay(1);
+    }
+    else {
+      totalLeft = totalLeft - readingsLeft[readIndexLeft];
+      readingsLeft[readIndexLeft] = rotatingUltraSonic.getDistance();
+      if (readingsLeft[readIndexLeft] == 0){
+        readingsLeft[readIndexLeft] = 30;
       } 
+      totalLeft = totalLeft + readingsLeft[readIndexLeft];
+      readIndexLeft = readIndexLeft + 1;
+      if (readIndexLeft >= numReadingsLeft) {
+        readIndexLeft = 0;
+      }
+      
+      averageLeft = totalLeft / numReadingsLeft;  
+      delay(1);
     }
-  }
-}
-                                                 
-void autonomousLeft() {
-  staticDist = ultraSonic.getDistance();
-  if (staticDist < 40 && staticDist > 2) {
-    //car.setSpeed(0);
-    //delay(200);                                                                                                                     
-    //rotatingDist = rotatingUltraSonic.getDistance();
-    if (averageRight < 25  && averageRight > 2) {
-      car.rotate(-
-      45);
+     
+    
+    unsigned long currentMillis = millis();
+        
+    if(currentMillis - previousMillis > interval) {
+      previousMillis = currentMillis;
+      if (servoAngle == 15){
+        myservo.write(170);      
+      }     
+      else {
+        myservo.write(15);      
+      }
     }
-    //car.setSpeed(fSpeed);
-  }  
+   
+    if(currentMillis - autoPreviousMillis > autoInterval) {
+      autoPreviousMillis = currentMillis;
+      
+      staticDist = ultraSonic.getDistance();
+      if(staticDist < 40 && staticDist > 3){
+        //car.setspeed(0);
+        //delay(10);
+        if(averageLeft < 25 || averageRight < 25) {
+            if(averageLeft < averageRight){
+              car.rotate(45);
+              delay(100);
+              }
+              else{
+              car.rotate(-45);
+              delay(100);
+            } 
+        }
+        else if (staticDist < 20 && staticDist > 3) {
+          car.rotate(45);
+          delay(100);
+        }
+      }
+   }
 }
-void autonomousRight() {
-  staticDist = ultraSonic.getDistance();
-  if (staticDist < 40 && staticDist > 3) {
-    //car.setSpeed(0);
-    //delay(200);
-    //rotatingDist = rotatingUltraSonic.getDistance();
-    if (averageLeft < 25 && averageLeft > 3) {
-      car.rotate(45);
-    }
-    //car.setSpeed(fSpeed);
-  }  
-}
- 
+
