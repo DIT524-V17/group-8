@@ -104,7 +104,7 @@ public class ConnectActivity extends AppCompatActivity {
                 }
             } else {
                 // There are no paired devices
-                Toast toast = Toast.makeText(ConnectActivity.this, "No paired devices",
+                Toast toast = Toast.makeText(ConnectActivity.this, "No previously paired devices",
                         Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.BOTTOM, 0, 600);
                 toast.show();
@@ -167,7 +167,7 @@ public class ConnectActivity extends AppCompatActivity {
             connection.start();
             mHandler.setConnection(connection);
 
-            // Toast for clarity
+            // Toast of clarity
             Toast toast = Toast.makeText(ConnectActivity.this, "Connecting",
                     Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.BOTTOM, 0, 600);
