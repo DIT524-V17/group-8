@@ -20,7 +20,7 @@ public class ReadWriteDataThread extends Thread {
     public static final int MESSAGE_WRITE = 1;
     public static final int MESSAGE_TOAST = 2;
 
-    private Handler mHandler = IOHandler.getInstance();
+    private IOHandler mHandler = IOHandler.getInstance();
 
     public ReadWriteDataThread(BluetoothSocket mSocket) {
         this.mSocket = mSocket;
@@ -53,6 +53,8 @@ public class ReadWriteDataThread extends Thread {
             try {
                 numBytes = mInStream.read(mBuffer);
                 Message readMsg = mHandler.obtainMessage(MESSAGE_READ, numBytes, -1, mBuffer);
+                System.out.println(readMsg.getData());
+                System.out.println(readMsg.getTarget());
                 readMsg.sendToTarget();
             } catch (IOException e) {
                 System.out.println("Loop broken in ReadWriteDataThread.");

@@ -14,6 +14,8 @@ public class ConnectThread extends Thread {
     private BluetoothSocket mSocket;
     private BluetoothDevice mDevice;
 
+    private ReadWriteDataThread dataThread;
+
     public ConnectThread(BluetoothDevice device) {
         BluetoothSocket tmp = null;
         mDevice = device;
@@ -59,7 +61,11 @@ public class ConnectThread extends Thread {
     }
 
     private void manageThread() {
-        ReadWriteDataThread dataThread = new ReadWriteDataThread(mSocket);
+        dataThread = new ReadWriteDataThread(mSocket);
         dataThread.start();
+    }
+
+    public ReadWriteDataThread getDataThread() {
+        return dataThread;
     }
 }
