@@ -1,10 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--@author David Larsson-->
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="100px"
     android:layout_height="100px">
 
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="370dp"
+        android:layout_height="457dp"
+        android:layout_marginTop="70dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/listviewborder"
+        android:choiceMode="singleChoice"
+        android:listSelector="@drawable/listselect"
+        >
+    </ListView>
 
+    <TextView
+        android:id="@+id/txtConnect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Connect to car"
+        android:layout_alignLeft="@id/listView"
+        android:textSize="30sp"
+        android:fontFamily="serif-monospace"
+        android:textStyle="bold"
+        android:layout_marginTop="20dp"
+        android:onClick="itemClick"
+        />
 
+    <ProgressBar
+        style="?android:attr/progressBarStyleLarge"
+        android:id="@+id/pgrBar"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="20dp"
+        android:indeterminate="true"
+        android:layout_alignRight="@id/listView"
+        android:indeterminateDrawable="@drawable/btprogress"
+        />
+
+    <Button
+        android:id="@+id/btnConnect"
+        android:layout_width="180dp"
+        android:layout_height="80dp"
+        android:text="connect"
+        android:fontFamily="serif-monospace"
+        android:textStyle="bold"
+        android:textSize="30sp"
+        android:layout_below="@id/listView"
+        android:layout_marginTop="22dp"
+        android:layout_alignRight="@id/listView"
+        android:onClick="btnConnect"
+        />
+
+    <Button
+        android:id="@+id/btnSearch"
+        android:layout_width="180dp"
+        android:layout_height="80dp"
+        android:text="search"
+        android:fontFamily="serif-monospace"
+        android:textStyle="bold"
+        android:textSize="30sp"
+        android:layout_below="@id/listView"
+        android:layout_marginTop="22dp"
+        android:layout_alignLeft="@id/listView"
+        android:onClick="btnSearch"
+        />
 
 </RelativeLayout>
