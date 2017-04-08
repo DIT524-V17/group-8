@@ -22,14 +22,14 @@ import java.util.Set;
 
 import group8.scam.R;
 import group8.scam.controller.handlers.IOHandler;
+import group8.scam.model.menu.MenuActivity;
 
 /*
     A class to handle connecting to the car. The first activity the user
-    @Author David Larsson
+    @Authors David Larsson & Samuel Bäckström
 */
 
 //TODO - Discover new items
-//TODO - Connect to device
 
 public class ConnectActivity extends AppCompatActivity {
 
@@ -60,6 +60,9 @@ public class ConnectActivity extends AppCompatActivity {
         mHandler = IOHandler.getInstance();
 
         IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
+        filter.addAction(BluetoothDevice.ACTION_FOUND);
+        filter.addAction(BluetoothDevice.ACTION_ACL_CONNECTED);
+
         registerReceiver(mReceiver, filter);
 
         // Turns the "loading" animation to invisible
@@ -75,10 +78,9 @@ public class ConnectActivity extends AppCompatActivity {
                 String macAdress = listItems.get(position);
                 String[] array = macAdress.split("\\n");
 
-                Toast.makeText(ConnectActivity.this, array[1], Toast.LENGTH_SHORT).show();
-
                 // Calls the method with the MAC adress
                 selectDevice(array[1]);
+
             }
         });
     }
@@ -156,6 +158,12 @@ public class ConnectActivity extends AppCompatActivity {
             connection = new ConnectThread(device);
             connection.start();
             mHandler.setConnection(connection);
+
+            // Toast for clarity
+            Toast toast = Toast.makeText(ConnectActivity.this, "Connecting",
+                    Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.BOTTOM, 0, 600);
+            toast.show();
         }
     }
 
@@ -176,13 +184,21 @@ public class ConnectActivity extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
+            BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
 
+            // Found device in discovering
             if (BluetoothDevice.ACTION_FOUND.equals(action)) {
                 // TODO - It never gets here... :(
                 System.out.println("FOUND DEVICE");
-                BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
                 listItems.add(device.getName() +"\n"+ device.getAddress());
                 adapter.notifyDataSetChanged();
+            }
+            // Connected to device
+            else if(BluetoothDevice.ACTION_ACL_CONNECTED.equals(action)){
+                System.out.println("IM IN MOTHERFUCKER! TINY RIIIICK!");
+                // Switching to menu activity
+                startActivity(new Intent(ConnectActivity.this, MenuActivity.class));
+
             }
         }
     };
