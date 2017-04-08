@@ -10,7 +10,7 @@ import java.io.OutputStream;
 
 import group8.scam.controller.handlers.IOHandler;
 
-public class ReadWriteDataThread extends Thread {
+public class DataThread extends Thread {
     private final BluetoothSocket mSocket;
     private final InputStream mInStream;
     private final OutputStream mOutStream;
@@ -22,7 +22,7 @@ public class ReadWriteDataThread extends Thread {
 
     private IOHandler mHandler = IOHandler.getInstance();
 
-    public ReadWriteDataThread(BluetoothSocket mSocket) {
+    public DataThread(BluetoothSocket mSocket) {
         this.mSocket = mSocket;
         InputStream tmpIn = null;
         OutputStream tmpOut = null;
@@ -57,7 +57,7 @@ public class ReadWriteDataThread extends Thread {
                 System.out.println(readMsg.getTarget());
                 readMsg.sendToTarget();
             } catch (IOException e) {
-                System.out.println("Loop broken in ReadWriteDataThread.");
+                System.out.println("Loop broken in DataThread.");
                 e.printStackTrace();
                 break;
             }
