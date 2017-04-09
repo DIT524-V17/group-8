@@ -30,13 +30,12 @@ import group8.scam.R;
 import group8.scam.controller.handlers.HandleThread;
 import group8.scam.model.menu.MenuActivity;
 
-
 /*
-    A class to handle connecting to the car. The first activity the user
+    A class to handle connecting to the car. The first activity the user sees
     @Authors David Larsson & Samuel Bäckström
 */
 
-//TODO - Discover new items
+//TODO - Pair to new devices.
 
 public class ConnectActivity extends AppCompatActivity {
 
