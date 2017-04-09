@@ -5,18 +5,28 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
+import android.os.Message;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
+import java.nio.ByteBuffer;
+
 import group8.scam.R;
+import group8.scam.controller.handlers.HandleThread;
+
+import static group8.scam.model.communication.DataThread.KEY;
+import static group8.scam.model.communication.DataThread.MESSAGE_WRITE;
 
 /**
  * Created by sambac on 2017-04-03.
  */
 
 public class JoystickView extends View {
+
+    private HandleThread mHandle = HandleThread.getInstance();
 
     private Paint paintBackground = new Paint();
     private Paint paintCircle = new Paint();
@@ -80,6 +90,15 @@ public class JoystickView extends View {
         posY = (int) event.getY();
 
         if (event.getAction() == MotionEvent.ACTION_UP) {
+            byte[] bytes = ByteBuffer.allocate(4).putInt(1).array();
+
+            Bundle bundle = new Bundle();
+            bundle.putByteArray(KEY, bytes);
+
+            Message msg = mHandle.getHandler().obtainMessage();
+            msg.setData(bundle);
+            msg.what = MESSAGE_WRITE;
+            msg.sendToTarget();
             resetCirclePosition();
         }
 
@@ -92,10 +111,20 @@ public class JoystickView extends View {
             posY = (int) ((posY - centerPosY) * backgroundRadius / abs + centerPosY);
         }
 
-        invalidate();
+        byte[] angleByteArray = ByteBuffer.allocate(4).putInt(getAngle()).array();
+        byte[] strengthByteArray = ByteBuffer.allocate(4).putInt(getStrength()).array();
 
-        System.out.println(getAngle());
-        System.out.println(getStrength());
+
+        Bundle bundle = new Bundle();
+        bundle.putByteArray(KEY, angleByteArray);
+        bundle.putByteArray(KEY, strengthByteArray);
+
+        Message msg = mHandle.getHandler().obtainMessage();
+        msg.setData(bundle);
+        msg.what = MESSAGE_WRITE;
+        msg.sendToTarget();
+
+        invalidate();
 
         return true;
     }

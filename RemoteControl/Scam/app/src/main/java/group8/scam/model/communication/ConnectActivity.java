@@ -21,6 +21,8 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 import android.bluetooth.BluetoothAdapter;
+
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Set;
 
@@ -166,6 +168,7 @@ public class ConnectActivity extends AppCompatActivity {
     public void btnConnect(View view) {
         if (device != null) {
             connection = new ConnectThread(device);
+            System.out.println("Start connection");
             connection.start();
             mHandleThread.setConnection(connection);
 
