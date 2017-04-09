@@ -19,14 +19,10 @@ import group8.scam.R;
 public class JoystickView extends View {
 
     private Paint paintBackground = new Paint();
-    private Paint paintOutLine = new Paint();
     private Paint paintCircle = new Paint();
 
-    private int colorWhite = Color.parseColor("#FFFFFF");
-    private int colorDarkGrey = Color.parseColor("#BFBFBF");
-    private int colorLightGrey = Color.parseColor("#E5E5E5");
-    private int colorRed = Color.parseColor("#FF0000"); //test by Firsou
-    private int colorCoolGrey = Color.parseColor("#999999"); //test by Firsou
+    private int colorDarkGrey = Color.parseColor("#AFAFAF");
+    private int colorLightGrey = Color.parseColor("#DBDBDB");
 
     private int posX;
     private int posY;
@@ -51,16 +47,12 @@ public class JoystickView extends View {
     }
 
     private void init(AttributeSet attributeSet, int defStyle) {
-        //paintBackground.setColor(colorLightGrey);
-        paintBackground.setColor(colorCoolGrey);
+        paintBackground.setColor(colorLightGrey);
         paintBackground.setAntiAlias(true);
 
-        //paintCircle.setColor(colorDarkGrey);
-        paintCircle.setColor(colorRed);
+        paintCircle.setColor(colorDarkGrey);
         paintCircle.setAntiAlias(true);
 
-        paintOutLine.setColor(colorWhite);
-        paintOutLine.setAntiAlias(true);
     }
 
     public void onDraw(Canvas canvas) {

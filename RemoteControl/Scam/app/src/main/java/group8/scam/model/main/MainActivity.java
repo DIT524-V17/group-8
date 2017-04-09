@@ -4,10 +4,8 @@ import android.content.pm.ActivityInfo;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 
 import group8.scam.R;
-import group8.scam.model.communication.ConnectActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -16,9 +14,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getWindow().getDecorView().setBackgroundColor(ContextCompat.getColor(MainActivity.this, R.color.mainColor));
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-
 
 
     }
