@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="group8.scam.model.main.AutoActivity">
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="500dp"
+        android:layout_height="400dp"
+        android:src="@drawable/radarfordemo"
+        android:layout_alignParentBottom="true"
+        android:focusableInTouchMode="false"
+        android:layout_marginLeft="20dp"
+        android:layout_centerHorizontal="true"
+        />
+
+    <TextView
+        android:id="@+id/txtMode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="Autonomous mode:"
+        android:textSize="30sp"
+        android:fontFamily="sans-serif-condensed"
+        android:layout_marginTop="50dp"
+        />
+
+    <TextView
+        android:id="@+id/txtEngage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtMode"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/colorRED"
+        android:text="ENGAGED"
+        android:textSize="90sp"
+        android:fontFamily="sans-serif-condensed"
+        android:textStyle="bold"
+        />
+
+</RelativeLayout>
