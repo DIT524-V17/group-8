@@ -34,6 +34,17 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     public void btnManual(View view) {
+        // Send signal to car to start the manual mode
+        byte[] bytes = ByteBuffer.allocate(4).putChar('m').array();
+
+        Bundle bundle = new Bundle();
+        bundle.putByteArray(KEY, bytes);
+
+        Message msg = mHandler.getHandler().obtainMessage();
+        msg.setData(bundle);
+        msg.what = MESSAGE_WRITE;
+        msg.sendToTarget();
+
         // Start the activity
         startActivity(new Intent(MenuActivity.this, MainActivity.class));
     }
