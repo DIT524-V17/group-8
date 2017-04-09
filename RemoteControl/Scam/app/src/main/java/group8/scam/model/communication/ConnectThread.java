@@ -8,6 +8,7 @@ import android.support.annotation.RequiresApi;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.sql.SQLOutput;
 import java.util.UUID;
 
 public class ConnectThread extends Thread {
@@ -32,12 +33,14 @@ public class ConnectThread extends Thread {
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public void run() {
         BluetoothAdapter.getDefaultAdapter().cancelDiscovery();
+        System.out.println("Trying to create Socket");
         try {
             mSocket.connect();
         } catch (IOException e) {
             try {
                 mSocket = (BluetoothSocket) mDevice.getClass().getMethod("createRfcommSocket", new Class[] {int.class}).invoke(mDevice,1);
                 mSocket.connect();
+                System.out.println("Socket created");
             } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException | IOException e1) {
                 e1.printStackTrace();
                 System.out.println(e1);
