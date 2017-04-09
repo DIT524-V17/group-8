@@ -11,12 +11,15 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import group8.scam.R;
+import group8.scam.controller.handlers.HandleThread;
 
 /**
  * Created by sambac on 2017-04-03.
  */
 
 public class JoystickView extends View {
+
+    private HandleThread mHandle = HandleThread.getInstance();
 
     private Paint paintBackground = new Paint();
     private Paint paintOutLine = new Paint();
@@ -102,6 +105,8 @@ public class JoystickView extends View {
 
         invalidate();
 
+
+        mHandle.sendData();
         System.out.println(getAngle());
         System.out.println(getStrength());
 

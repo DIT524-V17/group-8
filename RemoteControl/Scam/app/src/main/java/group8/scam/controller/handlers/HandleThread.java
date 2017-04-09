@@ -61,12 +61,4 @@ public class HandleThread extends Thread {
 
         Looper.loop();
     }
-
-    public int byteToInt(byte[] dataArray, int length) {
-        ByteBuffer wrapped = ByteBuffer.wrap(dataArray, 0, length - 1);
-        //IntBuffer intBuffer = wrapped.order(ByteOrder.BIG_ENDIAN).asIntBuffer();
-        //int val = intBuffer.get(0);
-        int val = wrapped.getInt();
-        return val;
-    }
 }
