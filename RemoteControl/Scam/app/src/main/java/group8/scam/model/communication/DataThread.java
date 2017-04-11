@@ -23,7 +23,7 @@ public class DataThread extends Thread {
 
     private HandleThread mHandleThread = HandleThread.getInstance();
 
-    private DataThread(BluetoothSocket mSocket) {
+    public DataThread(BluetoothSocket mSocket) {
         this.mSocket = mSocket;
         InputStream tmpIn = null;
         OutputStream tmpOut = null;
