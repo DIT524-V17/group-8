@@ -13,6 +13,8 @@ import java.util.Set;
 import group8.scam.model.communication.ConnectThread;
 
 import static group8.scam.model.communication.DataThread.KEY;
+import static group8.scam.model.communication.DataThread.MESSAGE_READ;
+import static group8.scam.model.communication.DataThread.MESSAGE_TOAST;
 import static group8.scam.model.communication.DataThread.MESSAGE_WRITE;
 
 /**
@@ -49,12 +51,14 @@ public class HandleThread extends Thread {
 
         mHandler = new Handler() {
             public void handleMessage(Message msg) {
-                //byte[] dataArray = msg.getData().getByteArray(KEY);
-                //String tmp = new String(dataArray, 0, msg.arg1);
-                //System.out.println(tmp);
-
-                if (msg.what == MESSAGE_WRITE) {
-                    connection.getDataThread().write(msg.getData().getByteArray(KEY));
+                switch (msg.what) {
+                    case MESSAGE_WRITE:
+                        connection.getDataThread().write(msg.getData().getByteArray(KEY));
+                        break;
+                    case MESSAGE_READ:
+                        break;
+                    case MESSAGE_TOAST:
+                        break;
                 }
             }
         };

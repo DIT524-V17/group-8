@@ -4,7 +4,6 @@ import android.bluetooth.BluetoothSocket;
 import android.os.Bundle;
 import android.os.Message;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -24,7 +23,7 @@ public class DataThread extends Thread {
 
     private HandleThread mHandleThread = HandleThread.getInstance();
 
-    public DataThread(BluetoothSocket mSocket) {
+    private DataThread(BluetoothSocket mSocket) {
         this.mSocket = mSocket;
         InputStream tmpIn = null;
         OutputStream tmpOut = null;
@@ -69,6 +68,12 @@ public class DataThread extends Thread {
                 msg.setData(bundle);
 
                 mHandleThread.getHandler().sendMessage(msg);
+                try {
+                    sleep(100);
+                } catch (InterruptedException e) {
+                    System.out.println("Could not sleep the DataThread in run().");
+                    e.printStackTrace();
+                }
             } catch (Exception e) {
                 System.out.println("Loop broken in DataThread.");
                 e.printStackTrace();
@@ -80,6 +85,12 @@ public class DataThread extends Thread {
     public void write(byte[] bytes) {
         try {
             mOutStream.write(bytes);
+            try {
+                sleep(100);
+            } catch (InterruptedException e) {
+                System.out.println("Could not sleep the DataThread in write().");
+                e.printStackTrace();
+            }
         } catch (IOException e) {
             System.out.println("Couldn't send the data.");
             e.printStackTrace();

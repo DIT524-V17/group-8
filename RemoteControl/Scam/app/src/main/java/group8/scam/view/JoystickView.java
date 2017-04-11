@@ -81,7 +81,7 @@ public class JoystickView extends View {
         posY = getHeight() / 2;
         centerPosX = getWidth() / 2;
         centerPosY = getHeight() / 2;
-        backgroundRadius = (int) (getHeight() / 3);
+        backgroundRadius = getHeight() / 3;
         circleRadius = getHeight() / 7;
     }
 
@@ -114,15 +114,23 @@ public class JoystickView extends View {
         byte[] angleByteArray = ByteBuffer.allocate(4).putInt(getAngle()).array();
         byte[] strengthByteArray = ByteBuffer.allocate(4).putInt(getStrength()).array();
 
+        Bundle angleData = new Bundle();
+        angleData.putByteArray(KEY, angleByteArray);
 
-        Bundle bundle = new Bundle();
-        bundle.putByteArray(KEY, angleByteArray);
-        bundle.putByteArray(KEY, strengthByteArray);
+        Message angleMsg = mHandle.getHandler().obtainMessage();
+        angleMsg.setData(angleData);
+        angleMsg.what = MESSAGE_WRITE;
+        angleMsg.sendToTarget();
 
-        Message msg = mHandle.getHandler().obtainMessage();
-        msg.setData(bundle);
-        msg.what = MESSAGE_WRITE;
-        msg.sendToTarget();
+
+        Bundle strengthData = new Bundle();
+        strengthData.putByteArray(KEY, strengthByteArray);
+
+        Message strengthMsg = mHandle.getHandler().obtainMessage();
+        strengthMsg.setData(strengthData);
+        strengthMsg.what = MESSAGE_WRITE;
+        strengthMsg.sendToTarget();
+
 
         invalidate();
 
