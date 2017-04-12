@@ -200,7 +200,7 @@ public class ConnectActivity extends AppCompatActivity {
 
             // Found device in discovering
             if (BluetoothDevice.ACTION_FOUND.equals(action)) {
-                System.out.println("FOUND DEVICE");
+                System.out.println("Device found.");
                 BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
                 if(!(device.getBondState() == device.BOND_BONDED)){
                     listItems.add(device.getName() + "\n" + device.getAddress());
@@ -210,8 +210,6 @@ public class ConnectActivity extends AppCompatActivity {
 
             // Connected to device
             else if(BluetoothDevice.ACTION_ACL_CONNECTED.equals(action)){
-                System.out.println("IM IN MOTHERFUCKER! TINY RIIIICK!");
-
                 // Switching to menu activity
                 startActivity(new Intent(ConnectActivity.this, MenuActivity.class));
                 unregisterReceiver(mReceiver);

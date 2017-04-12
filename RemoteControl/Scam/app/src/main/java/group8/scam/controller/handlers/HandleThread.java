@@ -8,6 +8,7 @@ import java.io.ByteArrayInputStream;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.IntBuffer;
+import java.nio.charset.Charset;
 import java.util.Set;
 
 import group8.scam.model.communication.ConnectThread;
@@ -53,7 +54,11 @@ public class HandleThread extends Thread {
             public void handleMessage(Message msg) {
                 switch (msg.what) {
                     case MESSAGE_WRITE:
-                        connection.getDataThread().write(msg.getData().getByteArray(KEY));
+                        String str = (String) msg.obj;
+                        if (str != null) {
+                            byte[] strBytes = str.getBytes(Charset.defaultCharset());
+                            connection.getDataThread().write(strBytes);
+                        }
                         break;
                     case MESSAGE_READ:
                         break;

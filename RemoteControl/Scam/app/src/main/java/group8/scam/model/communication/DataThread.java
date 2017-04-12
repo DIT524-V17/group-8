@@ -7,6 +7,7 @@ import android.os.Message;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.charset.Charset;
 
 import group8.scam.controller.handlers.HandleThread;
 
@@ -14,7 +15,6 @@ public class DataThread extends Thread {
     private final BluetoothSocket mSocket;
     private final InputStream mInStream;
     private final OutputStream mOutStream;
-    private byte[] mBuffer;
 
     public static final int MESSAGE_READ = 0;
     public static final int MESSAGE_WRITE = 1;
@@ -48,32 +48,13 @@ public class DataThread extends Thread {
 
     public void run() {
 
-        int numBytes;
+        final int BUFFER_SIZE = 1024;
+        byte[] mBuffer = new byte[BUFFER_SIZE];
+        int numBytes = 0;
 
         while (true) {
             try {
-                mBuffer = new byte[1024];
-                numBytes = mInStream.read(mBuffer);
-
-                byte[] copyOfBuffer = new byte[numBytes];
-                System.arraycopy(mBuffer, 0, copyOfBuffer, 0, numBytes);
-
-                final Bundle bundle = new Bundle();
-                bundle.putByteArray(KEY, copyOfBuffer);
-
-                Message msg = mHandleThread.getHandler().obtainMessage();
-                msg.what = MESSAGE_READ;
-                msg.arg1 = numBytes;
-                msg.arg2 = -1;
-                msg.setData(bundle);
-
-                mHandleThread.getHandler().sendMessage(msg);
-                try {
-                    sleep(100);
-                } catch (InterruptedException e) {
-                    System.out.println("Could not sleep the DataThread in run().");
-                    e.printStackTrace();
-                }
+                numBytes = mInStream.read(mBuffer, numBytes, BUFFER_SIZE - numBytes);
             } catch (Exception e) {
                 System.out.println("Loop broken in DataThread.");
                 e.printStackTrace();
@@ -84,13 +65,9 @@ public class DataThread extends Thread {
 
     public void write(byte[] bytes) {
         try {
+            String str = new String(bytes, Charset.defaultCharset());
+            System.out.println(str);
             mOutStream.write(bytes);
-            try {
-                sleep(100);
-            } catch (InterruptedException e) {
-                System.out.println("Could not sleep the DataThread in write().");
-                e.printStackTrace();
-            }
         } catch (IOException e) {
             System.out.println("Couldn't send the data.");
             e.printStackTrace();

@@ -4,20 +4,13 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Message;
-import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
-
-import java.nio.ByteBuffer;
-
-import group8.scam.R;
 import group8.scam.controller.handlers.HandleThread;
-
-import static group8.scam.model.communication.DataThread.KEY;
 import static group8.scam.model.communication.DataThread.MESSAGE_WRITE;
 
 /**
@@ -40,6 +33,8 @@ public class JoystickView extends View {
     private int centerPosY;
     private int circleRadius;
     private int backgroundRadius;
+
+    private String dataStr;
 
     public JoystickView(Context context) {
         super(context);
@@ -86,51 +81,31 @@ public class JoystickView extends View {
     }
 
     public boolean onTouchEvent(MotionEvent event) {
+
         posX = (int) event.getX();
         posY = (int) event.getY();
 
-        if (event.getAction() == MotionEvent.ACTION_UP) {
-            byte[] bytes = ByteBuffer.allocate(4).putInt(1).array();
-
-            Bundle bundle = new Bundle();
-            bundle.putByteArray(KEY, bytes);
-
-            Message msg = mHandle.getHandler().obtainMessage();
-            msg.setData(bundle);
-            msg.what = MESSAGE_WRITE;
-            msg.sendToTarget();
-            resetCirclePosition();
-        }
-
         double abs = Math.sqrt((posX - centerPosX) * (posX - centerPosX)
                 + (posY - centerPosY) * (posY - centerPosY));
-
 
         if (abs > backgroundRadius) {
             posX = (int) ((posX - centerPosX) * backgroundRadius / abs + centerPosX);
             posY = (int) ((posY - centerPosY) * backgroundRadius / abs + centerPosY);
         }
 
-        byte[] angleByteArray = ByteBuffer.allocate(4).putInt(getAngle()).array();
-        byte[] strengthByteArray = ByteBuffer.allocate(4).putInt(getStrength()).array();
+        if (event.getAction() == MotionEvent.ACTION_UP) {
+            dataStr = "STOP";
+            resetCirclePosition();
+        } else if (event.getAction() == MotionEvent.ACTION_DOWN || event.getAction() == MotionEvent.ACTION_MOVE) {
+            int angle = getCarAngle(getAngle());
+            int speed = getCarSpeed(getAngle(), getStrength());
+            dataStr = angle + " " + speed;
+        }
 
-        Bundle angleData = new Bundle();
-        angleData.putByteArray(KEY, angleByteArray);
-
-        Message angleMsg = mHandle.getHandler().obtainMessage();
-        angleMsg.setData(angleData);
-        angleMsg.what = MESSAGE_WRITE;
-        angleMsg.sendToTarget();
-
-
-        Bundle strengthData = new Bundle();
-        strengthData.putByteArray(KEY, strengthByteArray);
-
-        Message strengthMsg = mHandle.getHandler().obtainMessage();
-        strengthMsg.setData(strengthData);
-        strengthMsg.what = MESSAGE_WRITE;
-        strengthMsg.sendToTarget();
-
+        Message msg = mHandle.getHandler().obtainMessage();
+        msg.what = MESSAGE_WRITE;
+        msg.obj = dataStr;
+        msg.sendToTarget();
 
         invalidate();
 
@@ -160,5 +135,31 @@ public class JoystickView extends View {
         return (int) (100 * Math.sqrt((posX - centerPosX)
                 * (posX - centerPosX) + (posY- centerPosY)
                 * (posY - centerPosY)) / backgroundRadius);
+    }
+
+    public int getCarAngle(int data) {
+        if (data > 85 && data <= 95) {
+            return 0;
+        } else if (data >= 0 && data <= 85) {
+            return 90 - data;
+        } else if (data > 95 && data <= 180) {
+            return -(data - 90);
+        } else if (data > 180 && data <= 265) {
+            return data - 270;
+        } else if (data > 265 && data <= 275) {
+            return 0;
+        } else if (data > 275 && data <= 360) {
+            return data - 270;
+        }
+        return 1000;
+    }
+
+    public int getCarSpeed(int angle, int speed) {
+        if (angle >= 0 && angle <= 180) {
+            return speed;
+        } else if (angle > 180 && angle <= 360) {
+            return -speed;
+        }
+        return 1000;
     }
 }
