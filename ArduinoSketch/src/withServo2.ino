@@ -1,3 +1,5 @@
+#include <Arduino.h>
+
 #include <Smartcar.h>
 Car car;
 const int fSpeed = 33; //70% of the full speed forward
@@ -86,7 +88,10 @@ void loop() {
   if (!isAutonomous  && firstTime == false) {
     if (Serial3.available()) {
       int readings = Serial3.read();
-      if  (readings == 1) {
+      if (readings != 0) {
+        Serial.println(readings);
+      }
+      /*if  (readings == 1) {
         car.setSpeed(0);
       }
       if (readings != 0) {
@@ -111,7 +116,7 @@ void loop() {
           Serial.print("Angle:  ");
           Serial.println(readings);
         }
-      }
+      }*/
     }
   }
   else if (isAutonomous) {

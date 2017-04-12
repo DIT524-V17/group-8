@@ -4,8 +4,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.os.Bundle;
-import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -94,12 +92,12 @@ public class JoystickView extends View {
         }
 
         if (event.getAction() == MotionEvent.ACTION_UP) {
-            dataStr = "STOP";
+            dataStr = " STOP";
             resetCirclePosition();
         } else if (event.getAction() == MotionEvent.ACTION_DOWN || event.getAction() == MotionEvent.ACTION_MOVE) {
             int angle = getCarAngle(getAngle());
             int speed = getCarSpeed(getAngle(), getStrength());
-            dataStr = angle + " " + speed;
+            dataStr = angle + ":" + speed + ":";
         }
 
         Message msg = mHandle.getHandler().obtainMessage();
