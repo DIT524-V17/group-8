@@ -24,7 +24,8 @@ import static group8.scam.model.communication.DataThread.MESSAGE_WRITE;
 
 public class MenuActivity extends AppCompatActivity {
 
-    private HandleThread mHandler = HandleThread.getInstance();
+    private HandleThread mHandle = HandleThread.getInstance();
+    private String dataStr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,14 +36,10 @@ public class MenuActivity extends AppCompatActivity {
 
     public void btnManual(View view) {
         // Send signal to car to start the manual mode
-        byte[] bytes = ByteBuffer.allocate(4).putChar('m').array();
-
-        Bundle bundle = new Bundle();
-        bundle.putByteArray(KEY, bytes);
-
-        Message msg = mHandler.getHandler().obtainMessage();
-        msg.setData(bundle);
+        dataStr = "m";
+        Message msg = mHandle.getHandler().obtainMessage();
         msg.what = MESSAGE_WRITE;
+        msg.obj = dataStr;
         msg.sendToTarget();
 
         // Start the activity
@@ -51,14 +48,10 @@ public class MenuActivity extends AppCompatActivity {
 
     public void btnAutonomous(View view) {
         // Send signal to car to start the autonomous mode
-        byte[] bytes = ByteBuffer.allocate(4).putChar('a').array();
-
-        Bundle bundle = new Bundle();
-        bundle.putByteArray(KEY, bytes);
-
-        Message msg = mHandler.getHandler().obtainMessage();
-        msg.setData(bundle);
+        dataStr = "a";
+        Message msg = mHandle.getHandler().obtainMessage();
         msg.what = MESSAGE_WRITE;
+        msg.obj = dataStr;
         msg.sendToTarget();
 
         // Start the activity
