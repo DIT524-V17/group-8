@@ -49,7 +49,12 @@ int readIndexServo = 0;
 int totalServo = 0;
 int averageServo = 0;
 
-char selectChar;
+String selectStr;
+String data;
+
+bool isManual = false;
+bool isAuto = false;
+
 char terminator = ':';
 
 void setup() {
@@ -82,53 +87,53 @@ void setup() {
 }
 
 void loop() {
-  /*if (Serial3.available()) {
-    selectChar = (char) Serial3.read();
-    Serial3.println(selectChar);
-    switch (selectChar) {
-      case 'm': manualDrive(); break;
-      case 'a': autoDrive(); break;
+  if (Serial3.available() && isManual == false) {
+    selectStr = Serial3.readString();
+    if (selectStr.equals("m")) {
+      isManual = true;
     }
-  }*/
-
-  int tmp = getLeftReading();
-  Serial.println(tmp);
-
-  //manualDrive();
+  }
+Serial.println("Hello I am in the loop");
+  if (isManual) {
+    Serial.println("INSIDE IF MAUNALSD JIASNDISASUAIJD");
+    manualDrive();
+  }
 }
 
 void manualDrive() {
-  while (Serial3.available()) {
-    String data = Serial3.readString();
+  while (isManual) {
+    if (Serial3.available()) {
+      data = Serial3.readString();
 
-    int centerInt = centerSonic.getDistance();
+      Serial.println(data);
 
-    if (data.substring(data.length() - endOfString).equals("STOP")) {
-      car.stop();
-    } else {
-      int beginIndex = data.indexOf(terminator);
-      String angleStr = data.substring(0, beginIndex);
+      if (data.substring(data.length() - endOfString).equals("STOP")) {
+        car.stop();
+      } else {
+        int beginIndex = data.indexOf(terminator);
+        String angleStr = data.substring(0, beginIndex);
 
-      int endIndex = data.lastIndexOf(terminator);
-      String speedStr = data.substring(beginIndex + 1, endIndex);
+        int endIndex = data.lastIndexOf(terminator);
+        String speedStr = data.substring(beginIndex + 1, endIndex);
 
-      if (angleStr != "") {
-        angleInt = angleStr.toInt();
+        if (angleStr != "") {
+          angleInt = angleStr.toInt();
+        }
+
+        if (speedStr != "") {
+          speedInt = speedStr.toInt();
+        }
+
+        car.setSpeed(speedInt);
+        car.setAngle(angleInt);
       }
-
-      if (speedStr != "") {
-        speedInt = speedStr.toInt();
-      }
-
-      car.setSpeed(speedInt);
-      car.setAngle(angleInt);
     }
   }
 }
 
 void autoDrive() {
   while (Serial3.available()) {
-
+    Serial.println("IN AUTIDRIVE");
   }
 }
 
