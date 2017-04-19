@@ -87,6 +87,7 @@ void setup() {
   }
 
   car.begin(gyro);
+  car.setSpeed(40);
 }
 
 void loop() {
@@ -105,7 +106,6 @@ void loop() {
   getLeftReading();
   getRightReading();
   getServoReading();
-  getCenterReading();
 
   //if (speedIsSet = false) {
   //  car.setSpeed() = 40;
@@ -147,12 +147,22 @@ void manualDrive() {
 }
 
 void autoDrive() {
-    int staticDist = centerSonic.getDistance();
-    Serial.println(staticDist);
-    if (staticDist < 25 && staticDist != 0) {
-        car.rotate(45);
+  int staticDist = centerSonic.getDistance();
+  if (staticDist < 40 && staticDist != 0) {
+    if (averageLeft < 35 || averageRight < 35)  {
+      if (averageLeft < averageRight) {
+        car.rotate(58);
         delay(200);
+      }
+      else if (averageLeft > averageRight) {
+        car.rotate(-58);
+        delay(200);
+      }
+    } else if (staticDist < 20) {
+      car.rotate(58);
+      delay(200);
     }
+  }
 }
 
 void getLeftReading() {
@@ -160,7 +170,7 @@ void getLeftReading() {
   leftReadings[readIndexLeft] = leftSonic.getDistance();
 
   if (leftReadings[readIndexLeft] == 0) {
-    leftReadings[readIndexLeft] = 30;
+    leftReadings[readIndexLeft] = 40;
   }
 
   totalLeft = totalLeft + leftReadings[readIndexLeft];
@@ -179,7 +189,7 @@ void getRightReading() {
   rightReadings[readIndexRight] = rightSonic.getDistance();
 
   if (rightReadings[readIndexRight] == 0) {
-    rightReadings[readIndexRight] = 30;
+    rightReadings[readIndexRight] = 40;
   }
 
   totalRight = totalRight + rightReadings[readIndexRight];
@@ -192,7 +202,7 @@ void getRightReading() {
   averageRight = totalRight / numReadingsRight;
   delay(1);
 }
-
+/*
 void getCenterReading() {
   totalCenter = totalCenter - centerReadings[readIndexCenter];
   centerReadings[readIndexCenter] = centerSonic.getDistance();
@@ -211,7 +221,7 @@ void getCenterReading() {
   averageCenter = totalCenter / numReadingsCenter;
   delay(1);
 }
-
+*/
 void getServoReading() {
   totalServo = totalServo - servoReadings[readIndexServo];
   servoReadings[readIndexServo] = servoSonic.getDistance();
