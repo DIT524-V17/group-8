@@ -12,6 +12,7 @@ import java.nio.charset.Charset;
 import java.util.Set;
 
 import group8.scam.model.communication.ConnectThread;
+import group8.scam.model.main.MainActivity;
 
 import static group8.scam.model.communication.DataThread.KEY;
 import static group8.scam.model.communication.DataThread.MESSAGE_READ;
@@ -54,13 +55,20 @@ public class HandleThread extends Thread {
             public void handleMessage(Message msg) {
                 switch (msg.what) {
                     case MESSAGE_WRITE:
-                        String str = (String) msg.obj;
-                        if (str != null) {
-                            byte[] strBytes = str.getBytes(Charset.defaultCharset());
+                        String writeStr = (String) msg.obj;
+                        if (writeStr != null) {
+                            byte[] strBytes = writeStr.getBytes(Charset.defaultCharset());
                             connection.getDataThread().write(strBytes);
                         }
                         break;
                     case MESSAGE_READ:
+                        String readStr = msg.obj.toString();
+                        if (readStr != null) {
+                            System.out.println(readStr);
+                            if (MainActivity.mainActivity != null) {
+                                MainActivity.mainActivity.developer(readStr);
+                            }
+                        }
                         break;
                     case MESSAGE_TOAST:
                         break;

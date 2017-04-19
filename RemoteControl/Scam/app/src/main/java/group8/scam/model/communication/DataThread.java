@@ -55,6 +55,9 @@ public class DataThread extends Thread {
         while (true) {
             try {
                 numBytes = mInStream.read(mBuffer, numBytes, BUFFER_SIZE - numBytes);
+                Message readMsg = mHandleThread.getHandler().obtainMessage(
+                        MESSAGE_READ, numBytes, -1, mBuffer);
+                readMsg.sendToTarget();
             } catch (Exception e) {
                 System.out.println("Loop broken in DataThread.");
                 e.printStackTrace();
