@@ -52,9 +52,6 @@ int averageServo = 0;
 String selectStr;
 String data;
 
-bool isManual = false;
-bool isAuto = false;
-
 char terminator = ':';
 
 void setup() {
@@ -87,21 +84,18 @@ void setup() {
 }
 
 void loop() {
-  if (Serial3.available() && isManual == false) {
+  if (Serial3.available()) {
     selectStr = Serial3.readString();
     if (selectStr.equals("m")) {
-      isManual = true;
+      manualDrive();
+    } else if (selectStr.equals("a")) {
+      autoDrive();
     }
-  }
-Serial.println("Hello I am in the loop");
-  if (isManual) {
-    Serial.println("INSIDE IF MAUNALSD JIASNDISASUAIJD");
-    manualDrive();
   }
 }
 
 void manualDrive() {
-  while (isManual) {
+  while (true) {
     if (Serial3.available()) {
       data = Serial3.readString();
 
@@ -133,7 +127,7 @@ void manualDrive() {
 
 void autoDrive() {
   while (Serial3.available()) {
-    Serial.println("IN AUTIDRIVE");
+
   }
 }
 
