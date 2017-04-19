@@ -21,6 +21,9 @@ const int ECHO_PIN_SERVO = 6;
 Servo myServo;
 const int SERVO_PIN = 40;
 
+Gyroscope gyro;
+int motorSpeed = 80;
+
 int endOfString = 4;
 int angleInt;
 int speedInt;
@@ -51,6 +54,8 @@ int averageServo = 0;
 
 String selectStr;
 String data;
+bool isBeginning = true;
+//bool speedIsSet = false;
 
 char terminator = ':';
 
@@ -66,6 +71,7 @@ void setup() {
 
   myServo.attach(SERVO_PIN);
   myServo.write(90);
+  gyro.attach();
 
   for (int thisReadingRight = 0; thisReadingRight < numReadingsRight; thisReadingRight++) {
     rightReadings[thisReadingRight] = 0;
@@ -80,18 +86,33 @@ void setup() {
     servoReadings[thisReadingServo] = 0;
   }
 
-  car.begin();
+  car.begin(gyro);
 }
 
 void loop() {
+  /*
   if (Serial3.available()) {
     selectStr = Serial3.readString();
+    Serial.println("HELLO");
     if (selectStr.equals("m")) {
-      manualDrive();
+      isManual = true;
     } else if (selectStr.equals("a")) {
-      autoDrive();
+      isAuto = true;
     }
   }
+  */
+
+  getLeftReading();
+  getRightReading();
+  getServoReading();
+  getCenterReading();
+
+  //if (speedIsSet = false) {
+  //  car.setSpeed() = 40;
+  //  speedIsSet = true;
+  //  }
+
+  autoDrive();
 }
 
 void manualDrive() {
@@ -126,12 +147,15 @@ void manualDrive() {
 }
 
 void autoDrive() {
-  while (Serial3.available()) {
-
-  }
+    int staticDist = centerSonic.getDistance();
+    Serial.println(staticDist);
+    if (staticDist < 25 && staticDist != 0) {
+        car.rotate(45);
+        delay(200);
+    }
 }
 
-int getLeftReading() {
+void getLeftReading() {
   totalLeft = totalLeft - leftReadings[readIndexLeft];
   leftReadings[readIndexLeft] = leftSonic.getDistance();
 
@@ -147,10 +171,10 @@ int getLeftReading() {
   }
 
   averageLeft = totalLeft / numReadingsLeft;
-  return averageLeft;
+  delay(1);
 }
 
-int getRightReading() {
+void getRightReading() {
   totalRight = totalRight - rightReadings[readIndexRight];
   rightReadings[readIndexRight] = rightSonic.getDistance();
 
@@ -166,10 +190,10 @@ int getRightReading() {
   }
 
   averageRight = totalRight / numReadingsRight;
-  return averageRight;
+  delay(1);
 }
 
-int getCenterReading() {
+void getCenterReading() {
   totalCenter = totalCenter - centerReadings[readIndexCenter];
   centerReadings[readIndexCenter] = centerSonic.getDistance();
 
@@ -185,10 +209,10 @@ int getCenterReading() {
   }
 
   averageCenter = totalCenter / numReadingsCenter;
-  return averageCenter;
+  delay(1);
 }
 
-int getServoReading() {
+void getServoReading() {
   totalServo = totalServo - servoReadings[readIndexServo];
   servoReadings[readIndexServo] = servoSonic.getDistance();
 
@@ -204,5 +228,5 @@ int getServoReading() {
   }
 
   averageServo = totalServo / numReadingsServo;
-  return averageServo;
+  delay(1);
 }
