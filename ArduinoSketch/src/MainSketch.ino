@@ -54,8 +54,6 @@ int averageServo = 0;
 
 String selectStr;
 String data;
-bool isBeginning = true;
-//bool speedIsSet = false;
 
 char terminator = ':';
 
@@ -87,41 +85,25 @@ void setup() {
   }
 
   car.begin(gyro);
-  car.setSpeed(40);
 }
 
 void loop() {
-  /*
   if (Serial3.available()) {
     selectStr = Serial3.readString();
     Serial.println("HELLO");
     if (selectStr.equals("m")) {
-      isManual = true;
-    } else if (selectStr.equals("a")) {
-      isAuto = true;
+      manualDrive();
+    }
+    if (selectStr.equals("a")) {
+      autoDrive();
     }
   }
-  */
-
-  getLeftReading();
-  getRightReading();
-  getServoReading();
-
-  //if (speedIsSet = false) {
-  //  car.setSpeed() = 40;
-  //  speedIsSet = true;
-  //  }
-
-  autoDrive();
 }
 
 void manualDrive() {
   while (true) {
     if (Serial3.available()) {
       data = Serial3.readString();
-
-      Serial.println(data);
-
       if (data.substring(data.length() - endOfString).equals("STOP")) {
         car.stop();
       } else {
@@ -138,7 +120,6 @@ void manualDrive() {
         if (speedStr != "") {
           speedInt = speedStr.toInt();
         }
-
         car.setSpeed(speedInt);
         car.setAngle(angleInt);
       }
@@ -147,29 +128,34 @@ void manualDrive() {
 }
 
 void autoDrive() {
-  int staticDist = centerSonic.getDistance();
-  if (staticDist < 40 && staticDist != 0) {
-    if (averageLeft < 35 || averageRight < 35)  {
-      if (averageLeft < averageRight) {
-        car.rotate(58);
-        delay(500);
+  car.setSpeed(25);
+  while (true) {
+    getLeftReading();
+    getRightReading();
+    getServoReading();
+    int staticDist = centerSonic.getDistance();
+    if (staticDist < 45 && staticDist != 0) {
+      if (averageLeft < 35 || averageRight < 35)  {
+        if (averageLeft < averageRight) {
+          car.rotate(29);
+          delay(200);
+        }
+        else if (averageLeft > averageRight) {
+          car.rotate(-29);
+          delay(200);
+        }
+      } else if (staticDist < 25) {
+        car.rotate(29);
+        delay(200);
       }
-      else if (averageLeft > averageRight) {
-        car.rotate(-58);
-        delay(500);
-      }
-    } else if (staticDist < 20) {
-      car.rotate(58);
-      delay(500);
+    }  else if (averageLeft < 10 && staticDist < 10) {
+      car.rotate(15);
+      delay(200);
+    } else if (averageRight < 10 && staticDist < 10) {
+      car.rotate(-15);
+      delay(200);
     }
-  }/* else if (averageLeft < 10 && staticDist < 10) {
-    car.rotate(15);
-    delay(200);
-  } else if (averageRight < 10 && staticDist < 10) {
-    car.rotate(-15);
-    delay(200);
   }
-  */
 }
 
 void getLeftReading() {
@@ -209,7 +195,7 @@ void getRightReading() {
   averageRight = totalRight / numReadingsRight;
   delay(1);
 }
-/*
+
 void getCenterReading() {
   totalCenter = totalCenter - centerReadings[readIndexCenter];
   centerReadings[readIndexCenter] = centerSonic.getDistance();
@@ -228,7 +214,7 @@ void getCenterReading() {
   averageCenter = totalCenter / numReadingsCenter;
   delay(1);
 }
-*/
+
 void getServoReading() {
   totalServo = totalServo - servoReadings[readIndexServo];
   servoReadings[readIndexServo] = servoSonic.getDistance();
