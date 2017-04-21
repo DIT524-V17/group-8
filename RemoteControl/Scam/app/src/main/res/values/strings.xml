@@ -6,6 +6,7 @@
     <string name="hello_str">Hejsan!</string>
     <string name="speedText">Speed: </string>
     <string name="distanceText">Distance: </string>
-    <string name="autoButtonText">AUTO</string>
+    <string name="autoOnText">AUTO</string>
+    <string name="autoOffText">SWITCH TO AUTO</string>
 
 </resources>
