@@ -1,16 +1,20 @@
 package group8.scam.controller.handlers;
 
+import android.app.Activity;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.widget.TextView;
 
 import java.io.ByteArrayInputStream;
+import java.lang.ref.WeakReference;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.IntBuffer;
 import java.nio.charset.Charset;
 import java.util.Set;
 
+import group8.scam.R;
 import group8.scam.model.communication.ConnectThread;
 import group8.scam.model.main.MainActivity;
 
@@ -29,7 +33,7 @@ public class HandleThread extends Thread {
     private Handler mHandler;
 
     private HandleThread() {
-
+        
     }
 
     public static HandleThread getInstance() {
@@ -65,9 +69,6 @@ public class HandleThread extends Thread {
                         String readStr = msg.obj.toString();
                         if (readStr != null) {
                             System.out.println(readStr);
-                            if (MainActivity.mainActivity != null) {
-                                MainActivity.mainActivity.developer(readStr);
-                            }
                         }
                         break;
                     case MESSAGE_TOAST:

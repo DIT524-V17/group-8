@@ -3,17 +3,11 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     style="@style/AppTheme">
-    <TextView
-        android:id="@+id/txtdev"
-        android:layout_width="400dp"
-        android:layout_height="150dp"
-        android:textSize="20sp"
-        android:text="Tryhard"/>
 
     <ImageView
         android:id="@+id/imageView1"
-        android:layout_width="300dp"
-        android:layout_height="200dp"
+        android:layout_width="500dp"
+        android:layout_height="400dp"
         android:src="@drawable/radarfordemo"
         android:layout_alignParentBottom="true"
         android:focusableInTouchMode="false"
