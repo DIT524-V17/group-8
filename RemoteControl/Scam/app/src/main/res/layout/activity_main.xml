@@ -51,7 +51,6 @@
         android:layout_marginTop="8dp"
         android:layout_below="@+id/distanceLbl"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="13dp"
-        android:background="@drawable/btnshape"/>
+        android:layout_marginStart="13dp" />
 
 </RelativeLayout>
