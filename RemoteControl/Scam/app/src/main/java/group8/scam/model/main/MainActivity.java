@@ -4,6 +4,7 @@ import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import group8.scam.R;
 import group8.scam.controller.handlers.HandleThread;

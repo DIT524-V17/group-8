@@ -48,6 +48,18 @@
         android:background="@drawable/autobutton"
         android:layout_alignParentBottom="true"
         android:layout_alignStart="@+id/distanceLbl"
-        android:layout_marginBottom="6dp" />
+        android:layout_marginBottom="6dp"
+        android:id="@+id/button" />
+
+    <ToggleButton
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:id="@+id/togglebutton"
+        android:textOn="AUTO"
+        android:textOff="Press me"
+        android:layout_alignBaseline="@+id/button"
+        android:layout_alignBottom="@+id/button"
+        android:layout_alignEnd="@+id/imageView1"
+        android:layout_marginEnd="70dp" />
 
 </RelativeLayout>
