@@ -137,24 +137,26 @@ void autoDrive() {
     if (staticDist < 45 && staticDist != 0) {
       if (averageLeft < 35 || averageRight < 35)  {
         if (averageLeft < averageRight) {
-          car.rotate(29);
+          car.rotate(40);
           delay(200);
         }
         else if (averageLeft > averageRight) {
-          car.rotate(-29);
+          car.rotate(-40);
           delay(200);
         }
-      } else if (staticDist < 25) {
-        car.rotate(29);
+      } /* else if (staticDist < 25) {
+        car.rotate(35);
         delay(200);
       }
-    }  else if (averageLeft < 10 && staticDist < 10) {
+      */
+    } /* else if (averageLeft < 10 && staticDist < 10) {
       car.rotate(15);
       delay(200);
     } else if (averageRight < 10 && staticDist < 10) {
       car.rotate(-15);
       delay(200);
     }
+    */
   }
 }
 
