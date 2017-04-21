@@ -152,17 +152,24 @@ void autoDrive() {
     if (averageLeft < 35 || averageRight < 35)  {
       if (averageLeft < averageRight) {
         car.rotate(58);
-        delay(200);
+        delay(500);
       }
       else if (averageLeft > averageRight) {
         car.rotate(-58);
-        delay(200);
+        delay(500);
       }
     } else if (staticDist < 20) {
       car.rotate(58);
-      delay(200);
+      delay(500);
     }
+  }/* else if (averageLeft < 10 && staticDist < 10) {
+    car.rotate(15);
+    delay(200);
+  } else if (averageRight < 10 && staticDist < 10) {
+    car.rotate(-15);
+    delay(200);
   }
+  */
 }
 
 void getLeftReading() {
