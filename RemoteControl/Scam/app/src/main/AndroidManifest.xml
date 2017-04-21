@@ -21,8 +21,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".model.menu.MenuActivity" />
-        <activity android:name=".model.main.MainActivity"
-                  android:theme="@android:style/Theme.DeviceDefault"/>
+        <activity android:name=".model.main.MainActivity" />
         <activity android:name=".model.main.AutoActivity"></activity>
     </application>
 
