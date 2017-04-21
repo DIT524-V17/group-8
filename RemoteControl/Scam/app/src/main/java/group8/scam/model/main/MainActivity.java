@@ -1,20 +1,42 @@
 package group8.scam.model.main;
 
 import android.content.pm.ActivityInfo;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.TextView;
+import android.widget.CompoundButton;
 import android.widget.ToggleButton;
 
 import group8.scam.R;
 import group8.scam.controller.handlers.HandleThread;
 
+import static group8.scam.model.communication.DataThread.MESSAGE_WRITE;
+
 public class MainActivity extends AppCompatActivity {
+
+    private ToggleButton button;
+    private String stateString;
+    private HandleThread handler = HandleThread.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        button = (ToggleButton) findViewById(R.id.togglebutton);
+        button.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+                if (isChecked) {
+                   stateString = "a";
+                } else {
+                    stateString = "m";
+                }
+                Message msg = handler.getHandler().obtainMessage();
+                msg.what = MESSAGE_WRITE;
+                msg.obj = stateString;
+                msg.sendToTarget();
+            }
+        });
     }
+
 }
