@@ -44,9 +44,10 @@
 
     <Button
         android:layout_width="100dp"
-        android:layout_height="60dp"
-        android:text="@string/autoButtonText"
-        android:layout_alignBottom="@+id/joystick"
-        android:layout_alignStart="@+id/distanceLbl" />
+        android:layout_height="50dp"
+        android:background="@drawable/autobutton"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/distanceLbl"
+        android:layout_marginBottom="6dp" />
 
 </RelativeLayout>
