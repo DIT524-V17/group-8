@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    style="@style/AppTheme">
+    style="@android:style/Theme.DeviceDefault">
 
     <ImageView
         android:id="@+id/imageView1"
@@ -42,12 +42,16 @@
         android:layout_alignTop="@+id/speedLbl"
         android:layout_alignStart="@+id/speedLbl" />
 
-    <Button
+    <ToggleButton
         android:layout_width="100dp"
         android:layout_height="50dp"
-        android:background="@drawable/autobutton"
-        android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/distanceLbl"
-        android:layout_marginBottom="6dp" />
+        android:id="@+id/togglebutton"
+        android:textOn="@string/autoOnText"
+        android:textOff="@string/autoOffText"
+        android:layout_marginTop="8dp"
+        android:layout_below="@+id/distanceLbl"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="13dp"
+        android:onClick="btnToggle"/>
 
 </RelativeLayout>
