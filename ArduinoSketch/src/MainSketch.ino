@@ -20,6 +20,7 @@ const int ECHO_PIN_SERVO = 6;
 
 Servo myServo;
 const int SERVO_PIN = 40;
+int servoAngle = 0;
 
 Gyroscope gyro;
 int motorSpeed = 80;
@@ -54,6 +55,11 @@ int averageServo = 0;
 
 String selectStr;
 String data;
+
+unsigned long currentMillis = 0;
+unsigned long previousMillis = 0;
+long interval = 1000;
+
 bool isBeginning = true;
 bool isAuto = false;
 bool isManual = false;
@@ -100,39 +106,51 @@ void loop() {
       isAuto = true;
     }
   }
+
   if (isManual) {
     manualDrive();
   }
   else if (isAuto) {
     autoDrive();
   }
+
+  servoAngle = myServo.read();
+  currentMillis = millis();
+
+  if (currentMillis - previousMillis > interval) {
+    previousMillis = currentMillis;
+    if (servoAngle == 45 ) {
+      myServo.write(135);
+    }
+    else {
+      myServo.write(45);
+    }
+  }
 }
 
 void manualDrive() {
-  //while (true) {
-    if (Serial3.available()) {
-      data = Serial3.readString();
-      if (data.substring(data.length() - endOfString).equals("STOP")) {
-        car.stop();
-      } else {
-        int beginIndex = data.indexOf(terminator);
-        String angleStr = data.substring(0, beginIndex);
+  if (Serial3.available()) {
+    data = Serial3.readString();
+    if (data.substring(data.length() - endOfString).equals("STOP")) {
+      car.stop();
+    } else {
+      int beginIndex = data.indexOf(terminator);
+      String angleStr = data.substring(0, beginIndex);
 
-        int endIndex = data.lastIndexOf(terminator);
-        String speedStr = data.substring(beginIndex + 1, endIndex);
+      int endIndex = data.lastIndexOf(terminator);
+      String speedStr = data.substring(beginIndex + 1, endIndex);
 
-        if (angleStr != "") {
-          angleInt = angleStr.toInt();
-        }
-
-        if (speedStr != "") {
-          speedInt = speedStr.toInt();
-        }
-        car.setSpeed(speedInt);
-        car.setAngle(angleInt);
+      if (angleStr != "") {
+        angleInt = angleStr.toInt();
       }
+
+      if (speedStr != "") {
+        speedInt = speedStr.toInt();
+      }
+      car.setSpeed(speedInt);
+      car.setAngle(angleInt);
     }
-  //}
+  }
 }
 
 void autoDrive() {
@@ -141,34 +159,32 @@ void autoDrive() {
     isBeginning = false;
     delay(100);
   }
-  //while (true) {
-    car.setSpeed(25);
-    getLeftReading();
-    getRightReading();
-    getServoReading();
-    int staticDist = centerSonic.getDistance();
-    Serial3.println(staticDist);
-    if (staticDist < 45 && staticDist != 0) {
-      if (averageLeft < 35 || averageRight < 35)  {
-        if (averageLeft < averageRight) {
-          car.rotate(40);
-          delay(100);
-        }
-        else if (averageLeft > averageRight) {
-          car.rotate(-40);
-          delay(100);
-        }
+  car.setSpeed(25);
+  getLeftReading();
+  getRightReading();
+  getServoReading();
+  int staticDist = centerSonic.getDistance();
+  Serial3.println(staticDist);
+  if (staticDist < 45 && staticDist != 0) {
+    if (averageLeft < 35 || averageRight < 35)  {
+      if (averageLeft < averageRight) {
+        car.rotate(40);
+        delay(100);
       }
-      else if (staticDist < 10 && staticDist != 0) {
-        car.setSpeed(-30);
-        delay(500);
-        car.stop();
-        delay(200);
-        rotateOnSpot(90);
-        delay(200);
+      else if (averageLeft > averageRight) {
+        car.rotate(-40);
+        delay(100);
       }
     }
-  //}
+    else if (staticDist < 10 && staticDist != 0) {
+      car.setSpeed(-30);
+      delay(500);
+      car.stop();
+      delay(200);
+      rotateOnSpot(90);
+      delay(200);
+    }
+  }
 }
 
 void getLeftReading() {
