@@ -58,11 +58,12 @@ String data;
 
 unsigned long currentMillis = 0;
 unsigned long previousMillis = 0;
-long interval = 1000;
+long interval = 200;
 
 bool isBeginning = true;
 bool isAuto = false;
 bool isManual = false;
+bool goingRight = true;
 
 char terminator = ':';
 
@@ -119,11 +120,37 @@ void loop() {
 
   if (currentMillis - previousMillis > interval) {
     previousMillis = currentMillis;
-    if (servoAngle == 45 ) {
-      myServo.write(135);
+    if (servoAngle == 90) {
+      if (goingRight) {
+        myServo.write(67);
+      }
+      else {
+        myServo.write(113);
+      }
     }
-    else {
-      myServo.write(45);
+    else if (servoAngle == 67) {
+      if (goingRight) {
+        myServo.write(45);
+        goingRight = false;
+      }
+      else {
+        myServo.write(90);
+      }
+    }
+    else if (servoAngle == 45) {
+      myServo.write(67);
+    }
+    else if (servoAngle == 113) {
+      if (goingRight) {
+        myServo.write(90);
+      }
+      else {
+        myServo.write(135);
+        goingRight = true;
+      }
+    }
+    else if (servoAngle == 135) {
+      myServo.write(113);
     }
   }
 }
