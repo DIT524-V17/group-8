@@ -91,19 +91,25 @@ void setup() {
 }
 
 void loop() {
-  if (Serial3.available()) {
+  if (Serial3.available() && isManual == false && isAuto == false) {
     selectStr = Serial3.readString();
     if (selectStr.equals("m")) {
-      manualDrive();
+      isManual = true;
     }
     if (selectStr.equals("a")) {
-      autoDrive();
+      isAuto = true;
     }
+  }
+  if (isManual) {
+    manualDrive();
+  }
+  else if (isAuto) {
+    autoDrive();
   }
 }
 
 void manualDrive() {
-  while (true) {
+  //while (true) {
     if (Serial3.available()) {
       data = Serial3.readString();
       if (data.substring(data.length() - endOfString).equals("STOP")) {
@@ -126,13 +132,16 @@ void manualDrive() {
         car.setAngle(angleInt);
       }
     }
-  }
+  //}
 }
 
 void autoDrive() {
-  car.setSpeed(35);
-  delay(100);
-  while (true) {
+  if (isBeginning) {
+    car.setSpeed(35);
+    isBeginning = false;
+    delay(100);
+  }
+  //while (true) {
     car.setSpeed(25);
     getLeftReading();
     getRightReading();
@@ -159,7 +168,7 @@ void autoDrive() {
         delay(200);
       }
     }
-  }
+  //}
 }
 
 void getLeftReading() {
