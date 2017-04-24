@@ -7,5 +7,6 @@
     <color name="colorRadarBlack">#FF000000</color>
     <color name="mainColor">#FF1DA5FF</color>
     <color name="colorRED">#db0400</color>
+    <color name="colorWHITE">#ffffff</color>
 
 </resources>

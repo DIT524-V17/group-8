@@ -14,6 +14,17 @@
         android:layout_marginLeft="20dp"
         />
 
+    <ImageButton
+        android:id="@+id/btnSettings"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:background="@drawable/btnsettings"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:onClick="btnSettings"
+        />
+
     <group8.scam.view.JoystickView
         android:id="@+id/joystick"
         android:layout_width="250dp"

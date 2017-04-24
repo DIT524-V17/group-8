@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="group8.scam.model.menu.SettingsActivity"
+    android:background="@drawable/blurred">
+
+    <ImageButton
+        android:id="@+id/btnSettingsBack"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/empty"
+        android:onClick="btnBack"
+        />
+
+    <View
+        android:id="@+id/settingsmenu"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_width="480dp"
+        android:layout_height="320dp"
+        android:background="@drawable/settingsmenu"
+        />
+
+    <TextView
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Settings and shit"
+        android:textSize="50sp"
+        android:textAllCaps="false"
+        android:textColor="@color/colorPrimaryLight"
+        android:textStyle="bold"
+        />
+
+</RelativeLayout>
