@@ -27,15 +27,101 @@
         />
 
     <TextView
-        android:layout_centerVertical="true"
+        android:layout_alignTop="@id/settingsmenu"
+        android:layout_marginTop="5dp"
         android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Settings and shit"
-        android:textSize="50sp"
+        android:textSize="25sp"
         android:textAllCaps="false"
         android:textColor="@color/colorPrimaryLight"
         android:textStyle="bold"
         />
 
+    <View
+        android:layout_alignTop="@id/settingsmenu"
+        android:layout_width="420dp"
+        android:layout_height="2dp"
+        android:background="#5a5a5a"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="35dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Driving mode:"
+        android:textSize="18sp"
+        android:layout_alignTop="@id/settingsmenu"
+        android:layout_marginTop="50dp"
+        android:layout_alignLeft="@id/settingsmenu"
+        android:layout_marginLeft="30dp"/>
+
+    <ToggleButton
+        android:id="@+id/btnJoyStick"
+        android:layout_width="120dp"
+        android:layout_height="60dp"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textOff="Joystick"
+        android:textOn="Joystick"
+        android:layout_alignTop="@id/settingsmenu"
+        android:layout_marginTop="70dp"
+        android:layout_alignLeft="@id/settingsmenu"
+        android:layout_marginLeft="28dp"
+        />
+
+    <ToggleButton
+        android:id="@+id/btnDpad"
+        android:layout_width="120dp"
+        android:layout_height="60dp"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textOff="dpad"
+        android:textOn="dpad"
+        android:layout_centerHorizontal="true"
+        android:layout_alignTop="@id/settingsmenu"
+        android:layout_marginTop="70dp"
+        />
+
+    <ToggleButton
+        android:id="@+id/btnGyroScope"
+        android:layout_width="120dp"
+        android:layout_height="60dp"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textOff="gyroscope"
+        android:textOn="gyroscope"
+        android:layout_alignTop="@id/settingsmenu"
+        android:layout_marginTop="70dp"
+        android:layout_alignRight="@id/settingsmenu"
+        android:layout_marginRight="28dp"
+        />
+
+    <View
+        android:layout_alignTop="@id/settingsmenu"
+        android:layout_width="420dp"
+        android:layout_height="2dp"
+        android:background="#5a5a5a"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="140dp"/>
+
+    <TextView
+        android:id="@+id/txtSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Safety mode:"
+        android:textSize="18sp"
+        android:layout_alignTop="@id/settingsmenu"
+        android:layout_marginTop="155dp"
+        android:layout_alignLeft="@id/settingsmenu"
+        android:layout_marginLeft="30dp"/>
+
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/txtSwitch"
+        android:layout_marginLeft="20dp"
+        android:layout_alignTop="@id/txtSwitch"
+        android:layout_marginTop="-2dp" />
 </RelativeLayout>
