@@ -62,7 +62,6 @@
         android:layout_marginTop="8dp"
         android:layout_below="@+id/distanceLbl"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="13dp"
-        android:onClick="btnToggle"/>
+        android:layout_marginStart="13dp" />
 
 </RelativeLayout>
