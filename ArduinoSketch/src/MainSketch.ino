@@ -63,7 +63,7 @@ int currentPos = 90;
 
 bool isBeginning = true;
 bool isAuto = false;
-bool isManual = false;
+bool isManual = true;
 bool goingRight = true;
 
 char terminator = ':';
@@ -99,31 +99,37 @@ void setup() {
 }
 
 void loop() {
-  if (Serial3.available() && !isManual && !isAuto) {
-    selectStr = Serial3.readString();
-    if (selectStr.equals("m")) {
-      isManual = true;
-    }
-    if (selectStr.equals("a")) {
-      isAuto = true;
-    }
-  }
+  handleInput();
+  currentMillis = millis();
+  servoMovement();
 
   if (isManual) {
     manualDrive();
   }
   else if (isAuto) {
     autoDrive();
-  }
 
-  currentMillis = millis();
-  servoMovement();
+  }
+}
+
+void handleInput() {
+  if (Serial3.available()) {
+    selectStr = Serial3.readString();
+    Serial.println("IN HANDLE WITH A OR M");
+    if (selectStr.equals("a")) {
+      isAuto = true;
+      isManual = false;
+    }
+    else if (selectStr.equals("m")) {
+      isManual = true;
+      isAuto = false;
+    }
+  }
 }
 
 void servoMovement() {
   if (currentMillis - previousMillis > interval) {
     previousMillis = currentMillis;
-    Serial.println(currentPos);
     if (goingRight) {
       currentPos = currentPos - 5;
       if (currentPos == 45) {
@@ -144,6 +150,7 @@ void servoMovement() {
 void manualDrive() {
   if (Serial3.available()) {
     data = Serial3.readString();
+    Serial.println(data);
     if (data.substring(data.length() - endOfString).equals("STOP")) {
       car.stop();
     } else {
