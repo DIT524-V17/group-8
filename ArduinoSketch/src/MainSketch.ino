@@ -150,6 +150,7 @@ void manualDrive() {
     data = Serial3.readString();
     Serial.println(data);
     if (data.equals("a")) {
+      car.setAngle(0);
       car.setSpeed(35);
       isAuto = true;
       isManual = false;
