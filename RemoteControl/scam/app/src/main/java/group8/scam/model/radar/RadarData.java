@@ -14,8 +14,11 @@ public class RadarData {
     }
 
     /**
-     * Modifies the current Servo angle
-     * @param newAngle the new angle the Servo is currently at
+     * This method is provided with the new Angle of the Servo
+     * and stores it locally before sending it over to the Radar
+     * to update the position of the pulse
+     *
+     * @param newAngle - the new angle the Servo is currently at
      */
     public void setAngle(int newAngle) {
         this.angleOfServo = newAngle;
