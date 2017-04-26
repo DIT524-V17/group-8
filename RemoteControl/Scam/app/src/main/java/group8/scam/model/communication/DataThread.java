@@ -2,10 +2,14 @@ package group8.scam.model.communication;
 
 import android.bluetooth.BluetoothSocket;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Message;
 
+import java.io.BufferedReader;
+import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.nio.charset.Charset;
 
@@ -47,17 +51,26 @@ public class DataThread extends Thread {
     }
 
     public void run() {
+        InputStreamReader in = new InputStreamReader(mInStream);
+        BufferedReader reader = new BufferedReader(in);
 
-        final int BUFFER_SIZE = 1024;
-        byte[] mBuffer = new byte[BUFFER_SIZE];
-        int numBytes = 0;
+        char[] buffer = new char[100];
+        int bytes = 0;
 
         while (true) {
             try {
-                numBytes = mInStream.read(mBuffer, numBytes, BUFFER_SIZE - numBytes);
-                Message readMsg = mHandleThread.getHandler().obtainMessage(
-                        MESSAGE_READ, numBytes, -1, mBuffer);
-                readMsg.sendToTarget();
+                String data = "";
+                int singleByte;
+                char ch;
+                while ((singleByte = reader.read()) != 0) {
+                    ch = (char)singleByte;
+                    data += ch;
+                }
+
+                Message msg = mHandleThread.getHandler().obtainMessage();
+                msg.what = MESSAGE_READ;
+                msg.obj = data;
+                msg.sendToTarget();
             } catch (Exception e) {
                 System.out.println("Loop broken in DataThread.");
                 e.printStackTrace();

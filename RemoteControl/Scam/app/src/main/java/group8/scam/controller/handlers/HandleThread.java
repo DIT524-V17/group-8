@@ -66,7 +66,7 @@ public class HandleThread extends Thread {
                         }
                         break;
                     case MESSAGE_READ:
-                        String readStr = msg.obj.toString();
+                        String readStr = (String)msg.obj;
                         if (readStr != null) {
                             System.out.println(readStr);
                         }
