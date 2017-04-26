@@ -99,7 +99,7 @@ void setup() {
 }
 
 void loop() {
-  if (Serial3.available() && isManual == false && isAuto == false) {
+  if (Serial3.available() && !isManual && !isAuto) {
     selectStr = Serial3.readString();
     if (selectStr.equals("m")) {
       isManual = true;
@@ -116,9 +116,11 @@ void loop() {
     autoDrive();
   }
 
-  servoAngle = myServo.read();
   currentMillis = millis();
+  servoMovement();
+}
 
+void servoMovement() {
   if (currentMillis - previousMillis > interval) {
     previousMillis = currentMillis;
     Serial.println(currentPos);
