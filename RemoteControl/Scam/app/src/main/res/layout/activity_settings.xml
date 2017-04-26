@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="group8.scam.model.menu.SettingsActivity"
+    android:background="@drawable/blurred">
+
+    <ImageButton
+        android:id="@+id/btnSettingsBack"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/empty"
+        android:onClick="btnBack"
+        />
+
+    <View
+        android:id="@+id/settingsmenu"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_width="480dp"
+        android:layout_height="320dp"
+        android:background="@drawable/settingsmenu"
+        />
+
+    <TextView
+        android:layout_alignTop="@id/settingsmenu"
+        android:layout_marginTop="4dp"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Settings and shit"
+        android:textSize="25sp"
+        android:textAllCaps="false"
+        android:textColor="@color/colorPrimaryLight"
+        android:textStyle="bold"
+        />
+
+    <View
+        android:layout_alignTop="@id/settingsmenu"
+        android:layout_width="420dp"
+        android:layout_height="2dp"
+        android:background="#5a5a5a"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="35dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Driving mode:"
+        android:textSize="18sp"
+        android:layout_alignTop="@id/settingsmenu"
+        android:layout_marginTop="50dp"
+        android:layout_alignLeft="@id/settingsmenu"
+        android:layout_marginLeft="30dp"/>
+
+    <RadioGroup
+        android:id="@+id/drivingGroup"
+        android:layout_width="360dp"
+        android:layout_height="65dp"
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="110dp">
+
+        <ToggleButton
+            android:id="@+id/btnJoyStick"
+            android:layout_width="120dp"
+            android:layout_height="60dp"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textOff="Joystick"
+            android:textOn="Joystick"
+            android:onClick="btnJoystick"
+            />
+
+        <ToggleButton
+            android:id="@+id/btnDpad"
+            android:layout_width="120dp"
+            android:layout_height="60dp"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textOff="dpad"
+            android:textOn="dpad"
+            android:onClick="btnDpad"
+            />
+
+        <ToggleButton
+            android:id="@+id/btnGyroScope"
+            android:layout_width="120dp"
+            android:layout_height="60dp"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textOff="gyroscope"
+            android:textOn="gyroscope"
+            android:onClick="btnGyroscope"
+            />
+    </RadioGroup>
+
+    <View
+        android:layout_alignTop="@id/settingsmenu"
+        android:layout_width="420dp"
+        android:layout_height="2dp"
+        android:background="#5a5a5a"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="140dp"/>
+
+    <TextView
+        android:id="@+id/txtSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Safety mode:"
+        android:textSize="18sp"
+        android:layout_alignTop="@id/settingsmenu"
+        android:layout_marginTop="153dp"
+        android:layout_alignLeft="@id/settingsmenu"
+        android:layout_marginLeft="30dp"/>
+
+    <ToggleButton
+        android:id="@+id/btnSafety"
+        android:layout_width="120dp"
+        android:layout_height="60dp"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_alignTop="@id/drivingGroup"
+        android:layout_alignLeft="@id/drivingGroup"
+        android:layout_marginTop="100dp"
+        android:onClick="btnSafety"
+        />
+
+
+</RelativeLayout>

@@ -22,7 +22,8 @@
         </activity>
         <activity android:name=".model.menu.MenuActivity" />
         <activity android:name=".model.main.MainActivity" />
-        <activity android:name=".model.main.AutoActivity"></activity>
+        <activity android:name=".model.main.AutoActivity" />
+        <activity android:name=".model.menu.SettingsActivity"></activity>
     </application>
 
 </manifest>
