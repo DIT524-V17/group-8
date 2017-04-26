@@ -78,6 +78,11 @@ public class RadarData {
         return getUltrasonicReading();
     }
 
+    /**
+     * This method retrieves the local ultrasonic distance reading and returns it.
+     *
+     * @return local ultrasonic distance reading
+     */
     public int getUltrasonicReading() {
         return this.ultrasonicReading;
     }
