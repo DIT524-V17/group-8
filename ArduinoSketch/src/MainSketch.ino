@@ -99,16 +99,14 @@ void setup() {
 }
 
 void loop() {
-  handleInput();
+  //handleInput();
   currentMillis = millis();
   servoMovement();
 
-  if (isManual) {
-    manualDrive();
-  }
-  else if (isAuto) {
-    autoDrive();
+  manualDrive();
 
+  if (isAuto) {
+    autoDrive();
   }
 }
 
@@ -151,7 +149,18 @@ void manualDrive() {
   if (Serial3.available()) {
     data = Serial3.readString();
     Serial.println(data);
-    if (data.substring(data.length() - endOfString).equals("STOP")) {
+    if (data.equals("a")) {
+      car.setSpeed(35);
+      isAuto = true;
+      isManual = false;
+      delay(100);
+    }
+    else if (data.equals("m")) {
+      isManual = true;
+      isAuto = false;
+      car.setSpeed(0);
+    }
+    else if (data.substring(data.length() - endOfString).equals("STOP")) {
       car.stop();
     } else {
       int beginIndex = data.indexOf(terminator);
@@ -174,11 +183,13 @@ void manualDrive() {
 }
 
 void autoDrive() {
+  /*
   if (isBeginning) {
     car.setSpeed(35);
     isBeginning = false;
     delay(100);
   }
+  */
   car.setSpeed(25);
   getLeftReading();
   getRightReading();
