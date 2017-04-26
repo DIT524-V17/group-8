@@ -29,24 +29,28 @@ int endOfString = 4;
 int angleInt;
 int speedInt;
 
+// LEFT ultrasonic smoothed readings
 const int numReadingsLeft = 20;
 int leftReadings[numReadingsLeft];
 int readIndexLeft = 0;
 int totalLeft = 0;
 int averageLeft = 0;
 
+// RIGHT ultrasonic smoothed readings
 const int numReadingsRight = 20;
 int rightReadings[numReadingsRight];
 int readIndexRight = 0;
 int totalRight = 0;
 int averageRight = 0;
 
+// CENTER ultrasonic smoothed readings
 const int numReadingsCenter = 20;
 int centerReadings[numReadingsCenter];
 int readIndexCenter = 0;
 int totalCenter = 0;
 int averageCenter = 0;
 
+// SERVO ultrasonic smoothed readings
 const int numReadingsServo = 20;
 int servoReadings[numReadingsServo];
 int readIndexServo = 0;
@@ -99,29 +103,12 @@ void setup() {
 }
 
 void loop() {
-  //handleInput();
   currentMillis = millis();
   servoMovement();
 
-  manualDrive();
-
+  handleInput();
   if (isAuto) {
     autoDrive();
-  }
-}
-
-void handleInput() {
-  if (Serial3.available()) {
-    selectStr = Serial3.readString();
-    Serial.println("IN HANDLE WITH A OR M");
-    if (selectStr.equals("a")) {
-      isAuto = true;
-      isManual = false;
-    }
-    else if (selectStr.equals("m")) {
-      isManual = true;
-      isAuto = false;
-    }
   }
 }
 
@@ -145,7 +132,7 @@ void servoMovement() {
   }
 }
 
-void manualDrive() {
+void handleInput() {
   if (Serial3.available()) {
     data = Serial3.readString();
     Serial.println(data);
