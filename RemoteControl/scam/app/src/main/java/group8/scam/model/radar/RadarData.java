@@ -6,7 +6,7 @@ public class RadarData {
     private int ultrasonicReading;
     private int minAngle = 0;
     private int maxAngle = 0;
-    private String servoString;
+    private String dataString;
 
     public RadarData(int minAngle, int maxAngle) {
         this.minAngle = minAngle;
@@ -47,14 +47,7 @@ public class RadarData {
      */
     public int filterUltrasonicReading(String servoData) {
 
-        for (int i = 0; i < servoData.length(); i++) {
-            if (Character.isDigit(servoData.charAt(i))) {
-                servoString += servoData.charAt(i);
-            }
-        }
-
-        servoString = "";
-        this.ultrasonicReading = Integer.parseInt(servoString);
+        this.ultrasonicReading = Integer.parseInt(filterData(servoData));
         return getUltrasonicReading();
     }
 
@@ -65,5 +58,15 @@ public class RadarData {
      */
     public int getUltrasonicReading() {
         return this.ultrasonicReading;
+    }
+
+    public String filterData(String data) {
+        for (int i = 0; i < data.length(); i++) {
+            if (Character.isDigit(data.charAt(i))) {
+                dataString += data.charAt(i);
+            }
+        }
+        dataString = data;
+        return data;
     }
 }
