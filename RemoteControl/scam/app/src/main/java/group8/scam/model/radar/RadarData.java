@@ -1,5 +1,11 @@
 package group8.scam.model.radar;
 
+/**
+ * This class handles the Data relating to the Radar such as the angle of the servo, the readings
+ * from the ultrasonic sensor, etc
+ * Created by @Firas
+ */
+
 public class RadarData {
 
     private int angleOfServo = 0;
