@@ -58,7 +58,8 @@ String data;
 
 unsigned long currentMillis = 0;
 unsigned long previousMillis = 0;
-long interval = 200;
+long interval = 30;
+int currentPos = 90;
 
 bool isBeginning = true;
 bool isAuto = false;
@@ -120,38 +121,21 @@ void loop() {
 
   if (currentMillis - previousMillis > interval) {
     previousMillis = currentMillis;
-    if (servoAngle == 90) {
-      if (goingRight) {
-        myServo.write(67);
-      }
-      else {
-        myServo.write(113);
-      }
-    }
-    else if (servoAngle == 67) {
-      if (goingRight) {
-        myServo.write(45);
+    Serial.println(currentPos);
+    if (goingRight) {
+      currentPos = currentPos - 5;
+      if (currentPos == 45) {
         goingRight = false;
       }
-      else {
-        myServo.write(90);
-      }
     }
-    else if (servoAngle == 45) {
-      myServo.write(67);
-    }
-    else if (servoAngle == 113) {
-      if (goingRight) {
-        myServo.write(90);
-      }
-      else {
-        myServo.write(135);
+
+    else if (!goingRight) {
+      currentPos = currentPos + 5;
+      if (currentPos == 135) {
         goingRight = true;
       }
     }
-    else if (servoAngle == 135) {
-      myServo.write(113);
-    }
+    myServo.write(currentPos);
   }
 }
 
