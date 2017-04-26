@@ -38,19 +38,12 @@ public class RadarData {
     }
 
     /**
-     * Retrieves the maximum angle of the Servo
+     * Retrieves the maximum angle of the Servo and returns it.
+     * 
      * @return int maxAngle
      */
     public int getMaxAngle() {
         return this.maxAngle;
-    }
-
-    /**
-     * Updates the ultrasonic reading
-     * @param reading: the numbers from the Ultrasonic sensor
-     */
-    public void updateRadar(int reading) {
-        this.ultrasonicReading = reading;
     }
 
     /**
