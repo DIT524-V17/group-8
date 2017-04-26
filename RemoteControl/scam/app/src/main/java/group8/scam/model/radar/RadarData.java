@@ -22,28 +22,12 @@ public class RadarData {
     }
 
     /**
-     * Retrieves the current Servo Angle
+     * This method retrieves the current Servo Angle and returns it.
+     *
      * @return int angleOfServo
      */
     public int getAngle() {
         return this.angleOfServo;
-    }
-
-    /**
-     * Retrieves the minimum Angle of the Servo
-     * @return int minAngle
-     */
-    public int getMinAngle() {
-        return this.minAngle;
-    }
-
-    /**
-     * Retrieves the maximum angle of the Servo and returns it.
-     * 
-     * @return int maxAngle
-     */
-    public int getMaxAngle() {
-        return this.maxAngle;
     }
 
     /**
