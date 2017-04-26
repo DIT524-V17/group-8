@@ -8,9 +8,8 @@ public class RadarData {
     private int maxAngle = 0;
     private String dataString;
 
-    public RadarData(int minAngle, int maxAngle) {
-        this.minAngle = minAngle;
-        this.maxAngle = maxAngle;
+    public RadarData(int angleOfServo) {
+        this.angleOfServo = angleOfServo;
     }
 
     /**
@@ -25,11 +24,29 @@ public class RadarData {
     }
 
     /**
+     * This method retrieves the String sent by the car to the Handler and
+     * processes the string by verifying whether a character is a number/digit
+     * or not. This ensures that any text indicators and unwanted data are filtered
+     * and only the distance reading remains.
+     * <p>
+     * Furthermore, the string used to retrieve the distance reading is emptied
+     * after filtering to ensure future calls of the method are correct.
+     *
+     * @param servoData - Raw data received as a string from the Handler
+     * @return the angle reading from the Servo
+     * @see #filterDataIntoDigit(String)
+     */
+    public int filterServoAngle(String servoData) {
+        this.angleOfServo = Integer.parseInt(filterDataIntoDigit(servoData));
+        return getAngleOfServo();
+    }
+
+    /**
      * This method retrieves the current Servo Angle and returns it.
      *
      * @return int angleOfServo
      */
-    public int getAngle() {
+    public int getAngleOfServo() {
         return this.angleOfServo;
     }
 
@@ -44,6 +61,7 @@ public class RadarData {
      *
      * @param servoData - Raw data received as a string from the Handler
      * @return the distance reading from the ultrasonic sensor
+     * @see #filterDataIntoDigit(String)
      */
     public int filterUltrasonicReading(String servoData) {
         this.ultrasonicReading = Integer.parseInt(filterDataIntoDigit(servoData));
