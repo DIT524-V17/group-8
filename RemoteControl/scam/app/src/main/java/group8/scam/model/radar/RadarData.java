@@ -46,8 +46,7 @@ public class RadarData {
      * @return the distance reading from the ultrasonic sensor
      */
     public int filterUltrasonicReading(String servoData) {
-
-        this.ultrasonicReading = Integer.parseInt(filterData(servoData));
+        this.ultrasonicReading = Integer.parseInt(filterDataIntoDigit(servoData));
         return getUltrasonicReading();
     }
 
@@ -60,7 +59,19 @@ public class RadarData {
         return this.ultrasonicReading;
     }
 
-    public String filterData(String data) {
+    /**
+     * This method retrieves the String sent by the car to the Handler and
+     * processes the string by verifying whether a character is a number/digit
+     * or not. This ensures that any text indicators and unwanted data are filtered
+     * and only the distance reading remains.
+     * <p>
+     * Furthermore, the string used to retrieve the data is emptied
+     * after filtering to ensure future calls of the method are correct.
+     *
+     * @param data - Raw data received as a string from the Handler
+     * @return the filtered data as a String
+     */
+    public String filterDataIntoDigit(String data) {
         for (int i = 0; i < data.length(); i++) {
             if (Character.isDigit(data.charAt(i))) {
                 dataString += data.charAt(i);
