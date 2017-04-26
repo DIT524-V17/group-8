@@ -81,8 +81,6 @@ public class DataThread extends Thread {
 
     public void write(byte[] bytes) {
         try {
-            String str = new String(bytes, Charset.defaultCharset());
-            System.out.println(str);
             mOutStream.write(bytes);
         } catch (IOException e) {
             System.out.println("Couldn't send the data.");
