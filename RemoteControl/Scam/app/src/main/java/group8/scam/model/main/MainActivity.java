@@ -26,9 +26,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        /*
+        *@Firas: Temporary, remove when car defaults to manual.
+         */
+        stateString = "m";
+        Message msg = handler.getHandler().obtainMessage();
+        msg.what = MESSAGE_WRITE;
+        msg.obj = stateString;
+        msg.sendToTarget();
         button = (ToggleButton) findViewById(R.id.togglebutton);
+        //@Firas: Button Listener for the Toggle Button
         button.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+                /*
+                *@Firas: Switch between auto and manual. Send a for auto, m for manual
+                 */
                 if (isChecked) {
                    stateString = "a";
                 } else {
