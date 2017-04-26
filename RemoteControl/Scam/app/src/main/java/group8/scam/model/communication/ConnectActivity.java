@@ -28,7 +28,7 @@ import java.util.Set;
 
 import group8.scam.R;   
 import group8.scam.controller.handlers.HandleThread;
-import group8.scam.model.menu.MenuActivity;
+import group8.scam.model.main.MainActivity;
 
 /*
     A class to handle connecting to the car. The first activity the user sees
@@ -211,7 +211,7 @@ public class ConnectActivity extends AppCompatActivity {
             // Connected to device
             else if(BluetoothDevice.ACTION_ACL_CONNECTED.equals(action)){
                 // Switching to menu activity
-                startActivity(new Intent(ConnectActivity.this, MenuActivity.class));
+                startActivity(new Intent(ConnectActivity.this, MainActivity.class));
                 unregisterReceiver(mReceiver);
             }
         }

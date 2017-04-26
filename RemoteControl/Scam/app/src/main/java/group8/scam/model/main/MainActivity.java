@@ -6,6 +6,7 @@ import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ToggleButton;
 
@@ -29,6 +30,9 @@ public class MainActivity extends AppCompatActivity {
         button = (ToggleButton) findViewById(R.id.togglebutton);
         button.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
+                /*
+                *@Firas: Switch between auto and manual. Send a for auto, m for manual
+                 */
                 if (isChecked) {
                    stateString = "a";
                 } else {
