@@ -51,4 +51,21 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(MainActivity.this, SettingsActivity.class));
         this.overridePendingTransition(0, 0);
     }
+
+    public void btnUp(View view){
+        
+    }
+
+    public void btnDown(View view){
+
+    }
+
+    public void btnRight(View view){
+
+    }
+
+    public void btnLeft(View view){
+
+    }
+
 }
