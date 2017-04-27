@@ -65,7 +65,7 @@
         android:layout_marginStart="13dp" />
 
 
-
+<!--
     <ImageView
         android:id="@+id/dpadView"
         android:layout_width="180dp"
@@ -97,7 +97,7 @@
         android:id="@+id/btnUp"
         android:onClick="btnUp"
         />
-       <!-- android:visibility="invisible" -->
+       
 
 
     <Button
@@ -120,6 +120,7 @@
         android:id="@+id/btnDown"
         android:onClick="btnDown"
         />
+    -->
 
 
 

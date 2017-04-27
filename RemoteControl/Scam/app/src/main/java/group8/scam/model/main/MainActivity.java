@@ -52,8 +52,10 @@ public class MainActivity extends AppCompatActivity {
         this.overridePendingTransition(0, 0);
     }
 
+
+    // The logic for the dpad buttons
     public void btnUp(View view){
-        
+
     }
 
     public void btnDown(View view){
