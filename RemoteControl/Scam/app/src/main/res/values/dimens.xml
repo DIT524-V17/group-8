@@ -1,3 +1,6 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
+
+    <dimen name="dpad_button_size">70dp</dimen>
+    <dimen name="dpad_button_alignment">55dp</dimen>
 </resources>

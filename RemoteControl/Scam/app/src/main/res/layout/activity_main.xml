@@ -79,37 +79,43 @@
         android:layout_marginBottom="25dp" />
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/dpad_button_size"
+        android:layout_height="@dimen/dpad_button_size"
         android:layout_alignLeft="@id/dpadView"
         android:layout_alignTop="@id/dpadView"
-        android:layout_marginTop="60dp"
-        android:id="@+id/buttonLeft" />
+        android:layout_marginTop="@dimen/dpad_button_alignment"
+        android:id="@+id/btnLeft"
+         />
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/dpad_button_size"
+        android:layout_height="@dimen/dpad_button_size"
         android:layout_alignLeft="@id/dpadView"
         android:layout_alignTop="@id/dpadView"
-        android:layout_marginLeft="60dp"
-        android:id="@+id/buttonUp" />
+        android:layout_marginLeft="@dimen/dpad_button_alignment"
+        android:id="@+id/btnUp"
+        />
+       <!-- android:visibility="invisible" -->
+
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/dpad_button_size"
+        android:layout_height="@dimen/dpad_button_size"
         android:layout_alignRight="@id/dpadView"
         android:layout_alignTop="@id/dpadView"
-        android:layout_marginTop="60dp"
-        android:id="@+id/buttonRight" />
+        android:layout_marginTop="@dimen/dpad_button_alignment"
+        android:id="@+id/btnRight"
+        />
 
     <Button
 
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/dpad_button_size"
+        android:layout_height="@dimen/dpad_button_size"
         android:layout_alignLeft="@id/dpadView"
         android:layout_alignBottom="@id/dpadView"
-        android:layout_marginLeft="60dp"
-        android:id="@+id/buttonDown" />
+        android:layout_marginLeft="@dimen/dpad_button_alignment"
+        android:id="@+id/btnDown"
+        />
 
 
 
