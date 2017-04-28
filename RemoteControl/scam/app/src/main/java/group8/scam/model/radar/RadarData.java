@@ -14,8 +14,9 @@ public class RadarData {
     private int maxAngle = 0;
     private String dataString;
 
-    public RadarData(int angleOfServo) {
+    public RadarData(int angleOfServo, int ultrasonicReading) {
         this.angleOfServo = angleOfServo;
+        this.ultrasonicReading = ultrasonicReading;
     }
 
     /**
@@ -25,7 +26,7 @@ public class RadarData {
      *
      * @param newAngle - the new angle the Servo is currently at
      */
-    public void setAngle(int newAngle) {
+    private void setAngle(int newAngle) {
         this.angleOfServo = newAngle;
     }
 
@@ -39,12 +40,18 @@ public class RadarData {
      * after filtering to ensure future calls of the method are correct.
      *
      * @param servoData - Raw data received as a string from the Handler
-     * @return the angle reading from the Servo
      * @see #filterDataIntoDigit(String)
      */
-    public int filterServoAngle(String servoData) {
-        this.angleOfServo = Integer.parseInt(filterDataIntoDigit(servoData));
-        return getAngleOfServo();
+    private void filterServoAngle(String servoData) {
+        for (int i = 0; i < servoData.length(); i++) {
+            if (servoData.charAt(i) == ':') {
+                break; //if the character is a column, break from the for loop
+            }
+            else if (Character.isDigit(servoData.charAt(i))) {
+                dataString += servoData.charAt(i);
+            }
+        }
+        setAngle(Integer.parseInt(dataString));
     }
 
     /**
@@ -52,7 +59,7 @@ public class RadarData {
      *
      * @return int angleOfServo
      */
-    public int getAngleOfServo() {
+    private int getAngleOfServo() {
         return this.angleOfServo;
     }
 
@@ -66,12 +73,18 @@ public class RadarData {
      * after filtering to ensure future calls of the method are correct.
      *
      * @param servoData - Raw data received as a string from the Handler
-     * @return the distance reading from the ultrasonic sensor
      * @see #filterDataIntoDigit(String)
      */
-    public int filterUltrasonicReading(String servoData) {
-        this.ultrasonicReading = Integer.parseInt(filterDataIntoDigit(servoData));
-        return getUltrasonicReading();
+    private void filterUltrasonicReading(String servoData) {
+        for (int i = 0; i < servoData.length(); i++) {
+            if (servoData.charAt(i) == ':') {
+                break; //if the character is a column, break from the for loop
+            }
+            else if (Character.isDigit(servoData.charAt(i))) {
+                dataString += servoData.charAt(i);
+            }
+        }
+        setUltrasonicReading(Integer.parseInt(dataString));
     }
 
     /**
@@ -79,29 +92,44 @@ public class RadarData {
      *
      * @return local ultrasonic distance reading
      */
-    public int getUltrasonicReading() {
+    private int getUltrasonicReading() {
         return this.ultrasonicReading;
+    }
+
+    /**
+     * This method sets the new local instance ultrasonic reading.
+     *
+     * @param newReading
+     */
+    private void setUltrasonicReading(int newReading) {
+        this.ultrasonicReading = newReading;
     }
 
     /**
      * This method retrieves the String sent by the car to the Handler and
      * processes the string by verifying whether a character is a number/digit
-     * or not. This ensures that any text indicators and unwanted data are filtered
+     * or not and going through the String separators.
+     * This ensures that any text indicators and unwanted data are filtered
      * and only the distance reading remains.
      * <p>
      * Furthermore, the string used to retrieve the data is emptied
      * after filtering to ensure future calls of the method are correct.
      *
      * @param data - Raw data received as a string from the Handler
-     * @return the filtered data as a String
      */
-    public String filterDataIntoDigit(String data) {
+    private void filterDataIntoDigit(String data) {
         for (int i = 0; i < data.length(); i++) {
-            if (Character.isDigit(data.charAt(i))) {
-                dataString += data.charAt(i);
+            if (Character.isLetter(data.charAt(i))) {
+                if (data.charAt(i) == 'a') {
+                    filterServoAngle(data.substring(i, data.length()));//filters and sets angle
+                    System.out.println("Filtered Servo data: " + getAngleOfServo());
+                }
+                else if (data.charAt(i) == 'u') {
+                    filterUltrasonicReading(data.substring(i, data.length()));//filters,sets reading
+                    System.out.println("Filtered Ultrasonic data: "+ getUltrasonicReading());
+                }
             }
         }
-        dataString = data;
-        return data;
     }
+
 }
