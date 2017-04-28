@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
                     txtAuto.setVisibility(View.VISIBLE);
 
                 } else {
-                    stateString = "m";
+                    stateString = "STOP m";
 
                     // Logic to change back to current drivemode
                     SettingsActivity.DrivingMode driveMode = SettingsActivity.getCurrentDrivingMode();
