@@ -13,10 +13,10 @@ public class RadarData {
     private int minAngle = 0;
     private int maxAngle = 0;
     private String dataString;
-    private boolean endOfString = true;
 
-    public RadarData(int angleOfServo) {
+    public RadarData(int angleOfServo, int ultrasonicReading) {
         this.angleOfServo = angleOfServo;
+        this.ultrasonicReading = ultrasonicReading;
     }
 
     /**
@@ -44,7 +44,10 @@ public class RadarData {
      */
     private void filterServoAngle(String servoData) {
         for (int i = 0; i < servoData.length(); i++) {
-            if (Character.isDigit(servoData.charAt(i))) {
+            if (servoData.charAt(i) == ':') {
+                break; //if the character is a column, break from the for loop
+            }
+            else if (Character.isDigit(servoData.charAt(i))) {
                 dataString += servoData.charAt(i);
             }
         }
@@ -73,9 +76,16 @@ public class RadarData {
      * @return the distance reading from the ultrasonic sensor
      * @see #filterDataIntoDigit(String)
      */
-    private int filterUltrasonicReading(String servoData) {
-        this.ultrasonicReading = Integer.parseInt(filterDataIntoDigit(servoData));
-        return getUltrasonicReading();
+    private void filterUltrasonicReading(String servoData) {
+        for (int i = 0; i < servoData.length(); i++) {
+            if (servoData.charAt(i) == ':') {
+                break; //if the character is a column, break from the for loop
+            }
+            else if (Character.isDigit(servoData.charAt(i))) {
+                dataString += servoData.charAt(i);
+            }
+        }
+        setUltrasonicReading(Integer.parseInt(dataString));
     }
 
     /**
@@ -85,6 +95,15 @@ public class RadarData {
      */
     private int getUltrasonicReading() {
         return this.ultrasonicReading;
+    }
+
+    /**
+     * This method sets the new local instance ultrasonic reading.
+     *
+     * @param newReading
+     */
+    private void setUltrasonicReading(int newReading) {
+        this.ultrasonicReading = newReading;
     }
 
     /**
@@ -103,10 +122,12 @@ public class RadarData {
         for (int i = 0; i < data.length(); i++) {
             if (Character.isLetter(data.charAt(i))) {
                 if (data.charAt(i) == 'a') {
-                    filterServoAngle(data.substring(i, data.length()));
+                    filterServoAngle(data.substring(i, data.length()));//filters and sets angle
+                    System.out.println("Filtered Servo data: " + getAngleOfServo());
                 }
                 else if (data.charAt(i) == 'u') {
-                    filterUltrasonicReading(data.substring(i, data.length()));
+                    filterUltrasonicReading(data.substring(i, data.length()));//filters,sets reading
+                    System.out.println("Filtered Ultrasonic data: "+ getUltrasonicReading());
                 }
             }
         }
