@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
                 *@Firas: Switch between auto and manual. Send a for auto, m for manual
                  */
                 if (isChecked) {
-                   stateString = "a";
+                   stateString = "STOP a";
 
                     // Remove the means of controlling the car manually
                     findViewById(R.id.joystick).setVisibility(View.INVISIBLE);
@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
                     txtAuto.setVisibility(View.VISIBLE);
 
                 } else {
-                    stateString = "STOP m";
+                    stateString = "m";
 
                     // Logic to change back to current drivemode
                     SettingsActivity.DrivingMode driveMode = SettingsActivity.getCurrentDrivingMode();
