@@ -134,6 +134,7 @@
         android:layout_toRightOf="@id/txtSafety"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="7dp" />
+
     <TextView
         android:id="@+id/txtAuto"
         android:layout_width="wrap_content"
