@@ -4,15 +4,16 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.os.Message;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+
 import group8.scam.controller.handlers.HandleThread;
+
 import static group8.scam.model.communication.DataThread.MESSAGE_WRITE;
 
 /**
- * Created by sambac on 2017-04-03.
+ * @author sambac
  * This is the joystick view that is used in the main activity.
  * The class is a subclass of View.
  * The View class represents the basic building block for user interface components.
@@ -154,17 +155,10 @@ public class JoystickView extends View {
         }
 
         /**
-         * Message documentation: Defines a message containing a description and arbitrary data
-         * object that can be sent to a Handler.
-         * This object contains two extra int fields
-         * and an extra object field that allow you to not do allocations in many cases.
-         * This code sends a message that contains the dataStr to the Handler inside the HandleThread.
+         * Sends a message that contains the dataStr to the Handler inside the HandleThread.
          * msg.obj is set to the dataStr.
          */
-        Message msg = mHandle.getHandler().obtainMessage();
-        msg.what = MESSAGE_WRITE;
-        msg.obj = dataStr;
-        msg.sendToTarget();
+        mHandle.sendMessage(MESSAGE_WRITE, dataStr);
 
         /**
          * If the view is visible, onDraw(android.graphics.Canvas) will be called at some point in the future,

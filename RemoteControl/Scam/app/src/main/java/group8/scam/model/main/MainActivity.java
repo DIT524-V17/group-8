@@ -38,10 +38,7 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     stateString = "m";
                 }
-                Message msg = handler.getHandler().obtainMessage();
-                msg.what = MESSAGE_WRITE;
-                msg.obj = stateString;
-                msg.sendToTarget();
+                handler.sendMessage(MESSAGE_WRITE, stateString);
             }
         });
     }

@@ -1,33 +1,25 @@
 package group8.scam.controller.handlers;
 
-import android.app.Activity;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.widget.TextView;
 
-import java.io.ByteArrayInputStream;
-import java.lang.ref.WeakReference;
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.nio.IntBuffer;
 import java.nio.charset.Charset;
-import java.util.Set;
 
-import group8.scam.R;
 import group8.scam.model.communication.ConnectThread;
-import group8.scam.model.main.MainActivity;
 
-import static group8.scam.model.communication.DataThread.KEY;
 import static group8.scam.model.communication.DataThread.MESSAGE_READ;
 import static group8.scam.model.communication.DataThread.MESSAGE_TOAST;
 import static group8.scam.model.communication.DataThread.MESSAGE_WRITE;
 
 /**
- * Created by sambac on 2017-04-07.
+ * @author sambac
+ * This thread handles the input and output sent by the car and app.
+ * The class implements the singleton pattern.
  */
 
 public class HandleThread extends Thread {
+
     private static final HandleThread INSTANCE = new HandleThread();
     private ConnectThread connection;
     private Handler mHandler;
@@ -36,22 +28,33 @@ public class HandleThread extends Thread {
         
     }
 
+    /** @return INSTANCE Returns the instance of this class. */
     public static HandleThread getInstance() {
         return INSTANCE;
     }
 
+    /* Method called from ConnectActivity to get the ConnectThread instance. */
     public void setConnection(ConnectThread connection) {
         this.connection = connection;
     }
 
+    /** @return connection returns the ConnectThread instance. */
     public ConnectThread getConnection() {
         return connection;
     }
 
+    /** @return mHandler returns the Handler. */
     public Handler getHandler() {
         return mHandler;
     }
 
+    /**
+     * Message documentation: Defines a message containing a description and arbitrary data
+     * object that can be sent to a Handler.
+     * Creates and sends a Message to the Handler with the passed parameters.
+     * @param what What kind of message is it, either MESSAGE_WRITE or MESSAGE_READ.
+     * @param obj The object that is to be handled by the Handler
+     * */
     public void sendMessage(int what, String obj) {
         Message msg = mHandler.obtainMessage();
         msg.what = what;
@@ -59,25 +62,30 @@ public class HandleThread extends Thread {
         msg.sendToTarget();
     }
 
+    /**
+     * This method run a message loop for a thread.
+     * Threads by default do not have a message loop associated with them; to create one,
+     * Looper.prepare() is called in the thread that is to run the loop,
+     * and then Looper.loop() to have it process messages until the loop is stopped.
+     * handleMessage(msg) method is what handles the messages.
+     */
     public void run() {
         Looper.prepare();
 
         mHandler = new Handler() {
             public void handleMessage(Message msg) {
-                switch (msg.what) {
+                switch (msg.what) { /* Checks what type of message it is */
                     case MESSAGE_WRITE:
-                        String writeStr = (String) msg.obj;
+                        String writeStr = (String) msg.obj; /* msg.obj is of type Object so it has to be cast into String */
                         if (writeStr != null) {
-                            byte[] strBytes = writeStr.getBytes(Charset.defaultCharset());
-                            connection.getDataThread().write(strBytes);
+                            byte[] strBytes = writeStr.getBytes(Charset.defaultCharset()); /* Converts the string into a byte array */
+                            connection.getDataThread().write(strBytes); /* Send the byte array to the DataThread where it will be transmitted to the car */
                         }
                         break;
                     case MESSAGE_READ:
-                        String readStr = (String)msg.obj;
+                        String readStr = (String)msg.obj; /* msg.obj is of type Object so it has to be cast into String */
                         if (readStr != null) {
-                            String servoDist = readStr.substring(0, 2);
-                            String odometerDist;
-                            int speed;
+
                         }
                         break;
                     case MESSAGE_TOAST:
