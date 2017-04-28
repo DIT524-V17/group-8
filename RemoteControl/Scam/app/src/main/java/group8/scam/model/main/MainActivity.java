@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
                 *@Firas: Switch between auto and manual. Send a for auto, m for manual
                  */
                 if (isChecked) {
-                   stateString = "STOP a";
+                   stateString = "a"; //TODO - car is forced to stop before switching to AUTO
 
                     // Remove the means of controlling the car manually
                     findViewById(R.id.joystick).setVisibility(View.INVISIBLE);
