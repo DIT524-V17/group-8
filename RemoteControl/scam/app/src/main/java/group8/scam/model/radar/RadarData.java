@@ -25,7 +25,7 @@ public class RadarData {
      *
      * @param newAngle - the new angle the Servo is currently at
      */
-    public void setAngle(int newAngle) {
+    private void setAngle(int newAngle) {
         this.angleOfServo = newAngle;
     }
 
@@ -42,7 +42,7 @@ public class RadarData {
      * @return the angle reading from the Servo
      * @see #filterDataIntoDigit(String)
      */
-    public int filterServoAngle(String servoData) {
+    private int filterServoAngle(String servoData) {
         this.angleOfServo = Integer.parseInt(filterDataIntoDigit(servoData));
         return getAngleOfServo();
     }
@@ -52,7 +52,7 @@ public class RadarData {
      *
      * @return int angleOfServo
      */
-    public int getAngleOfServo() {
+    private int getAngleOfServo() {
         return this.angleOfServo;
     }
 
@@ -69,7 +69,7 @@ public class RadarData {
      * @return the distance reading from the ultrasonic sensor
      * @see #filterDataIntoDigit(String)
      */
-    public int filterUltrasonicReading(String servoData) {
+    private int filterUltrasonicReading(String servoData) {
         this.ultrasonicReading = Integer.parseInt(filterDataIntoDigit(servoData));
         return getUltrasonicReading();
     }
@@ -79,7 +79,7 @@ public class RadarData {
      *
      * @return local ultrasonic distance reading
      */
-    public int getUltrasonicReading() {
+    private int getUltrasonicReading() {
         return this.ultrasonicReading;
     }
 
@@ -93,15 +93,18 @@ public class RadarData {
      * after filtering to ensure future calls of the method are correct.
      *
      * @param data - Raw data received as a string from the Handler
-     * @return the filtered data as a String
      */
-    public String filterDataIntoDigit(String data) {
+    private void filterDataIntoDigit(String data) {
         for (int i = 0; i < data.length(); i++) {
-            if (Character.isDigit(data.charAt(i))) {
-                dataString += data.charAt(i);
+            if (Character.isLetter(data.charAt(i))) {
+                if (data.charAt(i) == 'a') {
+
+                }
+                else if (data.charAt(i) == 'u') {
+
+                }
             }
         }
         dataString = data;
-        return data;
     }
 }
