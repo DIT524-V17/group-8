@@ -73,7 +73,6 @@ public class RadarData {
      * after filtering to ensure future calls of the method are correct.
      *
      * @param servoData - Raw data received as a string from the Handler
-     * @return the distance reading from the ultrasonic sensor
      * @see #filterDataIntoDigit(String)
      */
     private void filterUltrasonicReading(String servoData) {
