@@ -6,8 +6,10 @@ import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.ImageSwitcher;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import group8.scam.R;
@@ -21,12 +23,21 @@ public class MainActivity extends AppCompatActivity {
     private ToggleButton button;
     private String stateString;
     private HandleThread handler = HandleThread.getInstance();
+    private ImageView safetyLed;
+    private TextView txtSafety;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
+        safetyLed = (ImageView) findViewById(R.id.safetyLed);
+        safetyLed.setImageResource(R.drawable.off30dp);
+
+        txtSafety = (TextView)findViewById(R.id.txtSafety);
+        txtSafety.setText("Safety Off");
+
         button = (ToggleButton) findViewById(R.id.togglebutton);
         button.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
@@ -70,4 +81,41 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // Logic to change the driving mode available
+        SettingsActivity.DrivingMode driveMode = SettingsActivity.getCurrentDrivingMode();
+        switch(driveMode) {
+            case JOYSTICK:
+                findViewById(R.id.joystick).setVisibility(View.VISIBLE);
+                findViewById(R.id.dpadView).setVisibility(View.INVISIBLE);
+                // TODO - Add gyro
+                break;
+
+            case DPAD:
+                findViewById(R.id.joystick).setVisibility(View.INVISIBLE);
+                findViewById(R.id.dpadView).setVisibility(View.VISIBLE);
+                // TODO - Add gyro
+                break;
+
+            case GYROSCOPE:
+                findViewById(R.id.joystick).setVisibility(View.INVISIBLE);
+                findViewById(R.id.dpadView).setVisibility(View.INVISIBLE);
+                // TODO - Add gyro
+                break;
+        }
+
+        // Logic to change the "led" for the safety in the GUI
+        boolean safety = SettingsActivity.getSafety();
+        if(safety){
+            safetyLed.setImageResource(R.drawable.on30dp);
+            txtSafety.setText("Safety On");
+        }
+        else{
+            safetyLed.setImageResource(R.drawable.off30dp);
+            txtSafety.setText("Safety Off");
+        }
+    }
 }

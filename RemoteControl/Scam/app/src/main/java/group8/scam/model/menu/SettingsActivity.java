@@ -15,13 +15,18 @@ import group8.scam.model.main.MainActivity;
     @Authors David Larsson
 */
 
-// TODO - Add the logic and a class for holding settings
+// TODO - Add the logic for the driving modes
 
 public class SettingsActivity extends AppCompatActivity {
     private ToggleButton btnJoystick;
     private ToggleButton btnDpad;
     private ToggleButton btnGyroscope;
     private ToggleButton btnSafety;
+
+    public enum DrivingMode {JOYSTICK, DPAD, GYROSCOPE}
+    private static DrivingMode currentDrivingMode = DrivingMode.JOYSTICK;
+
+    private static boolean safety;
 
     private static Bundle bundle = new Bundle();
 
@@ -36,6 +41,9 @@ public class SettingsActivity extends AppCompatActivity {
         btnGyroscope = (ToggleButton)findViewById(R.id.btnGyroScope);
         btnSafety = (ToggleButton)findViewById(R.id.btnSafety);
 
+        currentDrivingMode = DrivingMode.JOYSTICK;
+        safety = false;
+
     }
 
     public void btnBack(View view) {
@@ -47,32 +55,47 @@ public class SettingsActivity extends AppCompatActivity {
     public void btnJoystick(View view) {
         // TODO - Insert logic
 
-        // Setting the button on, and the rest off
+        // Setting the JOYSTICK button on, and the rest off
         btnJoystick.setChecked(true);
         btnDpad.setChecked(false);
         btnGyroscope.setChecked(false);
+
+        // Setting the driving mode
+        currentDrivingMode = DrivingMode.JOYSTICK;
     }
 
     public void btnDpad(View view) {
         // TODO - Insert logic
 
-        // Setting the button on, and the rest off
+        // Setting the DPAD button on, and the rest off
         btnJoystick.setChecked(false);
         btnDpad.setChecked(true);
         btnGyroscope.setChecked(false);
+
+        // Setting the driving mode
+        currentDrivingMode = DrivingMode.DPAD;
     }
 
     public void btnGyroscope(View view) {
         // TODO - Insert logic
 
-        // Setting the button on, and the rest off
+        // Setting the GYRO button on, and the rest off
         btnJoystick.setChecked(false);
         btnDpad.setChecked(false);
         btnGyroscope.setChecked(true);
+
+        // Setting the driving mode
+        currentDrivingMode = DrivingMode.GYROSCOPE;
     }
 
+    // Logic for switching the safety on and off
     public void btnSafety(View view) {
-        // TODO - Insert logic
+        if(safety){
+            safety = false;
+        }
+        else{
+            safety = true;
+        }
     }
 
     @Override
@@ -84,6 +107,10 @@ public class SettingsActivity extends AppCompatActivity {
         bundle.putBoolean("gyroscopeState", btnGyroscope.isChecked());
         bundle.putBoolean("dpadState", btnDpad.isChecked());
         bundle.putBoolean("safetyState", btnSafety.isChecked());
+
+        // Saving the values of the states
+        bundle.putInt("currentDriveState", currentDrivingMode.ordinal());
+        bundle.putBoolean("currentSafetyState", safety);
     }
 
     @Override
@@ -95,5 +122,18 @@ public class SettingsActivity extends AppCompatActivity {
         btnGyroscope.setChecked(bundle.getBoolean("gyroscopeState",false));
         btnDpad.setChecked(bundle.getBoolean("dpadState", false));
         btnSafety.setChecked(bundle.getBoolean("safetyState", false));
+
+        // Resuming the states of the values
+        currentDrivingMode = DrivingMode.values()[bundle.getInt("currentDriveState")];
+        safety = bundle.getBoolean("currentSafetyState");
     }
+
+    public static DrivingMode getCurrentDrivingMode(){
+        return currentDrivingMode;
+    }
+
+    public static boolean getSafety(){
+        return safety;
+    }
+
 }
