@@ -88,7 +88,6 @@
          />
 
     <Button
-
         android:layout_width="@dimen/dpad_button_size"
         android:layout_height="@dimen/dpad_button_size"
         android:layout_alignLeft="@id/dpadView"
@@ -136,6 +135,7 @@
         android:layout_toRightOf="@id/txtSafety"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="7dp" />
+
     <TextView
         android:id="@+id/txtAuto"
         android:layout_width="wrap_content"
