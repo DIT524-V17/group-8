@@ -52,6 +52,13 @@ public class HandleThread extends Thread {
         return mHandler;
     }
 
+    public void sendMessage(int what, String obj) {
+        Message msg = mHandler.obtainMessage();
+        msg.what = what;
+        msg.obj = obj;
+        msg.sendToTarget();
+    }
+
     public void run() {
         Looper.prepare();
 
@@ -68,7 +75,9 @@ public class HandleThread extends Thread {
                     case MESSAGE_READ:
                         String readStr = (String)msg.obj;
                         if (readStr != null) {
-                            System.out.println(readStr);
+                            String servoDist = readStr.substring(0, 2);
+                            String odometerDist;
+                            int speed;
                         }
                         break;
                     case MESSAGE_TOAST:
