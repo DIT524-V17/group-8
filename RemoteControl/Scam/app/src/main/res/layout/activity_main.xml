@@ -64,8 +64,6 @@
         android:layout_alignParentStart="true"
         android:layout_marginStart="13dp" />
 
-
-<!--
     <ImageView
         android:id="@+id/dpadView"
         android:layout_width="180dp"
@@ -77,7 +75,7 @@
         android:layout_alignEnd="@+id/btnSettings"
         android:layout_marginEnd="25dp"
         android:layout_marginBottom="25dp" />
-
+<!--
     <Button
         android:layout_width="@dimen/dpad_button_size"
         android:layout_height="@dimen/dpad_button_size"
@@ -97,8 +95,6 @@
         android:id="@+id/btnUp"
         android:onClick="btnUp"
         />
-       
-
 
     <Button
         android:layout_width="@dimen/dpad_button_size"
@@ -111,7 +107,6 @@
         />
 
     <Button
-
         android:layout_width="@dimen/dpad_button_size"
         android:layout_height="@dimen/dpad_button_size"
         android:layout_alignLeft="@id/dpadView"
@@ -120,9 +115,36 @@
         android:id="@+id/btnDown"
         android:onClick="btnDown"
         />
-    -->
+-->
+    <TextView
+        android:id="@+id/txtSafety"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="17sp"
+        android:text="Safety off"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"/>
 
-
-
+    <ImageView
+        android:id="@+id/safetyLed"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:padding="1dp"
+        android:background="@drawable/off30dp"
+        android:layout_toRightOf="@id/txtSafety"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="7dp" />
+    <TextView
+        android:id="@+id/txtAuto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Autonomous drive \n       ENGAGED"
+        android:textStyle="bold"
+        android:textColor="@color/colorRED"
+        android:textSize="25sp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="80dp"/>
 
 </RelativeLayout>
