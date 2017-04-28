@@ -17,6 +17,7 @@ import android.widget.ToggleButton;
 import group8.scam.R;
 import group8.scam.controller.handlers.HandleThread;
 import group8.scam.model.menu.SettingsActivity;
+import group8.scam.model.dpad.DpadLogic;
 
 import static group8.scam.model.communication.DataThread.MESSAGE_WRITE;
 
@@ -24,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ToggleButton button;
     private String stateString;
-    private String dataStr;
+
     private HandleThread handler = HandleThread.getInstance();
 
     private Button btnleft, btnright, btnup, btndown;
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView txtSafety;
     private TextView txtAuto;
 
+    DpadLogic dpadlogic = new DpadLogic();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -146,91 +148,32 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public boolean onTouch(View v, MotionEvent event){
-
-                if(event.getAction() == MotionEvent.ACTION_DOWN){
-                    dataStr = "-50:50:";
-                }
-                if(event.getAction() == MotionEvent.ACTION_UP){
-                    dataStr = " STOP";
-                }
-                Message msg = handler.getHandler().obtainMessage();
-                msg.what = MESSAGE_WRITE;
-                msg.obj = dataStr;
-                msg.sendToTarget();
-
-                return true;
+                return dpadlogic.left(event);
             }
         });
 
-        /*
-        *logic for the dow button in dpad
-        *
-         */
         btndown.setOnTouchListener(new View.OnTouchListener(){
 
             @Override
             public boolean onTouch(View v, MotionEvent event){
-
-                if(event.getAction() == MotionEvent.ACTION_DOWN){
-                    dataStr = "0:-50:";
-                }
-                if(event.getAction() == MotionEvent.ACTION_UP){
-                    dataStr = " STOP";
-                }
-                Message msg = handler.getHandler().obtainMessage();
-                msg.what = MESSAGE_WRITE;
-                msg.obj = dataStr;
-                msg.sendToTarget();
-
-                return true;
+                return dpadlogic.down(event);
             }
         });
 
-        /*
-        *logic for the right button in dpad
-        *
-         */
         btnright.setOnTouchListener(new View.OnTouchListener(){
 
             @Override
             public boolean onTouch(View v, MotionEvent event){
-
-                if(event.getAction() == MotionEvent.ACTION_DOWN){
-                    dataStr = "50:50:";
-                }
-                if(event.getAction() == MotionEvent.ACTION_UP){
-                    dataStr = " STOP";
-                }
-                Message msg = handler.getHandler().obtainMessage();
-                msg.what = MESSAGE_WRITE;
-                msg.obj = dataStr;
-                msg.sendToTarget();
-
-                return true;
+                return dpadlogic.right(event);
             }
         });
 
-        /*
-        *logic for the up button in dpad
-        *
-         */
         btnup.setOnTouchListener(new View.OnTouchListener(){
 
             @Override
             public boolean onTouch(View v, MotionEvent event){
 
-                if(event.getAction() == MotionEvent.ACTION_DOWN){
-                    dataStr = "0:50:";
-                }
-                if(event.getAction() == MotionEvent.ACTION_UP){
-                    dataStr = " STOP";
-                }
-                Message msg = handler.getHandler().obtainMessage();
-                msg.what = MESSAGE_WRITE;
-                msg.obj = dataStr;
-                msg.sendToTarget();
-
-                return true;
+                return dpadlogic.up(event);
             }
         });
 
