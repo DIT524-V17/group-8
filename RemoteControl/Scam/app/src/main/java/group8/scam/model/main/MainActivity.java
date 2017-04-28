@@ -7,10 +7,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CompoundButton;
-import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
+
 
 import group8.scam.R;
 import group8.scam.controller.handlers.HandleThread;
@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private HandleThread handler = HandleThread.getInstance();
     private ImageView safetyLed;
     private TextView txtSafety;
+    private TextView txtAuto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +39,9 @@ public class MainActivity extends AppCompatActivity {
         txtSafety = (TextView)findViewById(R.id.txtSafety);
         txtSafety.setText("Safety Off");
 
+        txtAuto = (TextView)findViewById(R.id.txtAuto);
+        txtAuto.setVisibility(View.INVISIBLE);
+
         button = (ToggleButton) findViewById(R.id.togglebutton);
         button.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
@@ -46,8 +50,41 @@ public class MainActivity extends AppCompatActivity {
                  */
                 if (isChecked) {
                    stateString = "a";
+
+                    // Remove the means of controlling the car manually
+                    findViewById(R.id.joystick).setVisibility(View.INVISIBLE);
+                    findViewById(R.id.dpadView).setVisibility(View.INVISIBLE);
+                    // TODO - Add gyro
+
+                    txtAuto.setVisibility(View.VISIBLE);
+
                 } else {
                     stateString = "m";
+
+                    // Logic to change back to current drivemode
+                    SettingsActivity.DrivingMode driveMode = SettingsActivity.getCurrentDrivingMode();
+                    switch(driveMode) {
+                        case JOYSTICK:
+                            txtAuto.setVisibility(View.INVISIBLE);
+                            findViewById(R.id.joystick).setVisibility(View.VISIBLE);
+                            findViewById(R.id.dpadView).setVisibility(View.INVISIBLE);
+                            // TODO - Add gyro
+                            break;
+
+                        case DPAD:
+                            txtAuto.setVisibility(View.INVISIBLE);
+                            findViewById(R.id.joystick).setVisibility(View.INVISIBLE);
+                            findViewById(R.id.dpadView).setVisibility(View.VISIBLE);
+                            // TODO - Add gyro
+                            break;
+
+                        case GYROSCOPE:
+                            txtAuto.setVisibility(View.INVISIBLE);
+                            findViewById(R.id.joystick).setVisibility(View.INVISIBLE);
+                            findViewById(R.id.dpadView).setVisibility(View.INVISIBLE);
+                            // TODO - Add gyro
+                            break;
+                    }
                 }
                 Message msg = handler.getHandler().obtainMessage();
                 msg.what = MESSAGE_WRITE;

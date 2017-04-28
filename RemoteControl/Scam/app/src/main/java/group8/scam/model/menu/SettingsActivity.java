@@ -88,8 +88,8 @@ public class SettingsActivity extends AppCompatActivity {
         currentDrivingMode = DrivingMode.GYROSCOPE;
     }
 
-    // Logic for switching the safety on and off
     public void btnSafety(View view) {
+        // Logic for switching the safety on and off
         if(safety){
             safety = false;
         }
