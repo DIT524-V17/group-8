@@ -13,6 +13,7 @@ public class RadarData {
     private int minAngle = 0;
     private int maxAngle = 0;
     private String dataString;
+    private boolean endOfString = true;
 
     public RadarData(int angleOfServo) {
         this.angleOfServo = angleOfServo;
@@ -39,12 +40,15 @@ public class RadarData {
      * after filtering to ensure future calls of the method are correct.
      *
      * @param servoData - Raw data received as a string from the Handler
-     * @return the angle reading from the Servo
      * @see #filterDataIntoDigit(String)
      */
-    private int filterServoAngle(String servoData) {
-        this.angleOfServo = Integer.parseInt(filterDataIntoDigit(servoData));
-        return getAngleOfServo();
+    private void filterServoAngle(String servoData) {
+        for (int i = 0; i < servoData.length(); i++) {
+            if (Character.isDigit(servoData.charAt(i))) {
+                dataString += servoData.charAt(i);
+            }
+        }
+        setAngle(Integer.parseInt(dataString));
     }
 
     /**
@@ -86,7 +90,8 @@ public class RadarData {
     /**
      * This method retrieves the String sent by the car to the Handler and
      * processes the string by verifying whether a character is a number/digit
-     * or not. This ensures that any text indicators and unwanted data are filtered
+     * or not and going through the String separators.
+     * This ensures that any text indicators and unwanted data are filtered
      * and only the distance reading remains.
      * <p>
      * Furthermore, the string used to retrieve the data is emptied
@@ -98,13 +103,13 @@ public class RadarData {
         for (int i = 0; i < data.length(); i++) {
             if (Character.isLetter(data.charAt(i))) {
                 if (data.charAt(i) == 'a') {
-
+                    filterServoAngle(data.substring(i, data.length()));
                 }
                 else if (data.charAt(i) == 'u') {
-
+                    filterUltrasonicReading(data.substring(i, data.length()));
                 }
             }
         }
-        dataString = data;
     }
+
 }
