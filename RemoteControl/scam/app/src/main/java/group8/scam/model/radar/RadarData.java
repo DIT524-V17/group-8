@@ -1,12 +1,15 @@
 package group8.scam.model.radar;
 
+import group8.scam.controller.handlers.Observer;
+import group8.scam.controller.handlers.Subject;
+
 /**
  * This class handles the Data relating to the Radar such as the angle of the servo, the readings
  * from the ultrasonic sensor, etc
  * Created by @Firas
  */
 
-public class RadarData {
+public class RadarData implements Observer {
 
     private int angleOfServo = 0;
     private int ultrasonicReading;
@@ -17,6 +20,12 @@ public class RadarData {
     public RadarData(int angleOfServo, int ultrasonicReading) {
         this.angleOfServo = angleOfServo;
         this.ultrasonicReading = ultrasonicReading;
+        Subject.add(this);
+    }
+
+    @Override
+    public void update(String data) {
+
     }
 
     /**
@@ -131,5 +140,4 @@ public class RadarData {
             }
         }
     }
-
 }

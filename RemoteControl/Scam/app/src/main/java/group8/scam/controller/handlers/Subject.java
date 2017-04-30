@@ -8,13 +8,9 @@ import java.util.List;
  */
 
 public class Subject {
-    private List<Observer> observers = new ArrayList<>(); /* Contains a list of all the observers. */
+    private static List<Observer> observers = new ArrayList<>(); /* Contains a list of all the observers. */
 
-    public Subject() {
-
-    }
-
-    public void add(Observer o) {
+    public static void add(Observer o) {
         observers.add(o);
     }
 

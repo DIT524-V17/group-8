@@ -16,12 +16,14 @@ import android.widget.ToggleButton;
 
 import group8.scam.R;
 import group8.scam.controller.handlers.HandleThread;
+import group8.scam.controller.handlers.Observer;
+import group8.scam.controller.handlers.Subject;
 import group8.scam.model.menu.SettingsActivity;
 import group8.scam.model.dpad.DpadLogic;
 
 import static group8.scam.model.communication.DataThread.MESSAGE_WRITE;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements Observer {
 
     private ToggleButton button;
     private String stateString;
@@ -33,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageView safetyLed;
     private TextView txtSafety;
     private TextView txtAuto;
+    private TextView txtSpeed;
 
     DpadLogic dpadlogic = new DpadLogic();
 
@@ -50,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
 
         txtAuto = (TextView)findViewById(R.id.txtAuto);
         txtAuto.setVisibility(View.INVISIBLE);
+
+        txtSpeed = (TextView)findViewById(R.id.speedLbl);
 
         button = (ToggleButton) findViewById(R.id.togglebutton);
 
@@ -177,8 +182,22 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Subject.add(this);
     }
 
+    @Override
+    public void update(String data) {
+        updateView(data);
+    }
+
+    public void updateView(final String data) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                txtSpeed.setText(data);
+            }
+        });
+    }
 
     public void btnSettings(View view) {
         // Start the settings activity, and overriding the animation to switch
@@ -246,5 +265,4 @@ public class MainActivity extends AppCompatActivity {
             txtSafety.setText("Safety Off");
         }
     }
-
 }
