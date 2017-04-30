@@ -23,9 +23,11 @@ public class HandleThread extends Thread {
     private static final HandleThread INSTANCE = new HandleThread();
     private ConnectThread connection;
     private Handler mHandler;
+    private Subject subject;
 
     private HandleThread() {
-        
+        subject = new Subject();
+
     }
 
     /** @return INSTANCE Returns the instance of this class. */
