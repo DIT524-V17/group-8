@@ -64,6 +64,7 @@
         android:layout_alignParentStart="true"
         android:layout_marginStart="13dp" />
 
+
     <ImageView
         android:id="@+id/dpadView"
         android:layout_width="180dp"
@@ -73,17 +74,17 @@
         android:layout_marginLeft="30dp"
         android:layout_alignBottom="@+id/togglebutton"
         android:layout_alignEnd="@+id/btnSettings"
-        android:layout_marginEnd="25dp"
-        android:layout_marginBottom="25dp" />
-<!--
+        android:layout_marginEnd="18dp"
+        android:layout_marginBottom="18dp" />
+
     <Button
         android:layout_width="@dimen/dpad_button_size"
         android:layout_height="@dimen/dpad_button_size"
         android:layout_alignLeft="@id/dpadView"
         android:layout_alignTop="@id/dpadView"
         android:layout_marginTop="@dimen/dpad_button_alignment"
-        android:id="@+id/btnLeft"
-        android:onClick="btnLeft"
+        android:id="@+id/btnleft"
+        android:background="@drawable/empty"
          />
 
     <Button
@@ -93,7 +94,7 @@
         android:layout_alignTop="@id/dpadView"
         android:layout_marginLeft="@dimen/dpad_button_alignment"
         android:id="@+id/btnUp"
-        android:onClick="btnUp"
+        android:background="@drawable/empty"
         />
 
     <Button
@@ -103,7 +104,7 @@
         android:layout_alignTop="@id/dpadView"
         android:layout_marginTop="@dimen/dpad_button_alignment"
         android:id="@+id/btnRight"
-        android:onClick="btnRight"
+        android:background="@drawable/empty"
         />
 
     <Button
@@ -113,9 +114,9 @@
         android:layout_alignBottom="@id/dpadView"
         android:layout_marginLeft="@dimen/dpad_button_alignment"
         android:id="@+id/btnDown"
-        android:onClick="btnDown"
+        android:background="@drawable/empty"
         />
--->
+
     <TextView
         android:id="@+id/txtSafety"
         android:layout_width="wrap_content"
@@ -134,6 +135,7 @@
         android:layout_toRightOf="@id/txtSafety"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="7dp" />
+
     <TextView
         android:id="@+id/txtAuto"
         android:layout_width="wrap_content"

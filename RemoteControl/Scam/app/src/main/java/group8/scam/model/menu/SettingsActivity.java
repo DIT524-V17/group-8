@@ -33,17 +33,19 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_settings);
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        setContentView(R.layout.activity_settings);
 
+        // Defining the buttons
         btnJoystick = (ToggleButton)findViewById(R.id.btnJoyStick);
         btnDpad = (ToggleButton)findViewById(R.id.btnDpad);
         btnGyroscope = (ToggleButton)findViewById(R.id.btnGyroScope);
         btnSafety = (ToggleButton)findViewById(R.id.btnSafety);
 
+        // Setting the default states
         currentDrivingMode = DrivingMode.JOYSTICK;
         safety = false;
-
+        btnJoystick.setChecked(true);
     }
 
     public void btnBack(View view) {

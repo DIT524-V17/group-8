@@ -74,6 +74,7 @@
             android:textOff="Joystick"
             android:textOn="Joystick"
             android:onClick="btnJoystick"
+            android:checked="true"
             />
 
         <ToggleButton
