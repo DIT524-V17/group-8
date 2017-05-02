@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements Observer {
     private TextView txtSafety;
     private TextView txtAuto;
     private TextView txtSpeed;
+    private TextView txtDistance;
 
     private Accelerometer accelerometer;
 
@@ -60,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements Observer {
         txtAuto.setVisibility(View.INVISIBLE);
 
         txtSpeed = (TextView)findViewById(R.id.speedLbl);
+        txtDistance = (TextView)findViewById(R.id.distanceLbl);
 
         button = (ToggleButton) findViewById(R.id.togglebutton);
 
@@ -163,16 +165,43 @@ public class MainActivity extends AppCompatActivity implements Observer {
         Subject.add(this);
     }
 
+    // sXX:dXX:aXX:uXX:
+    // s = speed, d = distance, a = angle, u = ultrasonic
     @Override
     public void update(String data) {
-        updateView(data);
+        int speedBeginIndex = 0;
+        int speedEndIndex = 0;
+        int distanceBeginIndex = 0;
+        int distanceEndIndex = 0;
+        for (int i = 0; i < data.length(); i++ ){
+            if (Character.isLetter(data.charAt(i)) && data.charAt(i) == 's'){
+                speedBeginIndex = i+1;
+            }else if (data.charAt(i) == ':' && speedBeginIndex > 0){
+                speedEndIndex = i+1;
+                break;
+            }
+        }
+        for (int i = 0; i < data.length(); i++ ){
+            if (Character.isLetter(data.charAt(i)) && data.charAt(i) == 'd'){
+                distanceBeginIndex = i+1;
+            }else if (data.charAt(i) == ':' && distanceBeginIndex > 0){
+                distanceEndIndex = i+1;
+                break;
+            }
+        }
+
+        String speed = data.substring(speedBeginIndex, speedEndIndex - 1);
+        String distance = data.substring(distanceBeginIndex, distanceEndIndex - 1);
+        updateView("Speed: " + speed,"Distance: " + distance );
     }
 
-    public void updateView(final String data) {
+    public void updateView(final String data,final String eller) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 txtSpeed.setText(data);
+                txtDistance.setText(eller);
+
             }
         });
     }
