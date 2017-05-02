@@ -13,8 +13,6 @@ public class RadarData implements Observer {
 
     private int angleOfServo = 0;
     private int ultrasonicReading;
-    private int minAngle = 0;
-    private int maxAngle = 0;
     private String dataString;
 
     public RadarData(int angleOfServo, int ultrasonicReading) {
@@ -25,7 +23,7 @@ public class RadarData implements Observer {
 
     @Override
     public void update(String data) {
-
+        filterDataIntoDigit(data);
     }
 
     /**
