@@ -90,6 +90,7 @@ public boolean right (MotionEvent event){
         msg.obj = dataStr;
         msg.sendToTarget();
 
+
         return true;
     }
 
