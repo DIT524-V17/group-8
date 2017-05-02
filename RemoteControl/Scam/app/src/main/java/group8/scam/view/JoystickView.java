@@ -146,7 +146,10 @@ public class JoystickView extends View {
          * The angle and speed variables are used to create a string that is stored in the dataStr.
          */
         if (event.getAction() == MotionEvent.ACTION_UP) {
-            dataStr = " STOP";
+            for (int i = 0; i < 5; i++) {
+                dataStr = " STOP";
+                mHandle.sendMessage(MESSAGE_WRITE, dataStr);
+            }
             resetCirclePosition();
         } else if (event.getAction() == MotionEvent.ACTION_DOWN || event.getAction() == MotionEvent.ACTION_MOVE) {
             int angle = getCarAngle(getAngle());
