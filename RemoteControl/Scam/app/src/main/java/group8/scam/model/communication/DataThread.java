@@ -11,7 +11,7 @@ import java.io.OutputStream;
 import group8.scam.controller.handlers.HandleThread;
 
 /**
- * @author sambac
+ * @author Samuel Bäckström
  * This class is responsible for transmitting and
  * recieving data over the bluetooth socket created
  * in ConnectThread.

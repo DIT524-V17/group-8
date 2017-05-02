@@ -13,7 +13,7 @@ import group8.scam.controller.handlers.HandleThread;
 import static group8.scam.model.communication.DataThread.MESSAGE_WRITE;
 
 /**
- * @author sambac
+ * @author Samuel Bäckström
  * This is the joystick view that is used in the main activity.
  * The class is a subclass of View.
  * The View class represents the basic building block for user interface components.
