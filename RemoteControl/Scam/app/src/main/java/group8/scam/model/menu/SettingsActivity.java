@@ -12,10 +12,8 @@ import group8.scam.model.main.MainActivity;
 
 /*
     A class to handle the different settings the user has access to
-    @Authors David Larsson
+    @Author David Larsson
 */
-
-// TODO - Add the logic for the driving modes
 
 public class SettingsActivity extends AppCompatActivity {
     private ToggleButton btnJoystick;
@@ -55,8 +53,6 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     public void btnJoystick(View view) {
-        // TODO - Insert logic
-
         // Setting the JOYSTICK button on, and the rest off
         btnJoystick.setChecked(true);
         btnDpad.setChecked(false);
@@ -67,8 +63,6 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     public void btnDpad(View view) {
-        // TODO - Insert logic
-
         // Setting the DPAD button on, and the rest off
         btnJoystick.setChecked(false);
         btnDpad.setChecked(true);
@@ -79,8 +73,6 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     public void btnGyroscope(View view) {
-        // TODO - Insert logic
-
         // Setting the GYRO button on, and the rest off
         btnJoystick.setChecked(false);
         btnDpad.setChecked(false);

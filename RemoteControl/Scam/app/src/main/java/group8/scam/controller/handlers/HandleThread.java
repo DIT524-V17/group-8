@@ -7,7 +7,6 @@ import android.os.Message;
 import java.nio.charset.Charset;
 
 import group8.scam.model.communication.ConnectThread;
-import group8.scam.model.main.MainActivity;
 
 import static group8.scam.model.communication.DataThread.MESSAGE_READ;
 import static group8.scam.model.communication.DataThread.MESSAGE_TOAST;
@@ -71,7 +70,6 @@ public class HandleThread extends Thread {
      * and then Looper.loop() to have it process messages until the loop is stopped.
      * handleMessage(msg) method is what handles the messages.
      */
-
     public void run() {
         Looper.prepare();
 
