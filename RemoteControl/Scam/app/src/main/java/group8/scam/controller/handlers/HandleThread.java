@@ -81,7 +81,6 @@ public class HandleThread extends Thread {
                     case MESSAGE_WRITE:
                         String writeStr = (String) msg.obj; /* msg.obj is of type Object so it has to be cast into String */
                         if (writeStr != null) {
-                            subject.notifyObservers(writeStr);
                             byte[] strBytes = writeStr.getBytes(Charset.defaultCharset()); /* Converts the string into a byte array */
                             connection.getDataThread().write(strBytes); /* Send the byte array to the DataThread where it will be transmitted to the car */
                         }
