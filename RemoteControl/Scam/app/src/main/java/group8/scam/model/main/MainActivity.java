@@ -2,7 +2,6 @@ package group8.scam.model.main;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -63,12 +62,7 @@ public class MainActivity extends AppCompatActivity implements Observer {
         btnup = (Button)findViewById(R.id.btnUp);
         btndown = (Button)findViewById(R.id.btnDown);
 
-        // TODO - Move all of Dpad into one view
-        findViewById(R.id.dpadView).setVisibility(View.INVISIBLE);
-        btndown.setVisibility(View.INVISIBLE);
-        btnup.setVisibility(View.INVISIBLE);
-        btnleft.setVisibility(View.INVISIBLE);
-        btnright.setVisibility(View.INVISIBLE);
+        hideDpad();
 
         button.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {
@@ -80,20 +74,17 @@ public class MainActivity extends AppCompatActivity implements Observer {
 
                     // Remove the means of controlling the car manually
                     findViewById(R.id.joystick).setVisibility(View.INVISIBLE);
-
-                    // TODO - Move all of Dpad into one view
-                    findViewById(R.id.dpadView).setVisibility(View.INVISIBLE);
-                    btndown.setVisibility(View.INVISIBLE);
-                    btnup.setVisibility(View.INVISIBLE);
-                    btnleft.setVisibility(View.INVISIBLE);
-                    btnright.setVisibility(View.INVISIBLE);
-
+                    hideDpad();
                     // TODO - Add gyro
+
+                    // Remove the settings menu
+                    findViewById(R.id.btnSettings).setVisibility(View.INVISIBLE);
 
                     txtAuto.setVisibility(View.VISIBLE);
 
                 } else {
                     stateString = "m";
+                    findViewById(R.id.btnSettings).setVisibility(View.VISIBLE);
 
                     // Logic to change back to current drivemode
                     SettingsActivity.DrivingMode driveMode = SettingsActivity.getCurrentDrivingMode();
@@ -101,13 +92,7 @@ public class MainActivity extends AppCompatActivity implements Observer {
                         case JOYSTICK:
                             txtAuto.setVisibility(View.INVISIBLE);
                             findViewById(R.id.joystick).setVisibility(View.VISIBLE);
-
-                            // TODO - Move all of Dpad into one view
-                            findViewById(R.id.dpadView).setVisibility(View.INVISIBLE);
-                            btndown.setVisibility(View.INVISIBLE);
-                            btnup.setVisibility(View.INVISIBLE);
-                            btnleft.setVisibility(View.INVISIBLE);
-                            btnright.setVisibility(View.INVISIBLE);
+                            hideDpad();
 
                             // TODO - Add gyro
                             break;
@@ -115,13 +100,7 @@ public class MainActivity extends AppCompatActivity implements Observer {
                         case DPAD:
                             txtAuto.setVisibility(View.INVISIBLE);
                             findViewById(R.id.joystick).setVisibility(View.INVISIBLE);
-
-                            // TODO - Move all of Dpad into one view
-                            findViewById(R.id.dpadView).setVisibility(View.VISIBLE);
-                            btndown.setVisibility(View.VISIBLE);
-                            btnup.setVisibility(View.VISIBLE);
-                            btnleft.setVisibility(View.VISIBLE);
-                            btnright.setVisibility(View.VISIBLE);
+                            showDpad();
 
                             // TODO - Add gyro
                             break;
@@ -129,14 +108,7 @@ public class MainActivity extends AppCompatActivity implements Observer {
                         case GYROSCOPE:
                             txtAuto.setVisibility(View.INVISIBLE);
                             findViewById(R.id.joystick).setVisibility(View.INVISIBLE);
-
-                            // TODO - Move all of Dpad into one view
-                            findViewById(R.id.dpadView).setVisibility(View.INVISIBLE);
-                            btndown.setVisibility(View.INVISIBLE);
-                            btnup.setVisibility(View.INVISIBLE);
-                            btnleft.setVisibility(View.INVISIBLE);
-                            btnright.setVisibility(View.INVISIBLE);
-
+                            hideDpad();
                             // TODO - Add gyro
                             break;
                     }
@@ -205,7 +177,22 @@ public class MainActivity extends AppCompatActivity implements Observer {
         this.overridePendingTransition(0, 0);
     }
 
-
+    // David - Two methods for hiding/showing all the Dpad stuff
+    // Should be grouped in the XML instead, don't know how though :(
+    public void hideDpad(){
+        findViewById(R.id.dpadView).setVisibility(View.INVISIBLE);
+        btndown.setVisibility(View.INVISIBLE);
+        btnup.setVisibility(View.INVISIBLE);
+        btnleft.setVisibility(View.INVISIBLE);
+        btnright.setVisibility(View.INVISIBLE);
+    }
+    public void showDpad(){
+        findViewById(R.id.dpadView).setVisibility(View.VISIBLE);
+        btndown.setVisibility(View.VISIBLE);
+        btnup.setVisibility(View.VISIBLE);
+        btnleft.setVisibility(View.VISIBLE);
+        btnright.setVisibility(View.VISIBLE);
+    }
 
     @Override
     protected void onResume() {
@@ -216,39 +203,21 @@ public class MainActivity extends AppCompatActivity implements Observer {
         switch(driveMode) {
             case JOYSTICK:
                 findViewById(R.id.joystick).setVisibility(View.VISIBLE);
-
-                // TODO - Move all of Dpad into one view
-                findViewById(R.id.dpadView).setVisibility(View.INVISIBLE);
-                btndown.setVisibility(View.INVISIBLE);
-                btnup.setVisibility(View.INVISIBLE);
-                btnleft.setVisibility(View.INVISIBLE);
-                btnright.setVisibility(View.INVISIBLE);
+                hideDpad();
 
                 // TODO - Add gyro
                 break;
 
             case DPAD:
                 findViewById(R.id.joystick).setVisibility(View.INVISIBLE);
-
-                // TODO - Move all of Dpad into one view
-                findViewById(R.id.dpadView).setVisibility(View.VISIBLE);
-                btndown.setVisibility(View.VISIBLE);
-                btnup.setVisibility(View.VISIBLE);
-                btnleft.setVisibility(View.VISIBLE);
-                btnright.setVisibility(View.VISIBLE);
+                showDpad();
 
                 // TODO - Add gyro
                 break;
 
             case GYROSCOPE:
                 findViewById(R.id.joystick).setVisibility(View.INVISIBLE);
-
-                // TODO - Move all of Dpad into one view
-                findViewById(R.id.dpadView).setVisibility(View.INVISIBLE);
-                btndown.setVisibility(View.INVISIBLE);
-                btnup.setVisibility(View.INVISIBLE);
-                btnleft.setVisibility(View.INVISIBLE);
-                btnright.setVisibility(View.INVISIBLE);
+                hideDpad();
 
                 // TODO - Add gyro
                 break;
