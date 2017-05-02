@@ -14,7 +14,7 @@ import static group8.scam.model.communication.DataThread.MESSAGE_TOAST;
 import static group8.scam.model.communication.DataThread.MESSAGE_WRITE;
 
 /**
- * @author sambac
+ * @author Samuel Bäckström
  * This thread handles the input and output sent by the car and app.
  * The class implements the singleton pattern.
  */

@@ -12,7 +12,7 @@ import java.util.UUID;
 
 
 /**
- * @author sambac
+ * @author Samuel Bäckström
  * This class is responisble for opening a connection over Bluetooth to another device.
  */
 public class ConnectThread extends Thread {
