@@ -75,6 +75,9 @@ bool goingRight = true;
 
 char terminator = ':';
 
+//ultrasonic distance calculation variables
+int distanceServo = 0;
+
 void setup() {
   Serial.begin(9600);
   Serial3.begin(9600);
@@ -223,12 +226,13 @@ void autoDrive() {
 }
 
 void sendData() {
-  int sonicDistance = servoSonic.getDistance();
+  //int sonicDistance = servoSonic.getDistance();
   int odometerDistance = odometer.getDistance();
   int servoAngle = myServo.read();
   int speed = car.getSpeed();
 
-  String strSonic = String(sonicDistance);
+  //String strSonic = String(sonicDistance);
+  String strSonic = String(distance);
   String strOdometer = String(odometerDistance);
   String strAngle = String(servoAngle);
   String strSpeed = String(speed);
@@ -321,6 +325,7 @@ void getServoReading() {
   }
 
   averageServo = totalServo / numReadingsServo;
+  distanceServo = averageServo*0.034/2;
   delay(1);
 }
 
