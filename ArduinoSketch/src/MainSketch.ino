@@ -25,6 +25,9 @@ int servoAngle = 0;
 Gyroscope gyro;
 int motorSpeed = 80;
 
+Odometer odometer;
+const int ODOMETER_PIN = 2;
+
 int endOfString = 4;
 int angleInt;
 int speedInt;
@@ -82,6 +85,7 @@ void setup() {
   leftSonic.attach(TRIGGER_PIN_LEFT, ECHO_PIN_LEFT);
   rightSonic.attach(TRIGGER_PIN_RIGHT, ECHO_PIN_RIGHT);
 
+  odometer.attach(ODOMETER_PIN);
   myServo.attach(SERVO_PIN);
   myServo.write(90); // servo starts at 90 degrees, facing forward
   gyro.attach();
@@ -101,9 +105,12 @@ void setup() {
   }
 
   car.begin(gyro);
+  car.begin(odometer);
 }
 
 void loop() {
+  sendData();
+
   currentMillis = millis(); // checks current time
   servoMovement();
 
@@ -213,6 +220,26 @@ void autoDrive() {
       delay(200);
     }
   }
+}
+
+void sendData() {
+  int sonicDistance = servoSonic.getDistance();
+  int odometerDistance = odometer.getDistance();
+  int servoAngle = myServo.read();
+  int speed = car.getSpeed();
+
+  String strSonic = String(sonicDistance);
+  String strOdometer = String(odometerDistance);
+  String strAngle = String(servoAngle);
+  String strSpeed = String(speed);
+
+  String dataStr = "s" + strSpeed + ":" + "d" + strOdometer + ":" + "a" + strAngle + ":" + "u" + strSonic + ":";
+  Serial.println(dataStr);
+
+  int strLength = dataStr.length() + 1;
+  char charArray[strLength];
+  dataStr.toCharArray(charArray, strLength);
+  Serial3.write(charArray, strLength);
 }
 
 /*
