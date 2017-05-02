@@ -7,6 +7,9 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 
 
+import group8.scam.controller.handlers.HandleThread;
+
+import static group8.scam.model.communication.DataThread.MESSAGE_WRITE;
 import static java.lang.Math.atan;
 import static java.lang.Math.pow;
 import static java.lang.Math.sqrt;
@@ -18,10 +21,15 @@ import static java.lang.Math.sqrt;
 public class Accelerometer implements SensorEventListener {
 
     private SensorManager sensorManager;
+    private HandleThread mHandle = HandleThread.getInstance();
     private Sensor sensor;
+    private String dataStr;
     double x;
     double y;
     double z;
+    double Rx;
+    double Ry;
+    double Rz;
 
     private long lastUpdate = 0;
 
@@ -48,33 +56,60 @@ public class Accelerometer implements SensorEventListener {
             y = event.values[1];
             z = event.values[2];
 
-            double Rx = atan( x / (sqrt(pow(y,2) + pow(z,2))));
+            Rx = atan( x / (sqrt(pow(y,2) + pow(z,2))));
             Rx *= 180.00;
             Rx /= 3.141592;
-            double Ry = atan( y / (sqrt(pow(x,2) + pow(z,2))));
+            Ry = atan( y / (sqrt(pow(x,2) + pow(z,2))));
             Ry *= 180.00;
             Ry /= 3.141592;
-            double Rz = atan(sqrt(pow(x,2) + pow(y,2)) / z);
+            Rz = atan(sqrt(pow(x,2) + pow(y,2)) / z);
             Rz *= 180.00;
             Rz /= 3.141592;
 
             long curTime = System.currentTimeMillis();
 
+            int angle = 0;
+            int speed = getCarSpeed();
+            dataStr = angle + ":" + speed + ":";
 
-            if ((curTime - lastUpdate) > 100) {
+
+
+
+            if ((curTime - lastUpdate) > 25) {
                 lastUpdate = curTime;
-
+                mHandle.sendMessage(MESSAGE_WRITE, dataStr);
+                System.out.println(dataStr);
                 System.out.println("X is: " + Rx);
                 System.out.println("Y is: " + Ry);
                 System.out.println("Z is: " + Rz);
                 System.out.println(" ");
                 System.out.println(" ");
             }
+
         }
     }
+
+    private int getCarSpeed() {
+        if (Rx < 105 && Rx > 75 && Ry < 3 && Ry > -3) {
+            //System.out.println("STOPPED");
+            return 0;
+        }
+        else if (Rx < 75 && Rz < 75 && Rz > 0) {
+            //System.out.println("FORWARD");
+            return 50;
+        }
+        else if (Rx < 75 && Rz < 0) {
+            //System.out.println("BACKWARD");
+            return -50;
+        }
+        else return 0;
+    }
+
+
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
     }
+
 }

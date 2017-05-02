@@ -224,10 +224,11 @@ public class MainActivity extends AppCompatActivity implements Observer {
             case GYROSCOPE:
                 findViewById(R.id.joystick).setVisibility(View.INVISIBLE);
                 hideDpad();
-
+                accelerometer.onResume();
                 // TODO - Add gyro
                 break;
         }
+
 
         // Logic to change the "led" for the safety in the GUI
         boolean safety = SettingsActivity.getSafety();
@@ -240,7 +241,6 @@ public class MainActivity extends AppCompatActivity implements Observer {
             txtSafety.setText("Safety Off");
         }
 
-        accelerometer.onResume();
 
     }
 }
