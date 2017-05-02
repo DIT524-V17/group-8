@@ -57,48 +57,45 @@
         android:layout_alignLeft="@id/settingsmenu"
         android:layout_marginLeft="30dp"/>
 
-    <RadioGroup
-        android:id="@+id/drivingGroup"
-        android:layout_width="360dp"
-        android:layout_height="65dp"
-        android:orientation="horizontal"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="110dp">
+    <ToggleButton
+        android:id="@+id/btnJoyStick"
+        android:layout_width="120dp"
+        android:layout_height="60dp"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textOff="Joystick"
+        android:textOn="Joystick"
+        android:onClick="btnJoystick"
+        android:checked="true"
+        android:layout_marginTop="110dp"
+        android:layout_marginLeft="160dp"
+        />
 
-        <ToggleButton
-            android:id="@+id/btnJoyStick"
-            android:layout_width="120dp"
-            android:layout_height="60dp"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:textOff="Joystick"
-            android:textOn="Joystick"
-            android:onClick="btnJoystick"
-            android:checked="true"
-            />
+    <ToggleButton
+        android:id="@+id/btnDpad"
+        android:layout_width="120dp"
+        android:layout_height="60dp"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textOff="dpad"
+        android:textOn="dpad"
+        android:onClick="btnDpad"
+        android:layout_toRightOf="@id/btnJoyStick"
+        android:layout_marginTop="110dp"
+        />
 
-        <ToggleButton
-            android:id="@+id/btnDpad"
-            android:layout_width="120dp"
-            android:layout_height="60dp"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:textOff="dpad"
-            android:textOn="dpad"
-            android:onClick="btnDpad"
-            />
-
-        <ToggleButton
-            android:id="@+id/btnGyroScope"
-            android:layout_width="120dp"
-            android:layout_height="60dp"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:textOff="gyroscope"
-            android:textOn="gyroscope"
-            android:onClick="btnGyroscope"
-            />
-    </RadioGroup>
+    <ToggleButton
+        android:id="@+id/btnGyroScope"
+        android:layout_width="120dp"
+        android:layout_height="60dp"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textOff="gyroscope"
+        android:textOn="gyroscope"
+        android:onClick="btnGyroscope"
+        android:layout_toRightOf="@id/btnDpad"
+        android:layout_marginTop="110dp"
+        />
 
     <View
         android:layout_alignTop="@id/settingsmenu"
@@ -125,10 +122,10 @@
         android:layout_height="60dp"
         android:textSize="16sp"
         android:textStyle="bold"
-        android:layout_alignTop="@id/drivingGroup"
-        android:layout_alignLeft="@id/drivingGroup"
-        android:layout_marginTop="100dp"
         android:onClick="btnSafety"
+        android:layout_marginTop="40dp"
+        android:layout_below="@id/btnJoyStick"
+        android:layout_alignStart="@id/btnJoyStick"
         />
 
 
