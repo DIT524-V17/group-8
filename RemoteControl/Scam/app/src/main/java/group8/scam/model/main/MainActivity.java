@@ -210,14 +210,12 @@ public class MainActivity extends AppCompatActivity implements Observer {
             case JOYSTICK:
                 findViewById(R.id.joystick).setVisibility(View.VISIBLE);
                 hideDpad();
-
                 // TODO - Add gyro
                 break;
 
             case DPAD:
                 findViewById(R.id.joystick).setVisibility(View.INVISIBLE);
                 showDpad();
-
                 // TODO - Add gyro
                 break;
 

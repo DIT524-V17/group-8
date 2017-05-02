@@ -24,6 +24,7 @@ public class Accelerometer implements SensorEventListener {
     private HandleThread mHandle = HandleThread.getInstance();
     private Sensor sensor;
     private String dataStr;
+    boolean isTurning = false;
     double x;
     double y;
     double z;
@@ -68,15 +69,18 @@ public class Accelerometer implements SensorEventListener {
 
             long curTime = System.currentTimeMillis();
 
-            int angle = 0;
-            int speed = getCarSpeed();
-            dataStr = angle + ":" + speed + ":";
 
 
 
 
-            if ((curTime - lastUpdate) > 25) {
+
+            if ((curTime - lastUpdate) > 50) {
                 lastUpdate = curTime;
+
+                int angle = getCarAngle();
+                int speed = getCarSpeed();
+                dataStr = angle + ":" + speed + ":";
+
                 mHandle.sendMessage(MESSAGE_WRITE, dataStr);
                 System.out.println(dataStr);
                 System.out.println("X is: " + Rx);
@@ -102,7 +106,29 @@ public class Accelerometer implements SensorEventListener {
             //System.out.println("BACKWARD");
             return -50;
         }
-        else return 0;
+        else if (isTurning) {
+            return 50;
+        }
+        else
+            return 0;
+    }
+
+    private int getCarAngle() {
+        if (Rx < 90 && Ry > 10 && ((Rz > 75 && Rz < 91) || (Rz > -91 && Rz < -75))) {
+            isTurning = true;
+            System.out.println("RIGHT");
+            return 45;
+        }
+        else if (Rx < 90 && Ry < -10 && ((Rz > 75 && Rz < 91) || (Rz > -91 && Rz < -75))) {
+            isTurning = true;
+            System.out.println("LEFT");
+            return -45;
+        }
+        else {
+            isTurning = false;
+            System.out.println("NONE");
+            return 0;
+        }
     }
 
 
