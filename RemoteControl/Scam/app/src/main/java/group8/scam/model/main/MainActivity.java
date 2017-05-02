@@ -19,6 +19,7 @@ import group8.scam.controller.handlers.Observer;
 import group8.scam.controller.handlers.Subject;
 import group8.scam.model.menu.SettingsActivity;
 import group8.scam.model.dpad.DpadLogic;
+import group8.scam.view.Accelerometer;
 
 import static group8.scam.model.communication.DataThread.MESSAGE_WRITE;
 
@@ -36,6 +37,8 @@ public class MainActivity extends AppCompatActivity implements Observer {
     private TextView txtAuto;
     private TextView txtSpeed;
 
+    private Accelerometer accelerometer;
+
     DpadLogic dpadlogic = new DpadLogic();
 
     @Override
@@ -43,6 +46,9 @@ public class MainActivity extends AppCompatActivity implements Observer {
         super.onCreate(savedInstanceState);
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.activity_main);
+
+        accelerometer = new Accelerometer(this);
+
 
         safetyLed = (ImageView) findViewById(R.id.safetyLed);
         safetyLed.setImageResource(R.drawable.off30dp);
@@ -233,5 +239,8 @@ public class MainActivity extends AppCompatActivity implements Observer {
             safetyLed.setImageResource(R.drawable.off30dp);
             txtSafety.setText("Safety Off");
         }
+
+        accelerometer.onResume();
+
     }
 }
