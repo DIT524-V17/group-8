@@ -1,11 +1,16 @@
 package group8.scam.view;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
+
+import group8.scam.R;
 
 /**
  * Created by Firsou on 2017-04-07.
@@ -13,7 +18,8 @@ import android.widget.ImageView;
 
 public class RadarView extends View {
 
-    private ImageView radarBackground;
+    private Bitmap radar = BitmapFactory.decodeResource(getResources(), R.drawable.radarfordemo);
+    private Canvas canvas = new Canvas();
 
     public RadarView(Context context) {
         super(context);
@@ -25,6 +31,10 @@ public class RadarView extends View {
 
     public RadarView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+    }
+
+    public void initRadar() {
+
     }
 
 
