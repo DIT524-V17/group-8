@@ -24,13 +24,10 @@ public class Accelerometer implements SensorEventListener {
     private HandleThread mHandle = HandleThread.getInstance();
     private Sensor sensor;
     private String dataStr;
-    boolean isTurning = false;
-    double x;
-    double y;
-    double z;
-    double Rx;
-    double Ry;
-    double Rz;
+    private boolean isTurning = false;
+    private double Rx;
+    private double Ry;
+    private double Rz;
 
     private long lastUpdate = 0;
 
@@ -53,9 +50,9 @@ public class Accelerometer implements SensorEventListener {
 
         if(mySensor.getType() == Sensor.TYPE_ACCELEROMETER){
 
-            x = event.values[0];
-            y = event.values[1];
-            z = event.values[2];
+            double x = event.values[0];
+            double y = event.values[1];
+            double z = event.values[2];
 
             Rx = atan( x / (sqrt(pow(y,2) + pow(z,2))));
             Rx *= 180.00;
@@ -70,11 +67,7 @@ public class Accelerometer implements SensorEventListener {
             long curTime = System.currentTimeMillis();
 
 
-
-
-
-
-            if ((curTime - lastUpdate) > 50) {
+            if ((curTime - lastUpdate) > 100) {
                 lastUpdate = curTime;
 
                 int angle = getCarAngle();
@@ -88,13 +81,13 @@ public class Accelerometer implements SensorEventListener {
                 System.out.println("Z is: " + Rz);
                 System.out.println(" ");
                 System.out.println(" ");
+                System.out.println(angle);
             }
-
         }
     }
 
     private int getCarSpeed() {
-        if (Rx < 105 && Rx > 75 && Ry < 3 && Ry > -3) {
+        /*if (Rx < 105 && Rx > 75 && Ry < 3 && Ry > -3) {
             //System.out.println("STOPPED");
             return 0;
         }
@@ -110,11 +103,36 @@ public class Accelerometer implements SensorEventListener {
             return 50;
         }
         else
+            return 0;*/
+
+        if (isTurning) {
+            return 50;
+        }
+        else if(Rz < 90 && Rz >= 60){
             return 0;
+        }
+        else if(Rz < 60 && Rz >= 35){
+            return 35;
+        }
+        else if(Rz < 35 && Rz >= 0){
+            return 50;
+        }
+        else if(Rz <= -65 && Rz > -90){
+            return 0;
+        }
+        else if(Rz <= -35 && Rz > -65){
+            return -30;
+        }
+        else if(Rz < 0 && Rz > -35){
+            return -50;
+        }
+        else{
+            return 0;
+        }
     }
 
     private int getCarAngle() {
-        if (Rx < 90 && Ry > 10 && ((Rz > 75 && Rz < 91) || (Rz > -91 && Rz < -75))) {
+        /*if (Rx < 90 && Ry > 10 && ((Rz > 75 && Rz < 91) || (Rz > -91 && Rz < -75))) {
             isTurning = true;
             System.out.println("RIGHT");
             return 45;
@@ -127,6 +145,31 @@ public class Accelerometer implements SensorEventListener {
         else {
             isTurning = false;
             System.out.println("NONE");
+            return 0;
+        }*/
+
+        if(Ry <= 15 && Ry > -15){
+            isTurning = false;
+            return 0;
+        }
+        else if(Ry < -15 && Ry >= -35){
+            isTurning = true;
+            return -35;
+        }
+        else if(Ry < -35 && Ry >= -70){
+            isTurning = true;
+            return -60;
+        }
+        else if(Ry <= 35 && Ry > 15){
+            isTurning = true;
+            return 35;
+        }
+        else if(Ry <= 70 && Ry > 35){
+            isTurning = true;
+            return 60;
+        }
+        else{
+            isTurning = false;
             return 0;
         }
     }
