@@ -185,14 +185,14 @@ public class MainActivity extends AppCompatActivity implements Observer {
             if (Character.isLetter(data.charAt(i)) && data.charAt(i) == 'd'){
                 distanceBeginIndex = i+1;
             }else if (data.charAt(i) == ':' && distanceBeginIndex > 0){
-                distanceEndIndex = i+1;
+                distanceEndIndex = i-1;
                 break;
             }
         }
 
         String speed = data.substring(speedBeginIndex, speedEndIndex);
-        String distance = data.substring(distanceBeginIndex, distanceEndIndex - 1);
-        updateView("Speed: " + speed,"Distance: " + distance );
+        String distance = data.substring(distanceBeginIndex, distanceEndIndex);
+        updateView("Speed: " + speed,"Distance: " + distance);
     }
 
     public void updateView(final String data,final String eller) {
