@@ -8,6 +8,7 @@ import android.hardware.SensorManager;
 
 
 import group8.scam.controller.handlers.HandleThread;
+import group8.scam.model.main.MainActivity;
 
 import static group8.scam.model.communication.DataThread.MESSAGE_WRITE;
 import static java.lang.Math.atan;
@@ -48,7 +49,7 @@ public class Accelerometer implements SensorEventListener {
 
         Sensor mySensor = event.sensor;
 
-        if(mySensor.getType() == Sensor.TYPE_ACCELEROMETER){
+        if(mySensor.getType() == Sensor.TYPE_ACCELEROMETER && MainActivity.isAccel){
 
             double x = event.values[0];
             double y = event.values[1];
