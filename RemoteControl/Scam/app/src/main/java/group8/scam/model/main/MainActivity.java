@@ -177,7 +177,7 @@ public class MainActivity extends AppCompatActivity implements Observer {
             if (Character.isLetter(data.charAt(i)) && data.charAt(i) == 's'){
                 speedBeginIndex = i+1;
             }else if (data.charAt(i) == ':' && speedBeginIndex > 0){
-                speedEndIndex = i+1;
+                speedEndIndex = i-1;
                 break;
             }
         }
@@ -190,7 +190,7 @@ public class MainActivity extends AppCompatActivity implements Observer {
             }
         }
 
-        String speed = data.substring(speedBeginIndex, speedEndIndex - 1);
+        String speed = data.substring(speedBeginIndex, speedEndIndex);
         String distance = data.substring(distanceBeginIndex, distanceEndIndex - 1);
         updateView("Speed: " + speed,"Distance: " + distance );
     }
