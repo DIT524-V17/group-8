@@ -67,7 +67,7 @@ public class Accelerometer implements SensorEventListener {
             long curTime = System.currentTimeMillis();
 
 
-            if ((curTime - lastUpdate) > 100) {
+            if ((curTime - lastUpdate) > 25) {
                 lastUpdate = curTime;
 
                 int angle = getCarAngle();
@@ -75,38 +75,18 @@ public class Accelerometer implements SensorEventListener {
                 dataStr = angle + ":" + speed + ":";
 
                 mHandle.sendMessage(MESSAGE_WRITE, dataStr);
-                System.out.println(dataStr);
-                System.out.println("X is: " + Rx);
-                System.out.println("Y is: " + Ry);
-                System.out.println("Z is: " + Rz);
-                System.out.println(" ");
-                System.out.println(" ");
-                System.out.println(angle);
             }
         }
     }
 
     private int getCarSpeed() {
-        /*if (Rx < 105 && Rx > 75 && Ry < 3 && Ry > -3) {
-            //System.out.println("STOPPED");
-            return 0;
-        }
-        else if (Rx < 75 && Rz < 75 && Rz > 0) {
-            //System.out.println("FORWARD");
-            return 50;
-        }
-        else if (Rx < 75 && Rz < 0) {
-            //System.out.println("BACKWARD");
-            return -50;
-        }
-        else if (isTurning) {
-            return 50;
-        }
-        else
-            return 0;*/
 
         if (isTurning) {
-            return 50;
+            if(Rz > 0){
+                return 60;
+            }else{
+                return -60;
+            }
         }
         else if(Rz < 90 && Rz >= 60){
             return 0;
@@ -132,21 +112,6 @@ public class Accelerometer implements SensorEventListener {
     }
 
     private int getCarAngle() {
-        /*if (Rx < 90 && Ry > 10 && ((Rz > 75 && Rz < 91) || (Rz > -91 && Rz < -75))) {
-            isTurning = true;
-            System.out.println("RIGHT");
-            return 45;
-        }
-        else if (Rx < 90 && Ry < -10 && ((Rz > 75 && Rz < 91) || (Rz > -91 && Rz < -75))) {
-            isTurning = true;
-            System.out.println("LEFT");
-            return -45;
-        }
-        else {
-            isTurning = false;
-            System.out.println("NONE");
-            return 0;
-        }*/
 
         if(Ry <= 15 && Ry > -15){
             isTurning = false;
