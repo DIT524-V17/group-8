@@ -8,7 +8,11 @@ import android.view.View;
 import android.widget.ToggleButton;
 
 import group8.scam.R;
+import group8.scam.controller.handlers.HandleThread;
 import group8.scam.model.main.MainActivity;
+
+
+import static group8.scam.model.communication.DataThread.MESSAGE_WRITE;
 
 /*
     A class to handle the different settings the user has access to
@@ -27,6 +31,8 @@ public class SettingsActivity extends AppCompatActivity {
     private static boolean safety;
 
     private static Bundle bundle = new Bundle();
+
+    private HandleThread handler = HandleThread.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +96,7 @@ public class SettingsActivity extends AppCompatActivity {
         else{
             safety = true;
         }
+        handler.sendMessage(MESSAGE_WRITE, "x");
     }
 
     @Override
