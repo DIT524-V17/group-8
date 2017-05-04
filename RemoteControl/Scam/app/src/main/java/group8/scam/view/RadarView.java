@@ -35,5 +35,9 @@ public class RadarView extends View {
 
     }
 
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+    }
+
 
 }
