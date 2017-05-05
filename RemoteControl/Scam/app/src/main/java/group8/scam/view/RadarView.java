@@ -9,6 +9,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import group8.scam.R;
+import group8.scam.model.radar.RadarData;
 
 /**
  * Created by Firsou on 2017-04-07.
@@ -32,12 +33,13 @@ public class RadarView extends View {
     }
 
     public void initRadar() {
-
+        RadarData radarData = new RadarData(0, 0);
     }
 
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
     }
+
 
 
 }
