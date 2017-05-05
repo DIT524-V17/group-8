@@ -19,7 +19,7 @@ import group8.scam.controller.handlers.Observer;
 import group8.scam.controller.handlers.Subject;
 import group8.scam.model.menu.SettingsActivity;
 import group8.scam.model.dpad.DpadLogic;
-import group8.scam.view.Accelerometer;
+import group8.scam.model.sensor.Accelerometer;
 
 import static group8.scam.model.communication.DataThread.MESSAGE_WRITE;
 

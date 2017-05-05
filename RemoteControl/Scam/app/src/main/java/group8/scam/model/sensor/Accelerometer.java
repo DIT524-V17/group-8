@@ -1,4 +1,4 @@
-package group8.scam.view;
+package group8.scam.model.sensor;
 
 import android.content.Context;
 import android.hardware.Sensor;
