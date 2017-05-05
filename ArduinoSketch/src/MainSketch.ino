@@ -113,6 +113,7 @@ void setup() {
 }
 
 void loop() {
+
   sendData();
 
   currentMillis = millis(); // checks current time
@@ -122,6 +123,9 @@ void loop() {
   if (isAuto) {
     autoDrive();
   }
+
+  getServoReading();
+  Serial.println(averageServo);
 }
 
 /*
@@ -321,10 +325,6 @@ void getServoReading() {
   totalServo = totalServo - servoReadings[readIndexServo];
   servoReadings[readIndexServo] = servoSonic.getDistance();
 
-  if (servoReadings[readIndexServo] == 0) {
-    servoReadings[readIndexServo] = 30;
-  }
-
   totalServo = totalServo + servoReadings[readIndexServo];
   readIndexServo = readIndexServo + 1;
 
@@ -333,7 +333,7 @@ void getServoReading() {
   }
 
   averageServo = totalServo / numReadingsServo;
-  //distanceServo = averageServo*0.034/2;
+  distanceServo = (averageServo/29)/2;
   delay(1);
 }
 
