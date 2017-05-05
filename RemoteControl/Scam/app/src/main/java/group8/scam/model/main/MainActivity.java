@@ -211,6 +211,7 @@ public class MainActivity extends AppCompatActivity implements Observer {
 
     public void btnSettings(View view) {
         // Start the settings activity, and overriding the animation to switch
+        Accelerometer.setIsAccel(false);
         handler.sendMessage(MESSAGE_WRITE, " STOP");
         startActivity(new Intent(MainActivity.this, SettingsActivity.class));
         this.overridePendingTransition(0, 0);
