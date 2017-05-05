@@ -17,6 +17,7 @@ import group8.scam.model.radar.RadarData;
 
 public class RadarView extends View {
 
+    private RadarData radarData;
     private Bitmap radar = BitmapFactory.decodeResource(getResources(), R.drawable.radarfordemo);
     private Canvas canvas = new Canvas();
 
@@ -33,7 +34,7 @@ public class RadarView extends View {
     }
 
     public void initRadar() {
-        RadarData radarData = new RadarData(0, 0);
+        this.radarData = new RadarData(0, 0);
     }
 
     protected void onDraw(Canvas canvas) {
