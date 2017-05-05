@@ -242,12 +242,14 @@ public class MainActivity extends AppCompatActivity implements Observer {
             case JOYSTICK:
                 findViewById(R.id.joystick).setVisibility(View.VISIBLE);
                 hideDpad();
+                Accelerometer.setIsAccel(false);
                 imgGyro.setVisibility(View.INVISIBLE);
                 break;
 
             case DPAD:
                 findViewById(R.id.joystick).setVisibility(View.INVISIBLE);
                 showDpad();
+                Accelerometer.setIsAccel(false);
                 imgGyro.setVisibility(View.INVISIBLE);
                 break;
 
