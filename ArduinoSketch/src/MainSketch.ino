@@ -72,8 +72,12 @@ int currentPos = 90;
 bool isAuto = false;
 bool isManual = true;
 bool goingRight = true;
+bool safety = false;
 
 char terminator = ':';
+
+//ultrasonic distance calculation variables
+int distanceServo = 0;
 
 void setup() {
   Serial.begin(9600);
@@ -160,6 +164,9 @@ void handleInput() {
       isManual = false;
       delay(100);
     }
+    else if(data.equals("x")) {
+      toggleSafety();
+    }
     else if (data.equals("m")) { // Switches to manual, autonomous shuts off
       isManual = true;
       isAuto = false;
@@ -183,6 +190,10 @@ void handleInput() {
 
       if (speedStr != "") {
         speedInt = speedStr.toInt();
+      }
+      if((safety==true) && (centerSonic.getDistance() < 20 && centerSonic.getDistance() != 0) ){
+        speedInt=0;
+        angleInt=0;
       }
       car.setSpeed(speedInt);
       car.setAngle(angleInt);
@@ -322,6 +333,7 @@ void getServoReading() {
   }
 
   averageServo = totalServo / numReadingsServo;
+  //distanceServo = averageServo*0.034/2;
   delay(1);
 }
 
@@ -353,4 +365,13 @@ void rotateOnSpot(int targetDegrees) {
     //is at least 0 and at most 360. To handle the "edge" cases we substracted or added 360 to currentHeading)
   }
   car.stop(); //we have reached the target, so stop the car
+}
+
+void toggleSafety(){
+  if(safety){
+    safety = false;
+  }
+  else{
+    safety = true;
+  }
 }

@@ -11,11 +11,12 @@
         android:layout_width="500dp"
         android:layout_height="400dp"
         android:src="@drawable/radarfordemo"
-        android:layout_alignParentBottom="true"
         android:focusableInTouchMode="false"
         android:layout_marginLeft="20dp"
-        android:layout_centerHorizontal="true"
-        />
+        android:layout_below="@+id/txtEngage"
+        android:layout_toEndOf="@+id/txtMode"
+        android:layout_marginStart="49dp"
+        android:layout_marginTop="9dp" />
 
     <TextView
         android:id="@+id/txtMode"
