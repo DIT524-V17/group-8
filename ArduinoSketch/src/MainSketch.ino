@@ -77,7 +77,7 @@ bool safety = false;
 char terminator = ':';
 
 //ultrasonic distance calculation variables
-int distanceServo = 0;
+float distanceServo = 0;
 
 void setup() {
   Serial.begin(9600);
@@ -332,8 +332,7 @@ void getServoReading() {
     readIndexServo = 0;
   }
 
-  averageServo = totalServo / numReadingsServo;
-  distanceServo = (averageServo/29)/2;
+  averageServo = (totalServo / numReadingsServo) - 3; // subtracting 3 to not count the space in the car
   delay(1);
 }
 
