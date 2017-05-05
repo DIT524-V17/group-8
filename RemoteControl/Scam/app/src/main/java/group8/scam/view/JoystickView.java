@@ -47,6 +47,8 @@ public class JoystickView extends View {
     /* This string is used to store the data from the joystick (of type string) to the car. */
     private String dataStr;
 
+    private long lastUpdate;
+
     /* Default constructors inherited from View, the JoystickView(Context, AttributeSet, int) constructor is used. */
     public JoystickView(Context context) {
         super(context);
@@ -146,7 +148,10 @@ public class JoystickView extends View {
          * The angle and speed variables are used to create a string that is stored in the dataStr.
          */
         if (event.getAction() == MotionEvent.ACTION_UP) {
-            dataStr = " STOP";
+            for (int i = 0; i < 5; i++) {
+                dataStr = " STOP";
+                mHandle.sendMessage(MESSAGE_WRITE, dataStr);
+            }
             resetCirclePosition();
         } else if (event.getAction() == MotionEvent.ACTION_DOWN || event.getAction() == MotionEvent.ACTION_MOVE) {
             int angle = getCarAngle(getAngle());
@@ -158,7 +163,12 @@ public class JoystickView extends View {
          * Sends a message that contains the dataStr to the Handler inside the HandleThread.
          * msg.obj is set to the dataStr.
          */
-        mHandle.sendMessage(MESSAGE_WRITE, dataStr);
+        long currTime = System.currentTimeMillis();
+        if ((currTime - lastUpdate) > 25) {
+            lastUpdate = currTime;
+            System.out.println(dataStr);
+            mHandle.sendMessage(MESSAGE_WRITE, dataStr);
+        }
 
         /**
          * If the view is visible, onDraw(android.graphics.Canvas) will be called at some point in the future,

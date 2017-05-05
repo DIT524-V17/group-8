@@ -82,7 +82,7 @@ int distanceServo = 0;
 void setup() {
   Serial.begin(9600);
   Serial3.begin(9600);
-  Serial3.setTimeout(3);
+  Serial3.setTimeout(25);
 
   servoSonic.attach(TRIGGER_PIN_SERVO, ECHO_PIN_SERVO);
   centerSonic.attach(TRIGGER_PIN_CENTER, ECHO_PIN_CENTER);
@@ -173,6 +173,7 @@ void handleInput() {
       car.setSpeed(0);
     }
     else if (data.substring(data.length() - endOfString).equals("STOP")) {
+      Serial.println("Car STOPPED");
       car.stop();
     } else { // else the car is receiving movement data for manual
       // split the data string to the angle and speed, store in angleStr and speedStr
@@ -245,7 +246,7 @@ void sendData() {
   String strSpeed = String(speed);
 
   String dataStr = "s" + strSpeed + ":" + "d" + strOdometer + ":" + "a" + strAngle + ":" + "u" + strSonic + ":";
-  Serial.println(dataStr);
+  //Serial.println(dataStr);
 
   int strLength = dataStr.length() + 1;
   char charArray[strLength];
