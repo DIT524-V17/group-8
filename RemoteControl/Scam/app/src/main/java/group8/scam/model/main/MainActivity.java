@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements Observer {
     private ImageView imgGyro;
 
     private Accelerometer accelerometer;
-    public static boolean isAccel = false;
+
 
     DpadLogic dpadlogic = new DpadLogic();
 
@@ -243,21 +243,21 @@ public class MainActivity extends AppCompatActivity implements Observer {
             case JOYSTICK:
                 findViewById(R.id.joystick).setVisibility(View.VISIBLE);
                 hideDpad();
-                isAccel = false;
+                Accelerometer.setIsAccel(false);
                 imgGyro.setVisibility(View.INVISIBLE);
                 break;
 
             case DPAD:
                 findViewById(R.id.joystick).setVisibility(View.INVISIBLE);
                 showDpad();
-                isAccel = false;
+                Accelerometer.setIsAccel(false);
                 imgGyro.setVisibility(View.INVISIBLE);
                 break;
 
             case GYROSCOPE:
                 findViewById(R.id.joystick).setVisibility(View.INVISIBLE);
                 hideDpad();
-                isAccel = true;
+                Accelerometer.setIsAccel(true);
                 accelerometer.onResume();
                 imgGyro.setVisibility(View.VISIBLE);
                 break;
