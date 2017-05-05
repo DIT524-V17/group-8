@@ -26,6 +26,7 @@ public class Accelerometer implements SensorEventListener {
     private Sensor sensor;
     private String dataStr;
     private boolean isTurning = false;
+    private static boolean isAccel = false;
     private double Rx;
     private double Ry;
     private double Rz;
@@ -49,7 +50,7 @@ public class Accelerometer implements SensorEventListener {
 
         Sensor mySensor = event.sensor;
 
-        if(mySensor.getType() == Sensor.TYPE_ACCELEROMETER && MainActivity.isAccel){
+        if(mySensor.getType() == Sensor.TYPE_ACCELEROMETER && isAccel){
 
             double x = event.values[0];
             double y = event.values[1];
@@ -147,4 +148,11 @@ public class Accelerometer implements SensorEventListener {
 
     }
 
+    public static boolean getIsAccel() {
+        return isAccel;
+    }
+
+    public static void setIsAccel(boolean bool) {
+        isAccel = bool;
+    }
 }

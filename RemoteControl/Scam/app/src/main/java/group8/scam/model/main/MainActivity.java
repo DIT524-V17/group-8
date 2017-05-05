@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements Observer {
     private TextView txtDistance;
 
     private Accelerometer accelerometer;
-    public static boolean isAccel = false;
+
 
     DpadLogic dpadlogic = new DpadLogic();
 
@@ -238,21 +238,21 @@ public class MainActivity extends AppCompatActivity implements Observer {
             case JOYSTICK:
                 findViewById(R.id.joystick).setVisibility(View.VISIBLE);
                 hideDpad();
-                isAccel = false;
+                Accelerometer.setIsAccel(false);
                 // TODO - Add gyro
                 break;
 
             case DPAD:
                 findViewById(R.id.joystick).setVisibility(View.INVISIBLE);
                 showDpad();
-                isAccel = false;
+                Accelerometer.setIsAccel(false);
                 // TODO - Add gyro
                 break;
 
             case GYROSCOPE:
                 findViewById(R.id.joystick).setVisibility(View.INVISIBLE);
                 hideDpad();
-                isAccel = true;
+                Accelerometer.setIsAccel(true);
                 accelerometer.onResume();
                 // TODO - Add gyro
                 break;
