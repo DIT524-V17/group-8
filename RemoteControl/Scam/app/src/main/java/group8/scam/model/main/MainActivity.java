@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements Observer {
     private TextView txtAuto;
     private TextView txtSpeed;
     private TextView txtDistance;
+    private ImageView imgGyro;
 
     private Accelerometer accelerometer;
     public static boolean isAccel = false;
@@ -71,6 +72,9 @@ public class MainActivity extends AppCompatActivity implements Observer {
         btnup = (Button)findViewById(R.id.btnUp);
         btndown = (Button)findViewById(R.id.btnDown);
 
+        imgGyro = (ImageView)findViewById(R.id.imgGyro);
+        imgGyro.setVisibility(View.INVISIBLE);
+
         hideDpad();
 
         button.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -84,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements Observer {
                     // Remove the means of controlling the car manually
                     findViewById(R.id.joystick).setVisibility(View.INVISIBLE);
                     hideDpad();
-                    // TODO - Add gyro
+                    imgGyro.setVisibility(View.INVISIBLE);
 
                     // Remove the settings menu
                     findViewById(R.id.btnSettings).setVisibility(View.INVISIBLE);
@@ -102,21 +106,21 @@ public class MainActivity extends AppCompatActivity implements Observer {
                             txtAuto.setVisibility(View.INVISIBLE);
                             findViewById(R.id.joystick).setVisibility(View.VISIBLE);
                             hideDpad();
-                            // TODO - Add gyro
+                            imgGyro.setVisibility(View.INVISIBLE);
                             break;
 
                         case DPAD:
                             txtAuto.setVisibility(View.INVISIBLE);
                             findViewById(R.id.joystick).setVisibility(View.INVISIBLE);
                             showDpad();
-                            // TODO - Add gyro
+                            imgGyro.setVisibility(View.INVISIBLE);
                             break;
 
                         case GYROSCOPE:
                             txtAuto.setVisibility(View.INVISIBLE);
                             findViewById(R.id.joystick).setVisibility(View.INVISIBLE);
                             hideDpad();
-                            // TODO - Add gyro
+                            imgGyro.setVisibility(View.VISIBLE);
                             break;
                     }
                 }
@@ -239,14 +243,14 @@ public class MainActivity extends AppCompatActivity implements Observer {
                 findViewById(R.id.joystick).setVisibility(View.VISIBLE);
                 hideDpad();
                 isAccel = false;
-                // TODO - Add gyro
+                imgGyro.setVisibility(View.INVISIBLE);
                 break;
 
             case DPAD:
                 findViewById(R.id.joystick).setVisibility(View.INVISIBLE);
                 showDpad();
                 isAccel = false;
-                // TODO - Add gyro
+                imgGyro.setVisibility(View.INVISIBLE);
                 break;
 
             case GYROSCOPE:
@@ -254,7 +258,7 @@ public class MainActivity extends AppCompatActivity implements Observer {
                 hideDpad();
                 isAccel = true;
                 accelerometer.onResume();
-                // TODO - Add gyro
+                imgGyro.setVisibility(View.VISIBLE);
                 break;
         }
 
