@@ -50,6 +50,7 @@ public class RadarData implements Observer {
      * @see #filterDataIntoDigit(String)
      */
     private void filterServoAngle(String servoData) {
+        dataString = "";
         for (int i = 0; i < servoData.length(); i++) {
             if (servoData.charAt(i) == ':') {
                 break; //if the character is a column, break from the for loop
@@ -83,6 +84,7 @@ public class RadarData implements Observer {
      * @see #filterDataIntoDigit(String)
      */
     private void filterUltrasonicReading(String servoData) {
+        dataString = "";
         for (int i = 0; i < servoData.length(); i++) {
             if (servoData.charAt(i) == ':') {
                 break; //if the character is a column, break from the for loop
