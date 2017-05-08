@@ -68,7 +68,6 @@ public class RadarData implements Observer {
      * @return int angleOfServo
      */
     public int getAngleOfServo() {
-        System.out.println("UltraSonic Reading from RadarData: " + angleOfServo);
         return this.angleOfServo;
     }
 
@@ -103,7 +102,6 @@ public class RadarData implements Observer {
      * @return local ultrasonic distance reading
      */
     public int getUltrasonicReading() {
-        System.out.println("UltraSonic Reading from RadarData: " + ultrasonicReading);
         return this.ultrasonicReading;
     }
 

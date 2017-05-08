@@ -32,7 +32,6 @@ public class RadarView extends View {
     public RadarView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         radarData = new RadarData(0, 0);
-        System.out.println("RadarData created.");
     }
 
     public RadarView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
@@ -41,12 +40,17 @@ public class RadarView extends View {
 
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        if (radarData != null)
-            System.out.println("Angle of Servo: " + radarData.getAngleOfServo());
+        if (radarData != null) {
+            int angleReading = radarData.getAngleOfServo();
+            System.out.println("Angle of Servo: " + angleReading);
+        }
 
-        if (radarData != null)
-            System.out.println("Ultrasonic Reading: " + radarData.getUltrasonicReading());
+        if (radarData != null) {
+            int sonicReading = radarData.getUltrasonicReading();
+            System.out.println("Ultrasonic Reading: " + sonicReading);
+        }
 
+        invalidate();
     }
 
     protected void onSizeChanged(int w, int h, int oldW, int oldH) {

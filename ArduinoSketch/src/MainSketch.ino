@@ -15,8 +15,8 @@ const int TRIGGER_PIN_CENTER = 7;
 const int ECHO_PIN_CENTER = 4;
 
 SR04 servoSonic;
-const int TRIGGER_PIN_SERVO = 5;
-const int ECHO_PIN_SERVO = 6;
+const int TRIGGER_PIN_SERVO = 6;
+const int ECHO_PIN_SERVO = 5;
 
 Servo myServo;
 const int SERVO_PIN = 40;
@@ -127,9 +127,8 @@ void loop() {
     autoDrive();
   }
 
-  getServoReading();
   sendData();
-  Serial.println(averageServo);
+  getServoReading();
 }
 
 /*
@@ -252,12 +251,12 @@ void autoDrive() {
 }
 
 void sendData() {
-  //int sonicDistance = servoSonic.getDistance();
+  int sonicDistance = servoSonic.getDistance();
   int odometerDistance = odometer.getDistance();
   int servoAngle = myServo.read();
   int speed = car.getSpeed();
 
-  String strSonic = String(averageServo);
+  String strSonic = String(sonicDistance);
   String strOdometer = String(odometerDistance);
   String strAngle = String(servoAngle);
   String strSpeed = String(speed);
@@ -346,6 +345,7 @@ void getServoReading() {
   }
 
   averageServo = (totalServo / numReadingsServo) - 3; // subtracting 3 to not count the space in the car
+  Serial.println(averageServo);
   delay(1);
 }
 
