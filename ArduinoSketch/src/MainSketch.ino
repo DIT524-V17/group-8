@@ -73,6 +73,7 @@ bool isAuto = false;
 bool isManual = true;
 bool goingRight = true;
 bool safety = false;
+bool wasRotating = false;
 
 char terminator = ':';
 
@@ -209,7 +210,13 @@ void handleInput() {
 The obstacle detection and avoidance method.
 */
 void autoDrive() {
-  car.setSpeed(25); // car moves at this speed throughout autonomous
+  if (wasRotating) {
+    car.setSpeed(35); // if car rotated
+    wasRotating = false;
+  }
+  else
+    car.setSpeed(25); // car moves at this speed throughout autonomous
+
   getLeftReading();
   getRightReading();
   getServoReading();
@@ -364,6 +371,7 @@ void rotateOnSpot(int targetDegrees) {
     //is at least 0 and at most 360. To handle the "edge" cases we substracted or added 360 to currentHeading)
   }
   car.stop(); //we have reached the target, so stop the car
+  wasRotating = true;
 }
 
 void toggleSafety(){
