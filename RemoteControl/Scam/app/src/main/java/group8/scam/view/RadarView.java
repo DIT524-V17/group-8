@@ -4,6 +4,8 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
@@ -18,8 +20,8 @@ import group8.scam.model.radar.RadarData;
 public class RadarView extends View {
 
     private RadarData radarData;
-    private Bitmap radar = BitmapFactory.decodeResource(getResources(), R.drawable.radarfordemo);
-    private Canvas canvas = new Canvas();
+    //private Bitmap radar = BitmapFactory.decodeResource(getResources(), R.drawable.radarfordemo);
+    private Paint paint = new Paint();
 
     public RadarView(Context context) {
         super(context);
@@ -31,6 +33,8 @@ public class RadarView extends View {
 
     public RadarView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        init(attrs, defStyleAttr);
+        initRadar();
     }
 
     public void initRadar() {
@@ -39,8 +43,15 @@ public class RadarView extends View {
 
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        canvas.drawCircle(200, 200, 500, paint);
     }
 
+    protected void onSizeChanged(int w, int h, int oldW, int oldH) {
+        super.onSizeChanged(w, h, oldW, oldH);
+    }
 
+    private void init(AttributeSet attributeSet, int defStyle) {
+        paint.setColor(Color.RED);
+    }
 
 }

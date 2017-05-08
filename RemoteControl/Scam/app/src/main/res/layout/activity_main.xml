@@ -14,6 +14,12 @@
         android:layout_marginLeft="20dp"
         />
 
+    <group8.scam.view.RadarView
+        android:layout_width="500dp"
+        android:layout_height="400dp"
+        android:layout_marginLeft="20dp"
+        />
+
     <ImageButton
         android:id="@+id/btnSettings"
         android:layout_width="70dp"
