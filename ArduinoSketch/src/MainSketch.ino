@@ -77,7 +77,7 @@ bool safety = false;
 char terminator = ':';
 
 //ultrasonic distance calculation variables
-int distanceServo = 0;
+float distanceServo = 0;
 
 void setup() {
   Serial.begin(9600);
@@ -113,6 +113,7 @@ void setup() {
 }
 
 void loop() {
+
   sendData();
 
   currentMillis = millis(); // checks current time
@@ -122,6 +123,9 @@ void loop() {
   if (isAuto) {
     autoDrive();
   }
+
+  getServoReading();
+  Serial.println(averageServo);
 }
 
 /*
@@ -321,10 +325,6 @@ void getServoReading() {
   totalServo = totalServo - servoReadings[readIndexServo];
   servoReadings[readIndexServo] = servoSonic.getDistance();
 
-  if (servoReadings[readIndexServo] == 0) {
-    servoReadings[readIndexServo] = 30;
-  }
-
   totalServo = totalServo + servoReadings[readIndexServo];
   readIndexServo = readIndexServo + 1;
 
@@ -332,8 +332,7 @@ void getServoReading() {
     readIndexServo = 0;
   }
 
-  averageServo = totalServo / numReadingsServo;
-  //distanceServo = averageServo*0.034/2;
+  averageServo = (totalServo / numReadingsServo) - 3; // subtracting 3 to not count the space in the car
   delay(1);
 }
 
