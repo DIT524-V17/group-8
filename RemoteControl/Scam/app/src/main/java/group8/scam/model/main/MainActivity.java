@@ -52,7 +52,6 @@ public class MainActivity extends AppCompatActivity implements Observer {
 
         accelerometer = new Accelerometer(this);
 
-
         safetyLed = (ImageView) findViewById(R.id.safetyLed);
         safetyLed.setImageResource(R.drawable.off30dp);
 
@@ -127,6 +126,7 @@ public class MainActivity extends AppCompatActivity implements Observer {
                 handler.sendMessage(MESSAGE_WRITE, stateString);
             }
         });
+
 
         /*
         *logic for the left button in dpad

@@ -74,6 +74,7 @@ bool isManual = true;
 bool goingRight = true;
 bool safety = false;
 bool wasRotating = false;
+bool isConnected = false;
 
 char terminator = ':';
 
@@ -118,8 +119,9 @@ void loop() {
   sendData();
 
   currentMillis = millis(); // checks current time
-  servoMovement();
-
+  if(isConnected){
+    servoMovement();
+  }
   handleInput();
   if (isAuto) {
     autoDrive();
@@ -176,6 +178,9 @@ void handleInput() {
       isManual = true;
       isAuto = false;
       car.setSpeed(0);
+    }
+    else if(data.equals("c")){
+      isConnected = true;
     }
     else if (data.substring(data.length() - endOfString).equals("STOP")) {
       Serial.println("Car STOPPED");

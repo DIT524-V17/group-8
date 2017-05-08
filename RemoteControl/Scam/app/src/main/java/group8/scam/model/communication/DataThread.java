@@ -87,6 +87,9 @@ public class DataThread extends Thread {
          */
         BufferedReader reader = new BufferedReader(in);
 
+        // Send message to start servo
+        mHandleThread.sendMessage(MESSAGE_WRITE, "c");
+
         /* This while loop will run as long as there is a connection to the other Bluetooth device. */
         while (true) {
             try {
