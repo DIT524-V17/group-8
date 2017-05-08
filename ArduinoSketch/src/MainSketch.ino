@@ -116,7 +116,7 @@ void setup() {
 
 void loop() {
 
-  sendData();
+
 
   currentMillis = millis(); // checks current time
   if(isConnected){
@@ -128,6 +128,7 @@ void loop() {
   }
 
   getServoReading();
+  sendData();
   Serial.println(averageServo);
 }
 
@@ -251,12 +252,12 @@ void autoDrive() {
 }
 
 void sendData() {
-  int sonicDistance = servoSonic.getDistance();
+  //int sonicDistance = servoSonic.getDistance();
   int odometerDistance = odometer.getDistance();
   int servoAngle = myServo.read();
   int speed = car.getSpeed();
 
-  String strSonic = String(sonicDistance);
+  String strSonic = String(averageServo);
   String strOdometer = String(odometerDistance);
   String strAngle = String(servoAngle);
   String strSpeed = String(speed);
