@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="group8.scam.model.menu.SettingsActivity"
-    android:background="@drawable/blurred">
+    android:background="@drawable/blurred2">
 
     <ImageButton
         android:id="@+id/btnSettingsBack"
@@ -32,10 +32,10 @@
         android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Settings and shit"
+        android:text="Settings"
         android:textSize="25sp"
         android:textAllCaps="false"
-        android:textColor="@color/colorPrimaryLight"
+        android:textColor="@color/colorWHITE"
         android:textStyle="bold"
         />
 
@@ -45,7 +45,8 @@
         android:layout_height="2dp"
         android:background="#5a5a5a"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="35dp"/>
+        android:layout_marginTop="35dp"
+        android:backgroundTint="@color/colorWHITE"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -55,7 +56,8 @@
         android:layout_alignTop="@id/settingsmenu"
         android:layout_marginTop="50dp"
         android:layout_alignLeft="@id/settingsmenu"
-        android:layout_marginLeft="30dp"/>
+        android:layout_marginLeft="30dp"
+        android:textColor="@color/colorWHITE"/>
 
     <ToggleButton
         android:id="@+id/btnJoyStick"
@@ -103,7 +105,8 @@
         android:layout_height="2dp"
         android:background="#5a5a5a"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="140dp"/>
+        android:layout_marginTop="140dp"
+        android:backgroundTint="@color/colorWHITE"/>
 
     <TextView
         android:id="@+id/txtSwitch"
@@ -114,7 +117,8 @@
         android:layout_alignTop="@id/settingsmenu"
         android:layout_marginTop="153dp"
         android:layout_alignLeft="@id/settingsmenu"
-        android:layout_marginLeft="30dp"/>
+        android:layout_marginLeft="30dp"
+        android:textColor="@color/colorWHITE"/>
 
     <ToggleButton
         android:id="@+id/btnSafety"

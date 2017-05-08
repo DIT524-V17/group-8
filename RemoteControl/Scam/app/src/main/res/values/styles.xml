@@ -3,10 +3,15 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimary">@color/colorGrey4</item>
+        <item name="colorPrimaryDark">@color/colorGrey</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+
+        <style name="CodeFont" parent="@android:style/TextAppearance.Medium">
+            <item name="android:textColor">#ededed</item>
+            <item name="android:typeface">monospace</item>
+        </style>
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>

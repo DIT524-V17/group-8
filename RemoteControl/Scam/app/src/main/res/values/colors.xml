@@ -7,6 +7,10 @@
     <color name="colorRadarBlack">#FF000000</color>
     <color name="mainColor">#FF1DA5FF</color>
     <color name="colorRED">#db0400</color>
-    <color name="colorWHITE">#ffffff</color>
+    <color name="colorWHITE">#ededed</color>
+    <color name="colorGrey">#3f3f3f</color>
+    <color name="colorGrey2">#484848</color>
+    <color name="colorGrey3">#4f4f4f</color>
+    <color name="colorGrey4">#5d5d5d</color>
 
 </resources>

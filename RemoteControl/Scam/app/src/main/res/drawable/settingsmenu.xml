@@ -9,10 +9,10 @@
 
     <stroke
         android:width="3dip"
-        android:color="@color/colorPrimary"
+        android:color="@color/colorWHITE"
         />
     <solid
-        android:color="@color/colorWHITE"
+        android:color="@color/colorGrey4"
         />
 
 </shape>

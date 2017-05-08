@@ -59,7 +59,7 @@ public class ConnectActivity extends AppCompatActivity {
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
         adapter = new ArrayAdapter<String>(ConnectActivity.this,
-                android.R.layout.simple_list_item_1,listItems);
+                R.layout.simple_text_white,listItems);
         listView.setAdapter(adapter);
 
         mHandleThread = HandleThread.getInstance();
