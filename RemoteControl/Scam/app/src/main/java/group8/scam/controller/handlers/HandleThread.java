@@ -71,7 +71,8 @@ public class HandleThread extends Thread {
      * handleMessage(msg) method is what handles the messages.
      */
     public void run() {
-        Looper.prepare();
+        if (Looper.myLooper() == null)
+            Looper.prepare();
 
         mHandler = new Handler() {
             public void handleMessage(Message msg) {
