@@ -32,6 +32,7 @@ public class RadarView extends View {
     public RadarView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         radarData = new RadarData(0, 0);
+        System.out.println("RadarData created.");
     }
 
     public RadarView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {

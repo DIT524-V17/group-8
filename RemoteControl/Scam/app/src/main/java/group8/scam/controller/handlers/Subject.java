@@ -26,7 +26,6 @@ public class Subject {
      */
     public void notifyObservers(String data) {
         for (Observer observer : observers) {
-            System.out.println("IN OBS: " + data);
             observer.update(data);
         }
     }
