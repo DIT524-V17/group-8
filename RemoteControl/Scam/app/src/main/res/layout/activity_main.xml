@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    style="@android:style/Theme.DeviceDefault">
+    style="@android:style/Theme.DeviceDefault"
+    android:background="@color/colorGrey2">
 
     <ImageView
         android:id="@+id/imageView1"
@@ -47,7 +48,8 @@
         android:layout_marginStart="19dp"
         android:layout_marginBottom="97dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:textColor="@color/colorWHITE"/>
 
     <TextView
         android:id="@+id/distanceLbl"
@@ -57,7 +59,8 @@
         android:textSize="20sp"
         android:layout_marginTop="30dp"
         android:layout_alignTop="@+id/speedLbl"
-        android:layout_alignStart="@+id/speedLbl" />
+        android:layout_alignStart="@+id/speedLbl"
+        android:textColor="@color/colorWHITE"/>
 
     <ToggleButton
         android:layout_width="100dp"
@@ -81,7 +84,8 @@
         android:layout_alignBottom="@+id/togglebutton"
         android:layout_alignEnd="@+id/btnSettings"
         android:layout_marginEnd="18dp"
-        android:layout_marginBottom="18dp" />
+        android:layout_marginBottom="18dp"
+        />
 
     <Button
         android:layout_width="@dimen/dpad_button_size"
@@ -130,7 +134,8 @@
         android:textSize="17sp"
         android:text="Safety off"
         android:layout_marginTop="5dp"
-        android:layout_marginLeft="5dp"/>
+        android:layout_marginLeft="5dp"
+        android:textColor="@color/colorWHITE"/>
 
     <ImageView
         android:id="@+id/safetyLed"
@@ -153,7 +158,8 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_marginRight="20dp"
-        android:layout_marginBottom="80dp"/>
+        android:layout_marginBottom="80dp"
+        />
 
     <ImageView
         android:id="@+id/imgGyro"

@@ -9,7 +9,7 @@
 
     <stroke
         android:width="3dip"
-        android:color="@color/colorPrimaryLight"
+        android:color="@color/colorWHITE"
         />
 
 </shape>

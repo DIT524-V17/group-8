@@ -73,11 +73,12 @@ bool isAuto = false;
 bool isManual = true;
 bool goingRight = true;
 bool safety = false;
+bool wasRotating = false;
 
 char terminator = ':';
 
 //ultrasonic distance calculation variables
-int distanceServo = 0;
+float distanceServo = 0;
 
 void setup() {
   Serial.begin(9600);
@@ -113,6 +114,7 @@ void setup() {
 }
 
 void loop() {
+
   sendData();
 
   currentMillis = millis(); // checks current time
@@ -122,6 +124,9 @@ void loop() {
   if (isAuto) {
     autoDrive();
   }
+
+  getServoReading();
+  Serial.println(averageServo);
 }
 
 /*
@@ -205,7 +210,13 @@ void handleInput() {
 The obstacle detection and avoidance method.
 */
 void autoDrive() {
-  car.setSpeed(25); // car moves at this speed throughout autonomous
+  if (wasRotating) {
+    car.setSpeed(35); // if car rotated
+    wasRotating = false;
+  }
+  else
+    car.setSpeed(25); // car moves at this speed throughout autonomous
+
   getLeftReading();
   getRightReading();
   getServoReading();
@@ -321,10 +332,6 @@ void getServoReading() {
   totalServo = totalServo - servoReadings[readIndexServo];
   servoReadings[readIndexServo] = servoSonic.getDistance();
 
-  if (servoReadings[readIndexServo] == 0) {
-    servoReadings[readIndexServo] = 30;
-  }
-
   totalServo = totalServo + servoReadings[readIndexServo];
   readIndexServo = readIndexServo + 1;
 
@@ -332,8 +339,7 @@ void getServoReading() {
     readIndexServo = 0;
   }
 
-  averageServo = totalServo / numReadingsServo;
-  //distanceServo = averageServo*0.034/2;
+  averageServo = (totalServo / numReadingsServo) - 3; // subtracting 3 to not count the space in the car
   delay(1);
 }
 
@@ -365,6 +371,7 @@ void rotateOnSpot(int targetDegrees) {
     //is at least 0 and at most 360. To handle the "edge" cases we substracted or added 360 to currentHeading)
   }
   car.stop(); //we have reached the target, so stop the car
+  wasRotating = true;
 }
 
 void toggleSafety(){
