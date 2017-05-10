@@ -88,6 +88,7 @@ public class MainActivity extends AppCompatActivity implements Observer {
                     findViewById(R.id.joystick).setVisibility(View.INVISIBLE);
                     hideDpad();
                     imgGyro.setVisibility(View.INVISIBLE);
+                    accelerometer.onPause();
 
                     // Remove the settings menu
                     findViewById(R.id.btnSettings).setVisibility(View.INVISIBLE);
