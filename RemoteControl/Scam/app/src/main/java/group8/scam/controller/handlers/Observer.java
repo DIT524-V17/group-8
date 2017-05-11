@@ -1,7 +1,7 @@
 package group8.scam.controller.handlers;
 
 /**
- * Created by Samuel Bäckström on 2017-04-28.
+ * @author Samuel Bäckström
  */
 
 public interface Observer {

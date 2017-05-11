@@ -15,7 +15,7 @@ import static group8.scam.model.communication.DataThread.MESSAGE_WRITE;
 /**
  * @author Samuel Bäckström
  * This thread handles the input and output sent by the car and app.
- * The class implements the singleton pattern.
+ * The class uses the singleton pattern.
  */
 
 public class HandleThread extends Thread {

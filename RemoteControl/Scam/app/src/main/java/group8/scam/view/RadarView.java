@@ -14,6 +14,8 @@ import android.view.View;
 import group8.scam.R;
 import group8.scam.model.radar.RadarData;
 
+import static group8.scam.R.color.colorGreen;
+
 /**
  * Created by Firsou on 2017-04-07.
  */
@@ -22,8 +24,11 @@ public class RadarView extends View {
 
     private RadarData radarData;
     private Bitmap radar = BitmapFactory.decodeResource(getResources(), R.drawable.radarfordemo);
-    //private Canvas radarCanvas = new Canvas(radar);
+    private Canvas radarCanvas = new Canvas(radar.copy(Bitmap.Config.ARGB_8888, true));
+
+
     private Paint paint = new Paint();
+    private Path line = new Path();
 
     public RadarView(Context context) {
         super(context);
@@ -32,6 +37,8 @@ public class RadarView extends View {
     public RadarView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         radarData = new RadarData(0, 0);
+        paint.setColor(getResources().getColor(colorGreen));
+        paint.setStrokeWidth(10);
     }
 
     public RadarView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
@@ -40,15 +47,22 @@ public class RadarView extends View {
 
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+
+        int angleReading = 0;
+        int sonicReading = 0;
+
         if (radarData != null) {
-            int angleReading = radarData.getAngleOfServo();
-            System.out.println("Angle of Servo: " + angleReading);
+            angleReading = radarData.getAngleOfServo();
+            System.out.println("AngleReading: " + angleReading);
         }
 
         if (radarData != null) {
-            int sonicReading = radarData.getUltrasonicReading();
-            System.out.println("Ultrasonic Reading: " + sonicReading);
+            sonicReading = radarData.getUltrasonicReading();
+            System.out.println("SonicReading: " + sonicReading);
         }
+
+        System.out.println("In onDraw()");
+        canvas.drawLine(878, 1280, 750 - (angleReading * 3), 100, paint);
 
         invalidate();
     }
@@ -56,5 +70,4 @@ public class RadarView extends View {
     protected void onSizeChanged(int w, int h, int oldW, int oldH) {
         super.onSizeChanged(w, h, oldW, oldH);
     }
-
 }

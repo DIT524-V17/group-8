@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Samuel Bäckström on 2017-04-28.
+ * @author Samuel Bäckström
  * This class is responsible for sending the data from the HandleThread to the Observers.
  * An Observer is a class that implements the Observer interface.
  */
