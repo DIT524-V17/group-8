@@ -252,4 +252,9 @@ public class ConnectActivity extends AppCompatActivity {
         bluetoothAdapter.cancelDiscovery();
         bluetoothAdapter.disable();
     }
+
+    @Override
+    public void onBackPressed() {
+        // Left empty to disable the back button
+    }
 }

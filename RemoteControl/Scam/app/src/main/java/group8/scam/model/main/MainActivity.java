@@ -279,4 +279,8 @@ public class MainActivity extends AppCompatActivity implements Observer {
 
 
     }
+    @Override
+    public void onBackPressed() {
+        // Left empty to disable the back button
+    }
 }

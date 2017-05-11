@@ -137,4 +137,9 @@ public class SettingsActivity extends AppCompatActivity {
         return safety;
     }
 
+    @Override
+    public void onBackPressed() {
+        // Left empty to disable the back button
+    }
+
 }
