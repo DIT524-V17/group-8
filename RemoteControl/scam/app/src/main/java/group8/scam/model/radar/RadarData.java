@@ -131,11 +131,9 @@ public class RadarData implements Observer {
             if (Character.isLetter(data.charAt(i))) {
                 if (data.charAt(i) == 'a') {
                     filterServoAngle(data.substring(i, data.length()));//filters and sets angle
-                    System.out.println("Filtered Servo data: " + getAngleOfServo());
                 }
                 else if (data.charAt(i) == 'u') {
                     filterUltrasonicReading(data.substring(i, data.length()));//filters,sets reading
-                    System.out.println("Filtered Ultrasonic data: "+ getUltrasonicReading());
                 }
             }
         }

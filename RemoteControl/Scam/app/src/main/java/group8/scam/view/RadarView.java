@@ -26,9 +26,17 @@ public class RadarView extends View {
     private Bitmap radar = BitmapFactory.decodeResource(getResources(), R.drawable.radarfordemo);
     private Canvas radarCanvas = new Canvas(radar.copy(Bitmap.Config.ARGB_8888, true));
 
+    private double endX, endY;
+    private int startX, startY;
+    private int x = 878;
+    private int y = 1280;
+    private int stopY = 70;
 
     private Paint paint = new Paint();
     private Path line = new Path();
+
+
+    private long lastUpdate;
 
     public RadarView(Context context) {
         super(context);
@@ -53,17 +61,35 @@ public class RadarView extends View {
 
         if (radarData != null) {
             angleReading = radarData.getAngleOfServo();
-            System.out.println("AngleReading: " + angleReading);
         }
 
         if (radarData != null) {
             sonicReading = radarData.getUltrasonicReading();
-            System.out.println("SonicReading: " + sonicReading);
         }
 
-        System.out.println("In onDraw()");
-        canvas.drawLine(878, 1280, 750 - (angleReading * 3), 100, paint);
 
+        startX = x;
+        startY = y;
+
+
+        if (angleReading > 90) {
+            angleReading = angleReading - 270;
+        } else if (angleReading < 90){
+            angleReading += 90;
+        } else {
+            angleReading = 180;
+        }
+
+        System.out.println(angleReading);
+
+        endX   = x + 1210 * (Math.sin(angleReading * (Math.PI / 180)));
+        endY   = y + 1210 * (Math.cos(angleReading * (Math.PI / 180)));
+
+
+        canvas.drawLine(startX, startY, (int)endX, (int)endY, paint);
+        canvas.drawCircle((int)endX, (int)endY, 15, paint);
+
+        
         invalidate();
     }
 
