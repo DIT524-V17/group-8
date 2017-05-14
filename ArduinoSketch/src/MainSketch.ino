@@ -65,7 +65,7 @@ String data; // data from app to car, used in handleInput
 // Servo millis and position
 unsigned long currentMillis = 0;
 unsigned long previousMillis = 0;
-long interval = 30;
+long interval = 60;
 int currentPos = 90;
 
 // mode booleans, car is on manual and servo is moving from 90 to 45 (righgt direction) at the start
@@ -119,16 +119,18 @@ void loop() {
 
 
   currentMillis = millis(); // checks current time
+
   if(isConnected){
     servoMovement();
   }
+
   handleInput();
   if (isAuto) {
     autoDrive();
   }
 
-  sendData();
-  getServoReading();
+  //getCenterReading();
+  //getServoReading();
 }
 
 /*
@@ -139,6 +141,8 @@ Follows a sweeping movement.
 */
 void servoMovement() {
   if (currentMillis - previousMillis > interval) {
+
+
     previousMillis = currentMillis; // updates previousMillis
 
     if (goingRight) { // if servo should be going right, 5 degrees is subtracted until we reach 45
@@ -154,6 +158,9 @@ void servoMovement() {
       }
     }
     myServo.write(currentPos);
+
+    Serial.println(servoSonic.getDistance());
+    sendData();
   }
 }
 
@@ -317,6 +324,8 @@ void getRightReading() {
 void getCenterReading() {
   totalCenter = totalCenter - centerReadings[readIndexCenter];
   centerReadings[readIndexCenter] = centerSonic.getDistance();
+  if (centerReadings[readIndexCenter] != 0)
+    Serial.println(centerReadings[readIndexCenter]);
 
   if (centerReadings[readIndexCenter] == 0) {
     centerReadings[readIndexCenter] = 40;
@@ -337,6 +346,9 @@ void getServoReading() {
   totalServo = totalServo - servoReadings[readIndexServo];
   servoReadings[readIndexServo] = servoSonic.getDistance();
 
+  if (servoReadings[readIndexServo] != 0)
+    Serial.println(servoReadings[readIndexServo]);
+
   totalServo = totalServo + servoReadings[readIndexServo];
   readIndexServo = readIndexServo + 1;
 
@@ -345,7 +357,8 @@ void getServoReading() {
   }
 
   averageServo = (totalServo / numReadingsServo) - 3; // subtracting 3 to not count the space in the car
-  Serial.println(averageServo);
+
+  //Serial.println(averageServo);
   delay(1);
 }
 
