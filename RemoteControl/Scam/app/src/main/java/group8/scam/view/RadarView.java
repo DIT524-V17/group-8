@@ -6,7 +6,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Path;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
@@ -23,8 +22,6 @@ import static group8.scam.R.color.colorGreen;
 public class RadarView extends View {
 
     private RadarData radarData;
-    private Bitmap radar = BitmapFactory.decodeResource(getResources(), R.drawable.radarfordemo);
-    private Canvas radarCanvas = new Canvas(radar.copy(Bitmap.Config.ARGB_8888, true));
 
     private double endX, endY;
     private int startX, startY;
@@ -33,10 +30,6 @@ public class RadarView extends View {
     private int stopY = 70;
 
     private Paint paint = new Paint();
-    private Path line = new Path();
-
-
-    private long lastUpdate;
 
     public RadarView(Context context) {
         super(context);
@@ -80,7 +73,6 @@ public class RadarView extends View {
             angleReading = 180;
         }
 
-        System.out.println(angleReading);
 
         endX   = x + 1210 * (Math.sin(angleReading * (Math.PI / 180)));
         endY   = y + 1210 * (Math.cos(angleReading * (Math.PI / 180)));
@@ -89,7 +81,7 @@ public class RadarView extends View {
         canvas.drawLine(startX, startY, (int)endX, (int)endY, paint);
         canvas.drawCircle((int)endX, (int)endY, 15, paint);
 
-        
+
         invalidate();
     }
 
