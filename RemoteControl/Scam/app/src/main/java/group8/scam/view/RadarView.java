@@ -25,9 +25,10 @@ public class RadarView extends View {
     private RadarData radarData;
 
     private double endX, endY;
+    private double endXc, endYc;
     private int startX, startY;
-    private int x = 878;
-    private int y = 1280;
+    private int x = 750;
+    private int y = 1000;
     private int stopY = 70;
 
     private Paint paint = new Paint();
@@ -75,15 +76,23 @@ public class RadarView extends View {
         }
 
 
-        endX   = x + 1210 * (Math.sin(angleReading * (Math.PI / 180)));
-        endY   = y + 1210 * (Math.cos(angleReading * (Math.PI / 180)));
+        endX   = x + 1000 * (Math.sin(angleReading * (Math.PI / 180)));
+        endY   = y + 1000 * (Math.cos(angleReading * (Math.PI / 180)));
+
+
+
+
+        if (sonicReading == 0)
+            sonicReading = 77;
+
 
 
         canvas.drawLine(startX, startY, (int)endX, (int)endY, paint);
-        canvas.drawCircle((int)endX, (int)endY, 15, paint);
 
-        if (sonicReading > 0) {
-            drawPoint(canvas, sonicReading, (int) endX);
+        if (sonicReading != 77) {
+            endXc = x + ((sonicReading * 13)) * (Math.sin(angleReading * (Math.PI / 180)));
+            endYc = y + ((sonicReading * 13)) * (Math.cos(angleReading * (Math.PI / 180)));
+            canvas.drawCircle((int) endXc, (int) endYc, 15, paint);
         }
 
         invalidate();
