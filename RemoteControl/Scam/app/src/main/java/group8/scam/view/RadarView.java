@@ -82,6 +82,10 @@ public class RadarView extends View {
         canvas.drawLine(startX, startY, (int)endX, (int)endY, paint);
         canvas.drawCircle((int)endX, (int)endY, 15, paint);
 
+        if (sonicReading > 0) {
+            drawPoint(canvas, sonicReading, (int) endX);
+        }
+
         invalidate();
     }
 
