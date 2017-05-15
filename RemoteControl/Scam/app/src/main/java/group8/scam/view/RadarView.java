@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -81,11 +82,19 @@ public class RadarView extends View {
         canvas.drawLine(startX, startY, (int)endX, (int)endY, paint);
         canvas.drawCircle((int)endX, (int)endY, 15, paint);
 
-
         invalidate();
     }
 
     protected void onSizeChanged(int w, int h, int oldW, int oldH) {
         super.onSizeChanged(w, h, oldW, oldH);
     }
+
+    private void drawPoint (Canvas canvas, int sonicReading, int endX) {
+
+        Paint newPaint = new Paint();
+        newPaint.setColor(ContextCompat.getColor(getContext(), R.color.colorGreen));
+
+        canvas.drawCircle(endX, sonicReading, 10, newPaint);
+    }
+
 }
