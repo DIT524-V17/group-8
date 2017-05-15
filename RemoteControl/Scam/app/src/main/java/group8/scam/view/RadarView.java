@@ -1,16 +1,13 @@
 package group8.scam.view;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.view.View;
 
-import group8.scam.R;
 import group8.scam.model.radar.RadarData;
 
 import static group8.scam.R.color.colorGreen;
@@ -23,6 +20,11 @@ public class RadarView extends View {
 
     private RadarData radarData;
 
+    private int[] pointsX = new int[15];
+    private int[] pointsY = new int[15];
+    private int i;
+
+    private double endXc, endYc;
     private double endX, endY;
     private int startX, startY;
     private int x = 878;
@@ -60,10 +62,8 @@ public class RadarView extends View {
             sonicReading = radarData.getUltrasonicReading();
         }
 
-
         startX = x;
         startY = y;
-
 
         if (angleReading > 90) {
             angleReading = angleReading - 270;
@@ -73,14 +73,39 @@ public class RadarView extends View {
             angleReading = 180;
         }
 
-
         endX   = x + 1210 * (Math.sin(angleReading * (Math.PI / 180)));
         endY   = y + 1210 * (Math.cos(angleReading * (Math.PI / 180)));
 
+        if (sonicReading == 0)
+            sonicReading = 1000;
 
         canvas.drawLine(startX, startY, (int)endX, (int)endY, paint);
-        canvas.drawCircle((int)endX, (int)endY, 15, paint);
 
+        endXc = x + ((sonicReading * 13)) * (Math.sin(angleReading * (Math.PI / 180)));
+        endYc = y + ((sonicReading * 13)) * (Math.cos(angleReading * (Math.PI / 180)));
+
+        pointsX[i] = (int)endXc;
+        pointsY[i] = (int)endYc;
+
+        canvas.drawCircle(pointsX[0], pointsY[0], 15, paint);
+        canvas.drawCircle(pointsX[1], pointsY[1], 15, paint);
+        canvas.drawCircle(pointsX[2], pointsY[2], 15, paint);
+        canvas.drawCircle(pointsX[3], pointsY[3], 15, paint);
+        canvas.drawCircle(pointsX[4], pointsY[4], 15, paint);
+        canvas.drawCircle(pointsX[5], pointsY[5], 15, paint);
+        canvas.drawCircle(pointsX[6], pointsY[6], 15, paint);
+        canvas.drawCircle(pointsX[7], pointsY[7], 15, paint);
+        canvas.drawCircle(pointsX[8], pointsY[8], 15, paint);
+        canvas.drawCircle(pointsX[9], pointsY[9], 15, paint);
+        canvas.drawCircle(pointsX[10], pointsY[10], 15, paint);
+        canvas.drawCircle(pointsX[11], pointsY[11], 15, paint);
+        canvas.drawCircle(pointsX[12], pointsY[12], 15, paint);
+        canvas.drawCircle(pointsX[13], pointsY[13], 15, paint);
+        canvas.drawCircle(pointsX[14], pointsY[14], 15, paint);
+
+        i++;
+        if (i == 15)
+            i = 0;
 
         invalidate();
     }
