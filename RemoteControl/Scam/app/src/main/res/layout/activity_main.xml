@@ -9,7 +9,7 @@
         android:id="@+id/imageView1"
         android:layout_width="500dp"
         android:layout_height="400dp"
-        android:src="@drawable/radarfordemo"
+        android:src="@drawable/radarfinal"
         android:layout_alignParentBottom="true"
         android:focusableInTouchMode="false"
         android:layout_marginLeft="20dp"
