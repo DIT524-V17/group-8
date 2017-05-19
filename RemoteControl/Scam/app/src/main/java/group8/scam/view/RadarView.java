@@ -122,4 +122,34 @@ public class RadarView extends View {
     protected void onSizeChanged(int w, int h, int oldW, int oldH) {
         super.onSizeChanged(w, h, oldW, oldH);
     }
+
+    public boolean isPointDrawable(int[] pointArray, int[] pointArray2) {
+        int averageFirst = 0;
+        int averageSecond = 0;
+        int average = 0;
+
+        for (int i = 0; i < pointArray.length; i++) {
+            averageFirst += pointArray[i];
+        }
+
+        averageFirst = (averageFirst / pointArray.length);
+
+        for (int i = 0; i < pointArray.length; i++) {
+            averageSecond += pointArray2[i];
+        }
+
+        averageSecond = (averageSecond / pointArray2.length);
+
+        average = averageFirst - averageSecond;
+
+        average = Math.abs(average);
+
+        if (average > 21) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
 }
