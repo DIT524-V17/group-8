@@ -263,6 +263,9 @@ void sendData() {
   int servoAngle = myServo.read();
   int speed = car.getSpeed();
 
+  if (sonicDistance > 70)
+    sonicDistance = 0;
+
   String strSonic = String(sonicDistance);
   String strOdometer = String(odometerDistance);
   String strAngle = String(servoAngle);
