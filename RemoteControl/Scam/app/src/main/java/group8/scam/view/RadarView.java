@@ -144,7 +144,7 @@ public class RadarView extends View {
 
         average = Math.abs(average);
 
-        if (average > 21) {
+        if (average > 35) {
             return false;
         }
         else {
