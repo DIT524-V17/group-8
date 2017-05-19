@@ -21,7 +21,9 @@ public class RadarView extends View {
 
     private int[] pointsX = new int[15];
     private int[] pointsY = new int[15];
-    private int i;
+    private int[] arr1 = new int[5];
+    private int[] arr2 = new int[5];
+    private int i, k;
 
     private double endXc, endYc;
     private double endX, endY;
@@ -59,16 +61,27 @@ public class RadarView extends View {
             angleReading = radarData.getAngleOfServo();
         }
 
-        if (radarData != null) {
-            sonicReading = radarData.getUltrasonicReading();
+
+        for (int s = 0; s < arr1.length; s++) {
+            if (radarData != null) {
+                sonicReading = radarData.getUltrasonicReading();
+            }
+            arr1[s] = sonicReading;
         }
 
+        if (!this.isPointDrawable(arr1, arr2)) {
+            sonicReading = 0;
+        }
+
+        System.arraycopy(arr1, 0, arr2, 0, arr1.length);
+
+        /*
         pastSonicReading = sonicReading;
         pastSonicReading2 = pastSonicReading;
 
         if (pastSonicReading == 0 && pastSonicReading2 == 0)
             sonicReading = 0;
-
+        */
         System.out.println(sonicReading);
         
         startX = x;
