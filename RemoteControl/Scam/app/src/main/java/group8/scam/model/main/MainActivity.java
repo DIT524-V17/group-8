@@ -81,6 +81,7 @@ public class MainActivity extends AppCompatActivity implements Observer {
                 /*
                 *@Firas: Switch between auto and manual. Send a for auto, m for manual
                  */
+
                 if (isChecked) {
                    stateString = "a"; //TODO - car is forced to stop before switching to AUTO
 
@@ -246,6 +247,7 @@ public class MainActivity extends AppCompatActivity implements Observer {
                 findViewById(R.id.joystick).setVisibility(View.VISIBLE);
                 hideDpad();
                 Accelerometer.setIsAccel(false);
+                button.setVisibility(button.VISIBLE);
                 imgGyro.setVisibility(View.INVISIBLE);
                 break;
 
@@ -253,6 +255,7 @@ public class MainActivity extends AppCompatActivity implements Observer {
                 findViewById(R.id.joystick).setVisibility(View.INVISIBLE);
                 showDpad();
                 Accelerometer.setIsAccel(false);
+                button.setVisibility(button.VISIBLE);
                 imgGyro.setVisibility(View.INVISIBLE);
                 break;
 
@@ -261,6 +264,7 @@ public class MainActivity extends AppCompatActivity implements Observer {
                 hideDpad();
                 Accelerometer.setIsAccel(true);
                 accelerometer.onResume();
+                button.setVisibility(button.INVISIBLE);
                 imgGyro.setVisibility(View.VISIBLE);
                 break;
         }
