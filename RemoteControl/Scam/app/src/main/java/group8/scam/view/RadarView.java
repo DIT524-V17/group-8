@@ -26,8 +26,8 @@ public class RadarView extends View {
     private double endXc, endYc;
     private double endX, endY;
     private int startX, startY;
-    private int x = 752;
-    private int y = 1000;
+    private int x = 878;
+    private int y = 1280;
     private int stopY = 70;
     private int pastSonicReading = 0;
     private int pastSonicReading2 = 0;
@@ -82,8 +82,8 @@ public class RadarView extends View {
             angleReading = 180;
         }
 
-        endX   = x + 1000 * (Math.sin(angleReading * (Math.PI / 180)));
-        endY   = y + 1000 * (Math.cos(angleReading * (Math.PI / 180)));
+        endX   = x + 1210 * (Math.sin(angleReading * (Math.PI / 180)));
+        endY   = y + 1210 * (Math.cos(angleReading * (Math.PI / 180)));
 
         if (sonicReading == 0)
             sonicReading = 1000;
